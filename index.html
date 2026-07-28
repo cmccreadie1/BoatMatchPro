@@ -477,9 +477,21 @@
       margin-bottom: 6px;
     }
 
+    /* MULTI-TAB PRINT STYLING */
     @media print {
       body { background: #fff; color: #000; padding: 0; }
       nav, .btn, .badge, .action-bar, .modal-overlay { display: none !important; }
+      #tab-setup, #tab-scores { display: none !important; }
+      
+      #tab-boat-results, #tab-indiv-results, #tab-team-results, #tab-dashboard { 
+        display: block !important; 
+        page-break-before: always;
+      }
+
+      #tab-boat-results {
+        page-break-before: auto !important;
+      }
+
       .card { border: 1px solid #ccc; box-shadow: none; background: #fff; color: #000; page-break-inside: avoid; }
       th, td { border-bottom: 1px solid #ccc; color: #000; }
       .pct-badge { background: none; color: #000; font-weight: bold; border: none; }
@@ -495,7 +507,7 @@
     </div>
     <div class="action-bar">
       <button class="btn btn-secondary" onclick="openUserGuide()">📖 User Guide</button>
-      <button class="btn btn-secondary" onclick="window.print()">🖨️ Print Leaderboards</button>
+      <button class="btn btn-secondary" onclick="printLeaderboards()">🖨️ Print Leaderboards</button>
       <button class="btn btn-danger" onclick="resetApp()">🔄 New Match</button>
     </div>
   </header>
@@ -1121,6 +1133,83 @@
       `).join('');
     }
 
+    // DEDICATED MULTI-TAB PRINT FUNCTION
+    function printLeaderboards() {
+      saveData();
+      renderBoatResults();
+      renderIndividualLeaderboard();
+      renderTeamLeaderboard();
+      renderDashboard();
+      window.print();
+    }
+
+    // AUTOMATED EXPORT BACKUP ON RESET
+    function downloadMatchData() {
+      const matchTitle = appData.name || "UNNAMED_MATCH";
+      const matchDate = appData.date || "UNDATED";
+      const fileName = `BoatMatch_Pro_Backup_${matchTitle.replace(/[^A-Z0-9]/gi, '_')}_${matchDate}.html`;
+
+      renderBoatResults();
+      renderIndividualLeaderboard();
+      renderTeamLeaderboard();
+      renderDashboard();
+
+      const boatHTML = document.getElementById("tab-boat-results").innerHTML;
+      const indivHTML = document.getElementById("tab-indiv-results").innerHTML;
+      const teamHTML = document.getElementById("tab-team-results").innerHTML;
+      const dashHTML = document.getElementById("tab-dashboard").innerHTML;
+
+      const reportContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${matchTitle} — Official Competition Summary</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 30px; color: #0f172a; max-width: 1000px; margin: 0 auto; }
+    h1 { font-size: 1.8rem; margin-bottom: 5px; }
+    .meta { color: #64748b; margin-bottom: 30px; font-weight: bold; }
+    .card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px; margin-bottom: 30px; }
+    .card-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; }
+    th, td { padding: 10px; border-bottom: 1px solid #cbd5e1; }
+    th { background: #f8fafc; color: #64748b; font-size: 0.85rem; text-transform: uppercase; }
+    .pct-badge { font-weight: bold; color: #059669; }
+    .dashboard-metrics, .badges-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+    .metric-card, .badge-card { border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; text-align: center; }
+    .metric-value { font-size: 1.8rem; font-weight: bold; color: #059669; }
+    .badge-winner { font-size: 1.1rem; font-weight: bold; }
+    .badge-detail { color: #059669; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>🚤 ${matchTitle} — Official Report</h1>
+  <div class="meta">Date: ${matchDate} | Exported Backup</div>
+  <hr style="margin-bottom: 30px; border: none; border-top: 2px solid #cbd5e1;">
+
+  <h2>1. Boat Standings</h2>
+  ${boatHTML}
+
+  <h2>2. Overall Individual Standings</h2>
+  ${indivHTML}
+
+  <h2>3. 4-Person Team Standings</h2>
+  ${teamHTML}
+
+  <h2>4. Fleet Dashboard Summary</h2>
+  ${dashHTML}
+</body>
+</html>`;
+
+      const blob = new Blob([reportContent], { type: 'text/html;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     // Modal control handlers
     function openUserGuide() {
       document.getElementById('user-guide-modal').classList.add('active');
@@ -1131,9 +1220,12 @@
     }
 
     function resetApp() {
-      if (confirm("Are you sure you want to clear this match? All setup and score data will be erased.")) {
-        localStorage.removeItem("boat_match_pro_data");
-        location.reload();
+      if (confirm("Are you sure you want to clear this match? A full backup report will automatically download to your hard drive before wiping.")) {
+        downloadMatchData();
+        setTimeout(() => {
+          localStorage.removeItem("boat_match_pro_data");
+          location.reload();
+        }, 500);
       }
     }
   </script>
