@@ -1,21 +1,22 @@
-const CACHE_NAME = 'boatmatch-pro-v1';
+const CACHE_NAME = 'boatmatch-pro-v7.4.0';
 const ASSETS_TO_CACHE = [
   './',
-  './index.html',
-  './manifest.json'
+  'index.html',
+  'manifest.json'
 ];
 
-// Install Service Worker and cache application resources
+// Install Event — Precaching core assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE);
+    }).then(() => {
+      return self.skipWaiting();
     })
   );
-  self.skipWaiting();
 });
 
-// Activate Service Worker and cleanup old caches
+// Activate Event — Clean up stale caches & claim clients immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -26,19 +27,31 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
+    }).then(() => {
+      return self.clients.claim();
     })
   );
-  self.clients.claim();
 });
 
-// Fetch resources offline-first
+// Fetch Event — Network-First strategy with cache fallback
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request);
-    })
+    fetch(event.request)
+      .then((networkResponse) => {
+        // Dynamically update cache with fresh network content
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() => {
+        // Fallback to offline cache if network fails
+        return caches.match(event.request);
+      })
   );
 });
