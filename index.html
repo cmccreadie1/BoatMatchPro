@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#10b981">
   <style>
     :root {
-      --bg-light: #f1f5f9;
+      --bg-light: #e2e8f0;
       --card-bg: #ffffff;
       --card-border: #cbd5e1;
       --accent-green: #10b981;
@@ -41,7 +41,7 @@
       align-items: center;
       padding-bottom: 20px;
       border-bottom: 2px solid var(--card-border);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
       gap: 15px;
     }
@@ -65,35 +65,47 @@
       font-weight: 600;
     }
 
+    /* REFINED PAGE TAB NAVIGATION */
     nav {
       display: flex;
-      gap: 10px;
-      margin-bottom: 28px;
-      background: var(--card-bg);
-      padding: 8px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      gap: 6px;
+      margin-bottom: 0;
+      padding: 0 8px;
+      border-bottom: 2px solid var(--card-border);
       overflow-x: auto;
+      align-items: flex-end;
     }
 
     .nav-btn {
       flex: 1;
-      background: transparent;
-      border: none;
+      background: #cbd5e1;
+      border: 1px solid var(--card-border);
+      border-bottom: none;
       color: var(--text-muted);
       padding: 12px 18px;
-      border-radius: 8px;
-      font-weight: 600;
+      border-radius: 8px 8px 0 0;
+      font-weight: 700;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
+      position: relative;
+      top: 2px;
+    }
+
+    .nav-btn:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
     }
 
     .nav-btn.active {
-      background: var(--accent-green);
-      color: #ffffff;
-      box-shadow: 0 2px 4px rgba(16, 185, 129, 0.25);
+      background: var(--card-bg);
+      color: var(--accent-green-hover);
+      border: 2px solid var(--card-border);
+      border-top: 4px solid var(--accent-green);
+      border-bottom: 2px solid var(--card-bg);
+      font-weight: 800;
+      z-index: 2;
     }
 
     .tab-content {
@@ -106,11 +118,11 @@
 
     .card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
+      border: 2px solid var(--card-border);
+      border-radius: 0 0 12px 12px;
       padding: 24px;
       margin-bottom: 28px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
     .card-title {
@@ -168,9 +180,10 @@
       gap: 18px;
     }
 
+    /* 2-COLUMN REGISTRATION LAYOUT */
     .anglers-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 14px;
     }
 
@@ -203,12 +216,12 @@
     }
 
     .btn-secondary {
-      background: #e2e8f0;
+      background: #cbd5e1;
       color: var(--text-main);
     }
 
     .btn-secondary:hover {
-      background: #cbd5e1;
+      background: #94a3b8;
     }
 
     .btn-delete-angler {
@@ -321,6 +334,76 @@
       flex-wrap: wrap;
     }
 
+    /* DASHBOARD STYLES */
+    .dashboard-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-green-hover);
+      margin-top: 6px;
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .badge-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-left: 5px solid var(--accent-green);
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .badge-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .badge-winner {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .badge-detail {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent-green-hover);
+      margin-top: 4px;
+    }
+
     /* Modal Styling */
     .modal-overlay {
       display: none;
@@ -423,6 +506,7 @@
     <button class="nav-btn" onclick="switchTab('boat-results', event)">🚤 Boat Standings</button>
     <button class="nav-btn" onclick="switchTab('indiv-results', event)">🏆 Individual Leaderboard</button>
     <button class="nav-btn" onclick="switchTab('team-results', event)">👥 Team Leaderboard</button>
+    <button class="nav-btn" onclick="switchTab('dashboard', event)">📊 Dashboard</button>
   </nav>
 
   <!-- Global Team Autocomplete Datalist -->
@@ -504,6 +588,67 @@
             </tr>
           </thead>
           <tbody id="team-leaderboard-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 6: DASHBOARD -->
+  <div id="tab-dashboard" class="tab-content">
+    <div class="card">
+      <!-- Fleet Totals -->
+      <div class="dashboard-metrics">
+        <div class="metric-card">
+          <div class="metric-label">Total Fish Caught</div>
+          <div id="metric-total-fish" class="metric-value">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Total Points Scored</div>
+          <div id="metric-total-points" class="metric-value">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Active Boats</div>
+          <div id="metric-active-boats" class="metric-value">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Total Anglers</div>
+          <div id="metric-total-anglers" class="metric-value">0</div>
+        </div>
+      </div>
+
+      <!-- Highlight Badges -->
+      <div class="badges-grid">
+        <div class="badge-card">
+          <div class="badge-title">👑 Highest Raw Points</div>
+          <div id="badge-top-points-name" class="badge-winner">-</div>
+          <div id="badge-top-points-val" class="badge-detail">0 PTS</div>
+        </div>
+        <div class="badge-card">
+          <div class="badge-title">🐟 Highest Total Fish Count</div>
+          <div id="badge-top-fish-name" class="badge-winner">-</div>
+          <div id="badge-top-fish-val" class="badge-detail">0 FISH</div>
+        </div>
+        <div class="badge-card">
+          <div class="badge-title">🎯 Highest Species Count</div>
+          <div id="badge-top-species-name" class="badge-winner">-</div>
+          <div id="badge-top-species-val" class="badge-detail">0 SPECIES</div>
+        </div>
+      </div>
+
+      <!-- Boat Performance Table -->
+      <div class="card-title" style="margin-top: 10px;">Boat Performance Summary</div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Boat</th>
+              <th>Anglers</th>
+              <th>Total Points</th>
+              <th>Avg Points / Angler</th>
+              <th>Total Fish</th>
+            </tr>
+          </thead>
+          <tbody id="boat-performance-body"></tbody>
         </table>
       </div>
     </div>
@@ -651,6 +796,7 @@
       if (tabId === 'boat-results') renderBoatResults();
       if (tabId === 'indiv-results') renderIndividualLeaderboard();
       if (tabId === 'team-results') renderTeamLeaderboard();
+      if (tabId === 'dashboard') renderDashboard();
     }
 
     function generateBoatCards() {
@@ -905,6 +1051,72 @@
               : `<span style="color: var(--danger);">Ineligible (${t.count}/4)</span>`}
           </td>
           <td><span class="pct-badge">${t.totalPct.toFixed(2)}%</span></td>
+        </tr>
+      `).join('');
+    }
+
+    // DASHBOARD TAB
+    function renderDashboard() {
+      const allAnglers = getAllAnglersProcessed();
+      
+      const totalFish = allAnglers.reduce((sum, a) => sum + (a.fish || 0), 0);
+      const totalPoints = allAnglers.reduce((sum, a) => sum + (a.points || 0), 0);
+      const activeBoats = appData.boats.filter(b => b.anglers.length > 0).length;
+      const totalAnglers = allAnglers.length;
+
+      document.getElementById("metric-total-fish").innerText = totalFish.toLocaleString();
+      document.getElementById("metric-total-points").innerText = totalPoints.toLocaleString();
+      document.getElementById("metric-active-boats").innerText = activeBoats;
+      document.getElementById("metric-total-anglers").innerText = totalAnglers;
+
+      if (allAnglers.length > 0) {
+        const topPoints = [...allAnglers].sort((a, b) => b.points - a.points)[0];
+        const topFish = [...allAnglers].sort((a, b) => b.fish - a.fish)[0];
+        const topSpecies = [...allAnglers].sort((a, b) => b.species - a.species)[0];
+
+        if (topPoints && topPoints.points > 0) {
+          document.getElementById("badge-top-points-name").innerText = topPoints.name || 'UNNAMED';
+          document.getElementById("badge-top-points-val").innerText = `${topPoints.points} PTS (${topPoints.boatLabel})`;
+        } else {
+          document.getElementById("badge-top-points-name").innerText = "-";
+          document.getElementById("badge-top-points-val").innerText = "0 PTS";
+        }
+
+        if (topFish && topFish.fish > 0) {
+          document.getElementById("badge-top-fish-name").innerText = topFish.name || 'UNNAMED';
+          document.getElementById("badge-top-fish-val").innerText = `${topFish.fish} FISH (${topFish.boatLabel})`;
+        } else {
+          document.getElementById("badge-top-fish-name").innerText = "-";
+          document.getElementById("badge-top-fish-val").innerText = "0 FISH";
+        }
+
+        if (topSpecies && topSpecies.species > 0) {
+          document.getElementById("badge-top-species-name").innerText = topSpecies.name || 'UNNAMED';
+          document.getElementById("badge-top-species-val").innerText = `${topSpecies.species} SPECIES (${topSpecies.boatLabel})`;
+        } else {
+          document.getElementById("badge-top-species-name").innerText = "-";
+          document.getElementById("badge-top-species-val").innerText = "0 SPECIES";
+        }
+      }
+
+      // Boat Performance Summary
+      const boatBody = document.getElementById("boat-performance-body");
+      let boatStats = appData.boats.map(b => {
+        const bPoints = b.anglers.reduce((sum, a) => sum + (a.points || 0), 0);
+        const bFish = b.anglers.reduce((sum, a) => sum + (a.fish || 0), 0);
+        const avgPts = b.anglers.length > 0 ? bPoints / b.anglers.length : 0;
+        return { label: b.label, count: b.anglers.length, points: bPoints, avgPts, fish: bFish };
+      });
+
+      boatStats.sort((a, b) => b.avgPts - a.avgPts);
+
+      boatBody.innerHTML = boatStats.map(b => `
+        <tr>
+          <td style="font-weight: bold;">${b.label}</td>
+          <td>${b.count}</td>
+          <td>${b.points}</td>
+          <td style="font-weight: bold; color: var(--accent-green-hover);">${b.avgPts.toFixed(1)}</td>
+          <td>${b.fish}</td>
         </tr>
       `).join('');
     }
