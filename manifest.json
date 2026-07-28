@@ -1,9 +1,22 @@
 {
-  "short_name": "BoatMatchPro",
   "name": "BoatMatch Pro — Sea Angling Competition Scoring",
-  "icons": [],
+  "short_name": "BoatMatch Pro",
+  "description": "Progressive Web Application for offline sea angling competition scoring, boat calculations, and leaderboard management.",
   "start_url": "./index.html",
-  "background_color": "#f1f5f9",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#e2e8f0",
   "theme_color": "#10b981",
-  "display": "standalone"
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
