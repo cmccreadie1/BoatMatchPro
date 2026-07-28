@@ -1,929 +1,782 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BoatMatch Pro — Sea Angling Competition Scoring</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#10b981">
-  <style>
-    :root {
-      --bg-light: #f1f5f9;
-      --card-bg: #ffffff;
-      --card-border: #cbd5e1;
-      --accent-green: #10b981;
-      --accent-green-hover: #059669;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --danger: #ef4444;
-      --danger-hover: #dc2626;
-      --input-bg: #f8fafc;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoatMatch Pro</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#059669">
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-dark: #047857;
+            --primary-light: #d1fae5;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+        }
 
-    body {
-      background-color: var(--bg-light);
-      color: var(--text-main);
-      padding: 24px;
-      max-width: 1280px;
-      margin: 0 auto;
-    }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding-bottom: 60px;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 20px;
-      border-bottom: 2px solid var(--card-border);
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
 
-    .badge {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--accent-green-hover);
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 20px;
-      border: 1px solid var(--accent-green);
-      font-weight: 600;
-    }
+        .header-btns {
+            display: flex;
+            gap: 8px;
+        }
 
-    nav {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 28px;
-      background: var(--card-bg);
-      padding: 8px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      overflow-x: auto;
-    }
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
 
-    .nav-btn {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
 
-    .nav-btn.active {
-      background: var(--accent-green);
-      color: #ffffff;
-      box-shadow: 0 2px 4px rgba(16, 185, 129, 0.25);
-    }
+        nav {
+            display: flex;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
 
-    .tab-content {
-      display: none;
-    }
+        nav button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: none;
+            font-weight: bold;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+        }
 
-    .tab-content.active {
-      display: block;
-    }
+        nav button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background-color: var(--primary-light);
+        }
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 28px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
 
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 18px;
-      color: var(--text-main);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+        .tab-content {
+            display: none;
+        }
 
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 15px;
-    }
+        .tab-content.active {
+            display: block;
+        }
 
-    label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
+        /* 2-COLUMN REGISTRATION LAYOUT */
+        .registration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-    input, select {
-      background: var(--input-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      width: 100%;
-      transition: border-color 0.2s ease;
-    }
+        @media (max-width: 768px) {
+            .registration-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-    /* Auto-Uppercase styling for typing text */
-    input.uppercase, input[type="text"] {
-      text-transform: uppercase;
-    }
+        .card {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
 
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--accent-green);
-      background: #ffffff;
-    }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border);
+        }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-    }
+        .card-title {
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
 
-    .anglers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 14px;
-    }
+        .form-group {
+            margin-bottom: 10px;
+        }
 
-    .btn {
-      background: var(--accent-green);
-      color: #fff;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      justify-content: center;
-    }
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
 
-    .btn:hover {
-      background: var(--accent-green-hover);
-    }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+        }
 
-    .btn-danger {
-      background: var(--danger);
-      color: #fff;
-    }
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
 
-    .btn-danger:hover {
-      background: var(--danger-hover);
-    }
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
 
-    .btn-secondary {
-      background: #e2e8f0;
-      color: var(--text-main);
-    }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
 
-    .btn-secondary:hover {
-      background: #cbd5e1;
-    }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
 
-    .btn-delete-angler {
-      background: rgba(239, 68, 68, 0.1);
-      color: var(--danger);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
 
-    .btn-delete-angler:hover {
-      background: var(--danger);
-      color: #ffffff;
-    }
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 0.75rem;
+        }
 
-    .angler-card-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--input-bg);
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-    }
+        .table-container {
+            overflow-x: auto;
+        }
 
-    .angler-num {
-      font-weight: 800;
-      color: var(--accent-green-hover);
-      font-size: 1.1rem;
-      min-width: 28px;
-      text-align: center;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
 
-    .score-row {
-      display: grid;
-      grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
-      gap: 10px;
-      align-items: center;
-      background: var(--input-bg);
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      border: 1px solid var(--card-border);
-    }
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
 
-    @media (max-width: 768px) {
-      .anglers-grid {
-        grid-template-columns: 1fr;
-      }
-      .score-row {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
+        th {
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-    }
+        tr:hover {
+            background-color: #f8fafc;
+        }
 
-    th, td {
-      padding: 12px 15px;
-      border-bottom: 1px solid var(--card-border);
-    }
+        /* DASHBOARD STYLES */
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
-    th {
-      background: var(--input-bg);
-      color: var(--text-muted);
-      font-weight: 700;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
 
-    tr:hover {
-      background: rgba(16, 185, 129, 0.03);
-    }
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 5px;
+        }
 
-    .rank-1 { color: #d97706; font-weight: bold; }
-    .rank-2 { color: #64748b; font-weight: bold; }
-    .rank-3 { color: #b45309; font-weight: bold; }
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: bold;
+        }
 
-    .pct-badge {
-      background: rgba(16, 185, 129, 0.12);
-      color: var(--accent-green-hover);
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      display: inline-block;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
-    .ineligible {
-      opacity: 0.6;
-      background: rgba(239, 68, 68, 0.03);
-    }
+        .badge-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            box-shadow: var(--shadow);
+        }
 
-    .action-bar {
-      display: flex;
-      gap: 10px;
-      margin-top: 0;
-      flex-wrap: wrap;
-    }
+        .badge-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
 
-    /* Modal Styling */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+        .badge-winner {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-main);
+        }
 
-    .modal-overlay.active {
-      display: flex;
-    }
+        .badge-detail {
+            font-size: 0.85rem;
+            color: var(--primary-dark);
+            margin-top: 3px;
+        }
 
-    .modal-content {
-      background: #ffffff;
-      border-radius: 16px;
-      max-width: 800px;
-      width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 30px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top:0; left:0; right:0; bottom:0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid var(--card-border);
-      padding-bottom: 15px;
-      margin-bottom: 20px;
-    }
+        .modal-overlay.open {
+            display: flex;
+        }
 
-    .modal-close {
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-muted);
-    }
+        .modal {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-transform: none;
+        }
 
-    .guide-section {
-      margin-bottom: 20px;
-    }
+        .modal h2 {
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
 
-    .guide-section h3 {
-      color: var(--accent-green-hover);
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
+        .modal p, .modal li {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #334155;
+            margin-bottom: 8px;
+        }
 
-    .guide-section p, .guide-section ul {
-      color: var(--text-main);
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    .guide-section ul {
-      padding-left: 20px;
-    }
-
-    .guide-section li {
-      margin-bottom: 6px;
-    }
-
-    @media print {
-      body { background: #fff; color: #000; padding: 0; }
-      nav, .btn, .badge, .action-bar, .modal-overlay { display: none !important; }
-      .card { border: 1px solid #ccc; box-shadow: none; background: #fff; color: #000; page-break-inside: avoid; }
-      th, td { border-bottom: 1px solid #ccc; color: #000; }
-      .pct-badge { background: none; color: #000; font-weight: bold; border: none; }
-    }
-  </style>
+        .modal-close {
+            margin-top: 15px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div>
-      <h1>🚤 BoatMatch Pro <span class="badge">PWA</span></h1>
-      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;" id="match-subtitle">No Match Setup</p>
-    </div>
-    <div class="action-bar">
-      <button class="btn btn-secondary" onclick="openUserGuide()">📖 User Guide</button>
-      <button class="btn btn-secondary" onclick="window.print()">🖨️ Print Leaderboards</button>
-      <button class="btn btn-danger" onclick="resetApp()">🔄 New Match</button>
-    </div>
-  </header>
-
-  <nav>
-    <button class="nav-btn active" onclick="switchTab('setup', event)">⚙️ Setup & Registration</button>
-    <button class="nav-btn" onclick="switchTab('scores', event)">📝 Score Entry</button>
-    <button class="nav-btn" onclick="switchTab('boat-results', event)">🚤 Boat Standings</button>
-    <button class="nav-btn" onclick="switchTab('indiv-results', event)">🏆 Individual Leaderboard</button>
-    <button class="nav-btn" onclick="switchTab('team-results', event)">👥 Team Leaderboard</button>
-  </nav>
-
-  <!-- Global Team Autocomplete Datalist -->
-  <datalist id="team-suggestions"></datalist>
-
-  <!-- TAB 1: SETUP -->
-  <div id="tab-setup" class="tab-content active">
-    <div class="card">
-      <div class="card-title" style="color: var(--accent-green-hover);">Tournament Details</div>
-      <div class="grid-2">
-        <div class="form-group">
-          <label for="match-name">Competition Name</label>
-          <input type="text" id="match-name" placeholder="E.G. SCOTTISH BOATS CHAMPIONSHIP" onchange="saveData()">
+    <header>
+        <h1>BOATMATCH PRO</h1>
+        <div class="header-btns">
+            <button class="icon-btn" onclick="openGuide()">USER GUIDE</button>
         </div>
-        <div class="form-group">
-          <label for="match-date">Date</label>
-          <input type="date" id="match-date" onchange="saveData()">
-        </div>
-      </div>
-      <div class="form-group" style="max-width: 220px;">
-        <label for="boat-count">Number of Boats</label>
-        <input type="number" id="boat-count" min="1" max="20" value="3" onchange="generateBoatCards()">
-      </div>
-    </div>
+    </header>
 
-    <div id="boat-cards-container"></div>
-  </div>
+    <nav>
+        <button id="tab-btn-register" class="active" onclick="switchTab('register')">REGISTRATION</button>
+        <button id="tab-btn-scores" onclick="switchTab('scores')">SCORE ENTRY</button>
+        <button id="tab-btn-results" onclick="switchTab('results')">RESULTS</button>
+        <button id="tab-btn-dashboard" onclick="switchTab('dashboard')">DASHBOARD</button>
+    </nav>
 
-  <!-- TAB 2: SCORE ENTRY -->
-  <div id="tab-scores" class="tab-content">
-    <div id="score-entry-container"></div>
-  </div>
+    <div class="container">
 
-  <!-- TAB 3: BOAT STANDINGS -->
-  <div id="tab-boat-results" class="tab-content">
-    <div id="boat-results-container"></div>
-  </div>
-
-  <!-- TAB 4: INDIVIDUAL LEADERBOARD -->
-  <div id="tab-indiv-results" class="tab-content">
-    <div class="card">
-      <div class="card-title">Overall Individual Standings</div>
-      <div style="overflow-x: auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>Pos</th>
-              <th>Angler</th>
-              <th>Boat</th>
-              <th>Team</th>
-              <th>Raw Points</th>
-              <th>Species</th>
-              <th>Fish Count</th>
-              <th>Percentage Score</th>
-            </tr>
-          </thead>
-          <tbody id="indiv-leaderboard-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB 5: TEAM LEADERBOARD -->
-  <div id="tab-team-results" class="tab-content">
-    <div class="card">
-      <div class="card-title">4-Person Team Standings</div>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px;">
-        Note: Teams must have exactly 4 members to qualify. Standings are calculated by the sum of member percentage scores.
-      </p>
-      <div style="overflow-x: auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>Pos</th>
-              <th>Team Name</th>
-              <th>Members</th>
-              <th>Status</th>
-              <th>Total Percentage</th>
-            </tr>
-          </thead>
-          <tbody id="team-leaderboard-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- USER GUIDE MODAL -->
-  <div id="user-guide-modal" class="modal-overlay" onclick="closeUserGuide(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <h2 style="color: var(--text-main);">📖 BoatMatch Pro — User Guide & FAQ</h2>
-        <button class="modal-close" onclick="closeUserGuide()">✖</button>
-      </div>
-
-      <div class="guide-section">
-        <h3>1. Quick Start & Match Setup</h3>
-        <ul>
-          <li><strong>Tournament Details:</strong> Enter your <strong>Competition Name</strong> and <strong>Date</strong> on the Setup tab.</li>
-          <li><strong>Boat Generation:</strong> Set the total <strong>Number of Boats</strong> competing. The app will automatically create individual boat cards.</li>
-          <li><strong>Customizing Boats:</strong> Rename any boat label (e.g., <em>BOAT 1 - PREDATOR</em>) in the designated <strong>Boat Name</strong> box.</li>
-          <li><strong>Adding Anglers:</strong> Click <strong>➕ Add Angler</strong> on any boat card. Anglers are automatically assigned a sequential number (1, 2, 3...) to help you track boat capacity at a glance.</li>
-          <li><strong>Fast Team Entry:</strong> As you type a team name, the app remembers and suggests existing team names used in the match to eliminate typos and keep team scoring accurate.</li>
-        </ul>
-      </div>
-
-      <div class="guide-section">
-        <h3>2. Post-Match Score Entry</h3>
-        <ul>
-          <li><strong>Entering Scorecards:</strong> Once paper scorecards are brought back to the desk, navigate to the <strong>📝 Score Entry</strong> tab.</li>
-          <li><strong>Entering Raw Data:</strong> Enter each angler's <strong>Raw Boat Points</strong>, <strong>Species Count</strong>, and <strong>Total Fish Count</strong>.</li>
-          <li><strong>Live Percentage Preview:</strong> As soon as raw points are typed, the app automatically identifies the boat winner and previews relative percentages in real-time.</li>
-        </ul>
-      </div>
-
-      <div class="guide-section">
-        <h3>3. How Scoring & Rankings Work</h3>
-        <ul>
-          <li><strong>Relative Boat Performance:</strong> The boat winner receives <strong>100.00%</strong>. Other anglers on that boat are awarded a percentage relative to the boat winner's raw points.</li>
-          <li><strong>Individual Tie-Breakers:</strong> Ties on percentage are automatically resolved using:
-            <ol style="margin-left: 20px; margin-top: 4px;">
-              <li>Percentage Score (%)</li>
-              <li>Raw Boat Points</li>
-              <li>Total Species Count</li>
-              <li>Total Fish Count</li>
-            </ol>
-          </li>
-        </ul>
-      </div>
-
-      <div class="guide-section">
-        <h3>4. 4-Person Team Competition</h3>
-        <ul>
-          <li><strong>Team Qualification Rule:</strong> A team <strong>must have exactly 4 registered anglers</strong> to qualify. Teams with fewer or more members are marked as <em>Ineligible</em>.</li>
-          <li><strong>Team Score Formula:</strong> Team standings are calculated by summing the 4 individual member percentage scores together.</li>
-        </ul>
-      </div>
-
-      <div class="guide-section">
-        <h3>5. Frequently Asked Questions (FAQ)</h3>
-        <p><strong>❓ Is my tournament data private and secure?</strong><br>
-        Yes, 100%. All data entered into this application is stored exclusively on your device (in your browser's local storage). No information, angler names, or scores are ever transmitted to external servers, cloud storage, or third parties.</p>
-        
-        <p style="margin-top: 10px;"><strong>❓ What happens if I close my browser or turn off my laptop?</strong><br>
-        Your data is completely safe. Because data saves automatically after every single keystroke, you can safely close the browser tab, close the browser app, restart your device, or lose internet connection completely. When you reopen the web app, all your tournament setup and entered scores will be exactly as you left them.</p>
-
-        <p style="margin-top: 10px;"><strong>❓ Does the app work without an internet connection?</strong><br>
-        Yes. Once loaded for the first time in your web browser, the built-in Progressive Web App (PWA) Service Worker saves all required files directly to your device. You can run entire multi-day competitions offshore or in remote hotel rooms with zero internet or cellular coverage.</p>
-
-        <p style="margin-top: 10px;"><strong>❓ How do I clear the app for the next competition day?</strong><br>
-        When a match is finished and printed, click the red 🔄 New Match button in the top right corner. After confirming, the local memory will be wiped clean and ready for your next event.</p>
-      </div>
-
-      <div style="text-align: right; margin-top: 20px;">
-        <button class="btn" onclick="closeUserGuide()">Close Guide</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let appData = {
-      name: "",
-      date: "",
-      boats: []
-    };
-
-    window.onload = () => {
-      const saved = localStorage.getItem("boat_match_pro_data");
-      if (saved) {
-        appData = JSON.parse(saved);
-        document.getElementById("match-name").value = appData.name || "";
-        document.getElementById("match-date").value = appData.date || "";
-        document.getElementById("boat-count").value = appData.boats.length || 3;
-        updateHeader();
-        updateTeamSuggestions();
-        renderSetup();
-      } else {
-        generateBoatCards();
-      }
-
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
-      }
-    };
-
-    function saveData() {
-      appData.name = document.getElementById("match-name").value.toUpperCase();
-      appData.date = document.getElementById("match-date").value;
-      localStorage.setItem("boat_match_pro_data", JSON.stringify(appData));
-      updateHeader();
-      updateTeamSuggestions();
-    }
-
-    function updateHeader() {
-      const sub = document.getElementById("match-subtitle");
-      if (appData.name || appData.date) {
-        sub.innerText = `${appData.name || 'UNNAMED TOURNAMENT'} — ${appData.date || 'NO DATE'}`;
-      } else {
-        sub.innerText = "No Match Setup";
-      }
-    }
-
-    function updateTeamSuggestions() {
-      const datalist = document.getElementById("team-suggestions");
-      const teams = new Set();
-      appData.boats.forEach(b => {
-        b.anglers.forEach(a => {
-          if (a.team && a.team.trim() !== "") {
-            teams.add(a.team.trim().toUpperCase());
-          }
-        });
-      });
-      datalist.innerHTML = Array.from(teams).map(t => `<option value="${t}">`).join('');
-    }
-
-    function switchTab(tabId, evt) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-      
-      document.getElementById(`tab-${tabId}`).classList.add('active');
-      if (evt && evt.target) {
-        evt.target.classList.add('active');
-      }
-
-      saveData();
-      if (tabId === 'scores') renderScoreEntry();
-      if (tabId === 'boat-results') renderBoatResults();
-      if (tabId === 'indiv-results') renderIndividualLeaderboard();
-      if (tabId === 'team-results') renderTeamLeaderboard();
-    }
-
-    function generateBoatCards() {
-      const count = parseInt(document.getElementById("boat-count").value) || 1;
-      const currentBoats = appData.boats;
-      appData.boats = [];
-
-      for (let i = 1; i <= count; i++) {
-        const existing = currentBoats.find(b => b.id === i);
-        appData.boats.push(existing || {
-          id: i,
-          label: `BOAT ${i}`,
-          anglers: [
-            { name: "", team: "", points: 0, species: 0, fish: 0 },
-            { name: "", team: "", points: 0, species: 0, fish: 0 }
-          ]
-        });
-      }
-      saveData();
-      renderSetup();
-    }
-
-    function renderSetup() {
-      const container = document.getElementById("boat-cards-container");
-      container.innerHTML = "";
-
-      appData.boats.forEach((boat, bIndex) => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="card-title">
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-              <label style="font-size: 0.75rem;">Boat Name</label>
-              <input type="text" value="${boat.label}" class="uppercase" style="max-width: 250px; font-weight: bold; color: var(--accent-green-hover);" onchange="updateBoatLabel(${bIndex}, this.value)">
+        <!-- TAB 1: REGISTRATION -->
+        <div id="tab-register" class="tab-content active">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>ANGLER REGISTRATION</h2>
+                <button class="btn btn-primary" onclick="addAnglerCard()">+ ADD ANGLER</button>
             </div>
-            <button class="btn btn-secondary" onclick="addAngler(${bIndex})">➕ Add Angler</button>
-          </div>
-          <div class="anglers-grid">
-            ${boat.anglers.map((a, aIndex) => `
-              <div class="angler-card-row">
-                <span class="angler-num">${aIndex + 1}</span>
-                <input type="text" class="uppercase" placeholder="ANGLER NAME" value="${a.name}" onchange="updateAngler(${bIndex}, ${aIndex}, 'name', this.value)">
-                <input type="text" class="uppercase" list="team-suggestions" placeholder="TEAM NAME" value="${a.team}" onchange="updateAngler(${bIndex}, ${aIndex}, 'team', this.value)">
-                <button class="btn-delete-angler" title="Delete Angler" onclick="removeAngler(${bIndex}, ${aIndex})">🗑️ Delete</button>
-              </div>
-            `).join('')}
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
+            
+            <!-- 2-Column Grid Container -->
+            <div id="registration-list" class="registration-grid"></div>
+        </div>
 
-    function updateBoatLabel(bIndex, val) {
-      appData.boats[bIndex].label = val.toUpperCase();
-      saveData();
-    }
+        <!-- TAB 2: SCORE ENTRY -->
+        <div id="tab-scores" class="tab-content">
+            <h2>BOAT SCORE ENTRY</h2>
+            <div id="boat-score-sections"></div>
+        </div>
 
-    function addAngler(bIndex) {
-      appData.boats[bIndex].anglers.push({ name: "", team: "", points: 0, species: 0, fish: 0 });
-      saveData();
-      renderSetup();
-    }
+        <!-- TAB 3: RESULTS -->
+        <div id="tab-results" class="tab-content">
+            <h2>INDIVIDUAL LEADERBOARD</h2>
+            <div class="table-container">
+                <table id="individual-results-table">
+                    <thead>
+                        <tr>
+                            <th>POS</th>
+                            <th>NAME</th>
+                            <th>BOAT</th>
+                            <th>RAW PTS</th>
+                            <th>SPECIES</th>
+                            <th>FISH</th>
+                            <th>BOAT %</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
 
-    function removeAngler(bIndex, aIndex) {
-      appData.boats[bIndex].anglers.splice(aIndex, 1);
-      saveData();
-      renderSetup();
-    }
+            <h2 style="margin-top: 30px;">TEAM LEADERBOARD (TEAMS OF 4)</h2>
+            <div class="table-container">
+                <table id="team-results-table">
+                    <thead>
+                        <tr>
+                            <th>POS</th>
+                            <th>TEAM NAME</th>
+                            <th>MEMBERS</th>
+                            <th>COMBINED %</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
 
-    function updateAngler(bIndex, aIndex, field, val) {
-      if (field === 'points' || field === 'species' || field === 'fish') {
-        val = parseFloat(val) || 0;
-      } else {
-        val = val.toUpperCase();
-      }
-      appData.boats[bIndex].anglers[aIndex][field] = val;
-      saveData();
-    }
+        <!-- TAB 4: DASHBOARD -->
+        <div id="tab-dashboard" class="tab-content">
+            <h2>TOURNAMENT DASHBOARD</h2>
 
-    // SCORE ENTRY TAB
-    function renderScoreEntry() {
-      const container = document.getElementById("score-entry-container");
-      container.innerHTML = "";
+            <!-- Fleet Totals Overview -->
+            <div class="dashboard-metrics">
+                <div class="metric-card">
+                    <div class="metric-label">TOTAL FISH CAUGHT</div>
+                    <div id="metric-total-fish" class="metric-value">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">TOTAL POINTS SCORED</div>
+                    <div id="metric-total-points" class="metric-value">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">ACTIVE BOATS</div>
+                    <div id="metric-active-boats" class="metric-value">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">TOTAL ANGLERS</div>
+                    <div id="metric-total-anglers" class="metric-value">0</div>
+                </div>
+            </div>
 
-      appData.boats.forEach((boat, bIndex) => {
-        const card = document.createElement("div");
-        card.className = "card";
-        
-        const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
+            <!-- Highlight Badges -->
+            <h3 style="margin-bottom: 10px;">HIGHLIGHT PERFORMANCE</h3>
+            <div class="badges-grid">
+                <div class="badge-card">
+                    <div class="badge-title">👑 HIGHEST RAW POINTS</div>
+                    <div id="badge-top-points-name" class="badge-winner">-</div>
+                    <div id="badge-top-points-val" class="badge-detail">0 PTS</div>
+                </div>
+                <div class="badge-card">
+                    <div class="badge-title">🐟 HIGHEST TOTAL FISH COUNT</div>
+                    <div id="badge-top-fish-name" class="badge-winner">-</div>
+                    <div id="badge-top-fish-val" class="badge-detail">0 FISH</div>
+                </div>
+                <div class="badge-card">
+                    <div class="badge-title">🎯 HIGHEST SPECIES COUNT</div>
+                    <div id="badge-top-species-name" class="badge-winner">-</div>
+                    <div id="badge-top-species-val" class="badge-detail">0 SPECIES</div>
+                </div>
+            </div>
 
-        card.innerHTML = `
-          <div class="card-title">${boat.label} — Scorecard Entry</div>
-          <div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 8px; color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">
-            <div>ANGLER</div>
-            <div>TEAM</div>
-            <div>RAW PTS</div>
-            <div>SPECIES</div>
-            <div>FISH COUNT</div>
-            <div>PREVIEW %</div>
-          </div>
-          ${boat.anglers.map((a, aIndex) => {
-            const pct = maxPts > 0 ? ((a.points / maxPts) * 100).toFixed(2) : "0.00";
-            return `
-              <div class="score-row">
-                <div style="font-weight: bold;">${aIndex + 1}. ${a.name || 'UNNAMED'}</div>
-                <div style="color: var(--text-muted);">${a.team || 'NONE'}</div>
-                <input type="number" value="${a.points}" onchange="updateAngler(${bIndex}, ${aIndex}, 'points', this.value); renderScoreEntry();">
-                <input type="number" value="${a.species}" onchange="updateAngler(${bIndex}, ${aIndex}, 'species', this.value);">
-                <input type="number" value="${a.fish}" onchange="updateAngler(${bIndex}, ${aIndex}, 'fish', this.value);">
-                <div><span class="pct-badge">${pct}%</span></div>
-              </div>
-            `;
-          }).join('')}
-        `;
-        container.appendChild(card);
-      });
-    }
+            <!-- Boat Performance Table -->
+            <h3 style="margin-bottom: 10px;">BOAT PERFORMANCE LEADERBOARD</h3>
+            <div class="table-container">
+                <table id="boat-performance-table">
+                    <thead>
+                        <tr>
+                            <th>BOAT</th>
+                            <th>ANGLERS</th>
+                            <th>TOTAL POINTS</th>
+                            <th>AVG POINTS / ANGLER</th>
+                            <th>TOTAL FISH</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
 
-    // BOAT RESULTS TAB
-    function renderBoatResults() {
-      const container = document.getElementById("boat-results-container");
-      container.innerHTML = "";
+    </div>
 
-      appData.boats.forEach(boat => {
-        const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
-        
-        const sorted = [...boat.anglers].map(a => {
-          const pct = maxPts > 0 ? (a.points / maxPts) * 100 : 0;
-          return { ...a, pct };
-        }).sort((a, b) => b.points - a.points || b.species - a.species || b.fish - a.fish);
+    <!-- USER GUIDE MODAL -->
+    <div id="guide-modal" class="modal-overlay">
+        <div class="modal">
+            <h2>BoatMatch Pro - Guide</h2>
+            <p><strong>1. Registration:</strong> Add anglers, assign their boat number/name, and team name (if competing in teams of 4).</p>
+            <p><strong>2. Score Entry:</strong> Input Raw Points, Species Count, and Total Fish for each angler grouped by boat.</p>
+            <p><strong>3. Boat Percentage Calculation:</strong> The boat winner receives 100%. Other anglers on the same boat receive a percentage relative to the winner's raw points.</p>
+            <p><strong>4. Team Rankings:</strong> Teams must have exactly 4 members to qualify. Rankings are based on the sum of individual boat percentages.</p>
+            <p><strong>5. Data Privacy:</strong> All data is strictly stored locally in your browser cache.</p>
+            <button class="btn btn-primary modal-close" onclick="closeGuide()">CLOSE</button>
+        </div>
+    </div>
 
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="card-title">${boat.label} — Standings</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Pos</th>
-                <th>Angler</th>
-                <th>Team</th>
-                <th>Raw Points</th>
-                <th>Species</th>
-                <th>Fish Count</th>
-                <th>Boat %</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${sorted.map((a, idx) => `
-                <tr>
-                  <td class="rank-${idx+1}">${idx + 1}</td>
-                  <td style="font-weight: bold;">${a.name || 'UNNAMED'}</td>
-                  <td>${a.team || '-'}</td>
-                  <td>${a.points}</td>
-                  <td>${a.species}</td>
-                  <td>${a.fish}</td>
-                  <td><span class="pct-badge">${a.pct.toFixed(2)}%</span></td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        `;
-        container.appendChild(card);
-      });
-    }
+    <script>
+        // Global Data Store
+        let anglers = JSON.parse(localStorage.getItem('bmp_anglers')) || [];
 
-    // INDIVIDUAL LEADERBOARD TAB
-    function getAllAnglersProcessed() {
-      let all = [];
-      appData.boats.forEach(boat => {
-        const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
-        boat.anglers.forEach(a => {
-          const pct = maxPts > 0 ? (a.points / maxPts) * 100 : 0;
-          all.push({
-            ...a,
-            boatLabel: boat.label,
-            pct
-          });
-        });
-      });
-
-      return all.sort((a, b) => 
-        b.pct - a.pct || 
-        b.points - a.points || 
-        b.species - a.species || 
-        b.fish - a.fish
-      );
-    }
-
-    function renderIndividualLeaderboard() {
-      const tbody = document.getElementById("indiv-leaderboard-body");
-      const sorted = getAllAnglersProcessed();
-
-      tbody.innerHTML = sorted.map((a, idx) => `
-        <tr>
-          <td class="rank-${idx+1}">${idx + 1}</td>
-          <td style="font-weight: bold;">${a.name || 'UNNAMED'}</td>
-          <td>${a.boatLabel}</td>
-          <td>${a.team || '-'}</td>
-          <td>${a.points}</td>
-          <td>${a.species}</td>
-          <td>${a.fish}</td>
-          <td><span class="pct-badge">${a.pct.toFixed(2)}%</span></td>
-        </tr>
-      `).join('');
-    }
-
-    // TEAM LEADERBOARD TAB
-    function renderTeamLeaderboard() {
-      const tbody = document.getElementById("team-leaderboard-body");
-      const allAnglers = getAllAnglersProcessed();
-
-      let teams = {};
-      allAnglers.forEach(a => {
-        if (a.team && a.team.trim() !== "") {
-          const tName = a.team.trim().toUpperCase();
-          if (!teams[tName]) teams[tName] = [];
-          teams[tName].push(a);
+        // Save Data Helper
+        function saveData() {
+            localStorage.setItem('bmp_anglers', JSON.stringify(anglers));
+            renderRegistrationView();
         }
-      });
 
-      let teamResults = [];
-      Object.keys(teams).forEach(tName => {
-        const members = teams[tName];
-        const count = members.length;
-        const isEligible = count === 4;
-        const totalPct = members.reduce((sum, m) => sum + m.pct, 0);
+        // Tab Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            document.getElementById(`tab-btn-${tabId}`).classList.add('active');
 
-        teamResults.push({
-          name: tName,
-          members,
-          count,
-          isEligible,
-          totalPct
-        });
-      });
+            if (tabId === 'register') renderRegistrationView();
+            if (tabId === 'scores') renderScoresView();
+            if (tabId === 'results') renderResultsView();
+            if (tabId === 'dashboard') renderDashboardView();
+        }
 
-      teamResults.sort((a, b) => {
-        if (a.isEligible && !b.isEligible) return -1;
-        if (!a.isEligible && b.isEligible) return 1;
-        return b.totalPct - a.totalPct;
-      });
+        // Guide Modal Functions
+        function openGuide() { document.getElementById('guide-modal').classList.add('open'); }
+        function closeGuide() { document.getElementById('guide-modal').classList.remove('open'); }
 
-      tbody.innerHTML = teamResults.map((t, idx) => `
-        <tr class="${t.isEligible ? '' : 'ineligible'}">
-          <td class="${t.isEligible ? 'rank-' + (idx + 1) : ''}">${t.isEligible ? idx + 1 : 'N/A'}</td>
-          <td style="font-weight: bold;">${t.name}</td>
-          <td>${t.members.map(m => m.name || 'UNNAMED').join(', ')}</td>
-          <td>
-            ${t.isEligible 
-              ? '<span style="color: var(--accent-green-hover); font-weight: bold;">Qualified (4)</span>' 
-              : `<span style="color: var(--danger);">Ineligible (${t.count}/4)</span>`}
-          </td>
-          <td><span class="pct-badge">${t.totalPct.toFixed(2)}%</span></td>
-        </tr>
-      `).join('');
-    }
+        // Registration Logic
+        function addAnglerCard() {
+            const newAngler = {
+                id: Date.now(),
+                name: '',
+                boat: '',
+                team: '',
+                points: 0,
+                species: 0,
+                fish: 0
+            };
+            anglers.push(newAngler);
+            saveData();
+        }
 
-    // Modal control handlers
-    function openUserGuide() {
-      document.getElementById('user-guide-modal').classList.add('active');
-    }
+        function removeAngler(id) {
+            anglers = anglers.filter(a => a.id !== id);
+            saveData();
+        }
 
-    function closeUserGuide(evt) {
-      document.getElementById('user-guide-modal').classList.remove('active');
-    }
+        function updateAnglerField(id, field, value) {
+            const angler = anglers.find(a => a.id === id);
+            if (angler) {
+                angler[field] = field === 'points' || field === 'species' || field === 'fish' ? parseFloat(value) || 0 : value.toUpperCase();
+                localStorage.setItem('bmp_anglers', JSON.stringify(anglers));
+            }
+        }
 
-    function resetApp() {
-      if (confirm("Are you sure you want to clear this match? All setup and score data will be erased.")) {
-        localStorage.removeItem("boat_match_pro_data");
-        location.reload();
-      }
-    }
-  </script>
+        function renderRegistrationView() {
+            const container = document.getElementById('registration-list');
+            if (!container) return;
+            container.innerHTML = '';
+
+            anglers.forEach((angler, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-title">ANGLER #${index + 1}</span>
+                        <button class="btn btn-danger btn-sm" onclick="removeAngler(${angler.id})">DELETE</button>
+                    </div>
+                    <div class="form-group">
+                        <label>ANGLER NAME</label>
+                        <input type="text" value="${angler.name}" oninput="updateAnglerField(${angler.id}, 'name', this.value)">
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>BOAT</label>
+                            <input type="text" value="${angler.boat}" oninput="updateAnglerField(${angler.id}, 'boat', this.value)">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>TEAM (OPTIONAL)</label>
+                            <input type="text" value="${angler.team}" oninput="updateAnglerField(${angler.id}, 'team', this.value)">
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Score Entry Logic
+        function renderScoresView() {
+            const container = document.getElementById('boat-score-sections');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const boats = [...new Set(anglers.map(a => a.boat).filter(Boolean))];
+
+            if (boats.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted);">PLEASE REGISTER ANGLERS AND ASSIGN BOATS FIRST.</p>';
+                return;
+            }
+
+            boats.forEach(boat => {
+                const boatAnglers = anglers.filter(a => a.boat === boat);
+                const section = document.createElement('div');
+                section.className = 'card';
+                
+                let rowsHtml = boatAnglers.map(a => `
+                    <tr>
+                        <td style="font-weight: bold;">${a.name || 'UNNAMED'}</td>
+                        <td><input type="number" value="${a.points}" onchange="updateAnglerField(${a.id}, 'points', this.value)" style="width: 80px;"></td>
+                        <td><input type="number" value="${a.species}" onchange="updateAnglerField(${a.id}, 'species', this.value)" style="width: 80px;"></td>
+                        <td><input type="number" value="${a.fish}" onchange="updateAnglerField(${a.id}, 'fish', this.value)" style="width: 80px;"></td>
+                    </tr>
+                `).join('');
+
+                section.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-title">BOAT: ${boat}</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ANGLER</th>
+                                    <th>RAW PTS</th>
+                                    <th>SPECIES</th>
+                                    <th>FISH COUNT</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rowsHtml}</tbody>
+                        </table>
+                    </div>
+                `;
+                container.appendChild(section);
+            });
+        }
+
+        // Calculation Helpers
+        function getCalculatedAnglers() {
+            const boats = [...new Set(anglers.map(a => a.boat).filter(Boolean))];
+            let calculated = [];
+
+            boats.forEach(boat => {
+                const boatMembers = anglers.filter(a => a.boat === boat);
+                const maxPoints = Math.max(...boatMembers.map(a => a.points), 0);
+
+                boatMembers.forEach(a => {
+                    const pct = maxPoints > 0 ? (a.points / maxPoints) * 100 : 0;
+                    calculated.push({
+                        ...a,
+                        boatPct: pct
+                    });
+                });
+            });
+
+            // Sort Individual: Boat % (Desc), Raw Pts (Desc), Species (Desc), Fish (Desc)
+            return calculated.sort((a, b) => {
+                if (b.boatPct !== a.boatPct) return b.boatPct - a.boatPct;
+                if (b.points !== a.points) return b.points - a.points;
+                if (b.species !== a.species) return b.species - a.species;
+                return b.fish - a.fish;
+            });
+        }
+
+        // Results View
+        function renderResultsView() {
+            const calcAnglers = getCalculatedAnglers();
+            const indTbody = document.querySelector('#individual-results-table tbody');
+            if (indTbody) {
+                indTbody.innerHTML = '';
+                calcAnglers.forEach((a, index) => {
+                    indTbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: bold;">${index + 1}</td>
+                            <td>${a.name || 'UNNAMED'}</td>
+                            <td>${a.boat || '-'}</td>
+                            <td>${a.points}</td>
+                            <td>${a.species}</td>
+                            <td>${a.fish}</td>
+                            <td style="font-weight: bold; color: var(--primary-dark);">${a.boatPct.toFixed(2)}%</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            // Teams Logic
+            const teamTbody = document.querySelector('#team-results-table tbody');
+            if (teamTbody) {
+                teamTbody.innerHTML = '';
+                const teamNames = [...new Set(anglers.map(a => a.team).filter(Boolean))];
+                let teamResults = [];
+
+                teamNames.forEach(tName => {
+                    const members = calcAnglers.filter(a => a.team === tName);
+                    if (members.length === 4) {
+                        const totalPct = members.reduce((sum, m) => sum + m.boatPct, 0);
+                        teamResults.push({
+                            name: tName,
+                            members: members.map(m => m.name || 'UNNAMED').join(', '),
+                            totalPct: totalPct
+                        });
+                    }
+                });
+
+                teamResults.sort((a, b) => b.totalPct - a.totalPct);
+
+                teamResults.forEach((t, index) => {
+                    teamTbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: bold;">${index + 1}</td>
+                            <td style="font-weight: bold;">${t.name}</td>
+                            <td style="font-size: 0.75rem;">${t.members}</td>
+                            <td style="font-weight: bold; color: var(--primary-dark);">${t.totalPct.toFixed(2)}%</td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        // Dashboard View
+        function renderDashboardView() {
+            const totalFish = anglers.reduce((sum, a) => sum + (a.fish || 0), 0);
+            const totalPts = anglers.reduce((sum, a) => sum + (a.points || 0), 0);
+            const activeBoats = [...new Set(anglers.map(a => a.boat).filter(Boolean))];
+
+            document.getElementById('metric-total-fish').innerText = totalFish.toLocaleString();
+            document.getElementById('metric-total-points').innerText = totalPts.toLocaleString();
+            document.getElementById('metric-active-boats').innerText = activeBoats.length;
+            document.getElementById('metric-total-anglers').innerText = anglers.length;
+
+            // Badges
+            if (anglers.length > 0) {
+                const topPoints = [...anglers].sort((a, b) => b.points - a.points)[0];
+                const topFish = [...anglers].sort((a, b) => b.fish - a.fish)[0];
+                const topSpecies = [...anglers].sort((a, b) => b.species - a.species)[0];
+
+                if (topPoints && topPoints.points > 0) {
+                    document.getElementById('badge-top-points-name').innerText = topPoints.name || 'UNNAMED';
+                    document.getElementById('badge-top-points-val').innerText = `${topPoints.points} PTS (BOAT ${topPoints.boat})`;
+                }
+                if (topFish && topFish.fish > 0) {
+                    document.getElementById('badge-top-fish-name').innerText = topFish.name || 'UNNAMED';
+                    document.getElementById('badge-top-fish-val').innerText = `${topFish.fish} FISH (BOAT ${topFish.boat})`;
+                }
+                if (topSpecies && topSpecies.species > 0) {
+                    document.getElementById('badge-top-species-name').innerText = topSpecies.name || 'UNNAMED';
+                    document.getElementById('badge-top-species-val').innerText = `${topSpecies.species} SPECIES (BOAT ${topSpecies.boat})`;
+                }
+            }
+
+            // Boat Performance Table
+            const boatTbody = document.querySelector('#boat-performance-table tbody');
+            if (boatTbody) {
+                boatTbody.innerHTML = '';
+                let boatStats = activeBoats.map(b => {
+                    const bAnglers = anglers.filter(a => a.boat === b);
+                    const bPoints = bAnglers.reduce((sum, a) => sum + (a.points || 0), 0);
+                    const bFish = bAnglers.reduce((sum, a) => sum + (a.fish || 0), 0);
+                    const avgPts = bAnglers.length > 0 ? bPoints / bAnglers.length : 0;
+                    return { boat: b, count: bAnglers.length, points: bPoints, avgPts: avgPts, fish: bFish };
+                });
+
+                boatStats.sort((a, b) => b.avgPts - a.avgPts);
+
+                boatStats.forEach(b => {
+                    boatTbody.innerHTML += `
+                        <tr>
+                            <td style="font-weight: bold;">BOAT ${b.boat}</td>
+                            <td>${b.count}</td>
+                            <td>${b.points}</td>
+                            <td style="font-weight: bold; color: var(--primary-dark);">${b.avgPts.toFixed(1)}</td>
+                            <td>${b.fish}</td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        // Initial Load Execution
+        renderRegistrationView();
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(() => {});
+            });
+        }
+    </script>
 </body>
 </html>
