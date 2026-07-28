@@ -873,9 +873,12 @@
     }
 
     function removeAngler(bIndex, aIndex) {
-      appData.boats[bIndex].anglers.splice(aIndex, 1);
-      saveData();
-      renderSetup();
+      const anglerName = appData.boats[bIndex].anglers[aIndex].name || "this angler";
+      if (confirm(`Are you sure you want to delete ${anglerName}?`)) {
+        appData.boats[bIndex].anglers.splice(aIndex, 1);
+        saveData();
+        renderSetup();
+      }
     }
 
     function updateAngler(bIndex, aIndex, field, val) {
