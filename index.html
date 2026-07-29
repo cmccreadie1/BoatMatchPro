@@ -1051,10 +1051,7 @@
         appData.boats.push(existing || {
           id: i,
           label: `BOAT ${i}`,
-          anglers: [
-            { name: "", team: "", points: 0, species: 0, fish: 0 },
-            { name: "", team: "", points: 0, species: 0, fish: 0 }
-          ]
+          anglers: Array.from({ length: 8 }, () => ({ name: "", team: "", points: 0, species: 0, fish: 0 }))
         });
       }
       saveData();
