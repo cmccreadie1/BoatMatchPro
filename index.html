@@ -6,6 +6,8 @@
   <title>BoatMatch Pro — Sea Angling Competition Scoring</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#10b981">
+  <!-- html2pdf library for direct background PDF generation with custom filenames -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     :root {
       --bg-light: #e2e8f0;
@@ -156,7 +158,7 @@
       background: var(--input-bg);
       border: 1px solid var(--card-border);
       color: var(--text-main);
-      padding: 10px 14px;
+      padding: 10px 8px; /* Reduced from 14px to gain horizontal space */
       border-radius: 8px;
       font-size: 0.95rem;
       width: 100%;
@@ -259,7 +261,7 @@
       font-weight: 800;
       color: var(--accent-green-hover);
       font-size: 1.1rem;
-      min-width: 28px;
+      min-width: 20px; /* Reduced from 28px */
       text-align: center;
     }
 
@@ -477,7 +479,7 @@
       margin-bottom: 6px;
     }
 
-    /* MULTI-TAB PRINT STYLING */
+    /* MULTI-TAB PRINT / PDF EXPORT STYLING */
     @media print {
       body { background: #fff; color: #000; padding: 0; }
       nav, .btn, .badge, .action-bar, .modal-overlay { display: none !important; }
@@ -508,7 +510,7 @@
     <div class="action-bar">
       <button class="btn btn-secondary" onclick="openUserGuide()">📖 User Guide</button>
       <button class="btn btn-secondary" onclick="printLeaderboards()">🖨️ Print Leaderboards</button>
-      <button class="btn btn-danger" onclick="resetApp()">🔄 New Match</button>
+      <button class="btn btn-danger" onclick="resetApp()">🔄 Reset / Clear Match</button>
     </div>
   </header>
 
@@ -729,7 +731,7 @@
         Yes. Once loaded for the first time in your web browser, the built-in Progressive Web App (PWA) Service Worker saves all required files directly to your device. You can run entire multi-day competitions offshore or in remote hotel rooms with zero internet or cellular coverage.</p>
 
         <p style="margin-top: 10px;"><strong>❓ How do I clear the app for the next competition day?</strong><br>
-        When a match is finished and printed, click the red 🔄 New Match button in the top right corner. After confirming, the local memory will be wiped clean and ready for your next event.</p>
+        When a match is finished and printed, click the red 🔄 Reset / Clear Match button in the top right corner. After confirming, the local memory will be wiped clean and ready for your next event.</p>
       </div>
 
       <div style="text-align: right; margin-top: 20px;">
@@ -852,7 +854,7 @@
                 <span class="angler-num">${aIndex + 1}</span>
                 <input type="text" class="uppercase" placeholder="ANGLER NAME" value="${a.name}" onchange="updateAngler(${bIndex}, ${aIndex}, 'name', this.value)">
                 <input type="text" class="uppercase" list="team-suggestions" placeholder="TEAM NAME" value="${a.team}" onchange="updateAngler(${bIndex}, ${aIndex}, 'team', this.value)">
-                <button class="btn-delete-angler" title="Delete Angler" onclick="removeAngler(${bIndex}, ${aIndex})">🗑️ Delete</button>
+                <button class="btn-delete-angler" title="Delete Angler" onclick="removeAngler(${bIndex}, ${aIndex})">Delete</button>
               </div>
             `).join('')}
           </div>
@@ -1136,7 +1138,7 @@
       `).join('');
     }
 
-    // DEDICATED MULTI-TAB PRINT FUNCTION
+    // DEDICATED PRINT LEADERBOARDS FUNCTION (FOR PRINT BUTTON)
     function printLeaderboards() {
       saveData();
       renderBoatResults();
@@ -1144,73 +1146,6 @@
       renderTeamLeaderboard();
       renderDashboard();
       window.print();
-    }
-
-    // AUTOMATED EXPORT BACKUP ON RESET
-    function downloadMatchData() {
-      const matchTitle = appData.name || "UNNAMED_MATCH";
-      const matchDate = appData.date || "UNDATED";
-      const fileName = `BoatMatch_Pro_Backup_${matchTitle.replace(/[^A-Z0-9]/gi, '_')}_${matchDate}.html`;
-
-      renderBoatResults();
-      renderIndividualLeaderboard();
-      renderTeamLeaderboard();
-      renderDashboard();
-
-      const boatHTML = document.getElementById("tab-boat-results").innerHTML;
-      const indivHTML = document.getElementById("tab-indiv-results").innerHTML;
-      const teamHTML = document.getElementById("tab-team-results").innerHTML;
-      const dashHTML = document.getElementById("tab-dashboard").innerHTML;
-
-      const reportContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>${matchTitle} — Official Competition Summary</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 30px; color: #0f172a; max-width: 1000px; margin: 0 auto; }
-    h1 { font-size: 1.8rem; margin-bottom: 5px; }
-    .meta { color: #64748b; margin-bottom: 30px; font-weight: bold; }
-    .card { border: 1px solid #cbd5e1; border-radius: 8px; padding: 20px; margin-bottom: 30px; }
-    .card-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 15px; }
-    table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; }
-    th, td { padding: 10px; border-bottom: 1px solid #cbd5e1; }
-    th { background: #f8fafc; color: #64748b; font-size: 0.85rem; text-transform: uppercase; }
-    .pct-badge { font-weight: bold; color: #059669; }
-    .dashboard-metrics, .badges-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-    .metric-card, .badge-card { border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; text-align: center; }
-    .metric-value { font-size: 1.8rem; font-weight: bold; color: #059669; }
-    .badge-winner { font-size: 1.1rem; font-weight: bold; }
-    .badge-detail { color: #059669; font-weight: bold; }
-  </style>
-</head>
-<body>
-  <h1>🚤 ${matchTitle} — Official Report</h1>
-  <div class="meta">Date: ${matchDate} | Exported Backup</div>
-  <hr style="margin-bottom: 30px; border: none; border-top: 2px solid #cbd5e1;">
-
-  <h2>1. Boat Standings</h2>
-  ${boatHTML}
-
-  <h2>2. Overall Individual Standings</h2>
-  ${indivHTML}
-
-  <h2>3. 4-Person Team Standings</h2>
-  ${teamHTML}
-
-  <h2>4. Fleet Dashboard Summary</h2>
-  ${dashHTML}
-</body>
-</html>`;
-
-      const blob = new Blob([reportContent], { type: 'text/html;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.setAttribute("href", url);
-      link.setAttribute("download", fileName);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     }
 
     // Modal control handlers
@@ -1222,13 +1157,80 @@
       document.getElementById('user-guide-modal').classList.remove('active');
     }
 
+    // STREAMLINED RESET / CLEAR MATCH WITH DIRECT PDF DOWNLOAD AND DYNAMIC NAMING
     function resetApp() {
-      if (confirm("Are you sure you want to clear this match? A full backup report will automatically download to your hard drive before wiping.")) {
-        downloadMatchData();
-        setTimeout(() => {
+      const warningMessage = "⚠️ WARNING: CLEAR MATCH DATA\n\n" +
+        "Click OK to automatically download your official results PDF. " +
+        "Once downloaded, ALL match data will be permanently cleared for the next competition.";
+
+      if (confirm(warningMessage)) {
+        saveData();
+        renderBoatResults();
+        renderIndividualLeaderboard();
+        renderTeamLeaderboard();
+        renderDashboard();
+
+        // Build clean dynamic filename from competition name and date
+        const compNameClean = (appData.name || "MATCH").replace(/[^a-zA-Z0-9]/g, "_");
+        const compDateClean = appData.date || new Date().toISOString().slice(0, 10);
+        const fileName = `BoatMatch_Pro_${compNameClean}_${compDateClean}.pdf`;
+
+        // Temporarily reveal all printable result tabs for the background PDF export
+        const boatRes = document.getElementById("tab-boat-results");
+        const indivRes = document.getElementById("tab-indiv-results");
+        const teamRes = document.getElementById("tab-team-results");
+        const dashRes = document.getElementById("tab-dashboard");
+
+        const wasBoatActive = boatRes.classList.contains("active");
+        const wasIndivActive = indivRes.classList.contains("active");
+        const wasTeamActive = teamRes.classList.contains("active");
+        const wasDashActive = dashRes.classList.contains("active");
+
+        boatRes.style.display = "block";
+        indivRes.style.display = "block";
+        teamRes.style.display = "block";
+        dashRes.style.display = "block";
+
+        // Create a temporary container wrapper for the PDF export
+        const exportContainer = document.createElement("div");
+        exportContainer.style.background = "#ffffff";
+        exportContainer.style.color = "#000000";
+        exportContainer.style.padding = "20px";
+        
+        exportContainer.appendChild(boatRes.cloneNode(true));
+        exportContainer.appendChild(indivRes.cloneNode(true));
+        exportContainer.appendChild(teamRes.cloneNode(true));
+        exportContainer.appendChild(dashRes.cloneNode(true));
+
+        const opt = {
+          margin:       10,
+          filename:     fileName,
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { scale: 2, useCORS: true },
+          jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().from(exportContainer).set(opt).save().then(() => {
+          // Restore original tab display states
+          boatRes.style.display = "";
+          indivRes.style.display = "";
+          teamRes.style.display = "";
+          dashRes.style.display = "";
+
+          // Clear local data and reload app
           localStorage.removeItem("boat_match_pro_data");
           location.reload();
-        }, 500);
+        }).catch(err => {
+          console.error("PDF Export Error:", err);
+          // Fallback cleanup if PDF generation encounters any issue
+          boatRes.style.display = "";
+          indivRes.style.display = "";
+          teamRes.style.display = "";
+          dashRes.style.display = "";
+          
+          localStorage.removeItem("boat_match_pro_data");
+          location.reload();
+        });
       }
     }
   </script>
