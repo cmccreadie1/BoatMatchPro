@@ -5,21 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BoatMatch Pro — Sea Angling Competition Scoring</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#10b981">
+  <meta name="theme-color" content="#0284c7">
   <!-- html2pdf library for direct background PDF generation with custom filenames -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     :root {
-      --bg-light: #e2e8f0;
+      --bg-light: #f1f5f9;
       --card-bg: #ffffff;
-      --card-border: #cbd5e1;
-      --accent-green: #10b981;
-      --accent-green-hover: #059669;
+      --card-border: #94a3b8;
+      --navy-header: #0f172a;
+      --accent-cyan: #0284c7;
+      --accent-cyan-hover: #0369a1;
       --text-main: #0f172a;
-      --text-muted: #64748b;
-      --danger: #ef4444;
-      --danger-hover: #dc2626;
-      --input-bg: #f8fafc;
+      --text-muted: #475569;
+      --danger: #dc2626;
+      --danger-hover: #b91c1c;
+      --input-bg: #ffffff;
+      --gold-winner: #d97706;
     }
 
     * {
@@ -41,39 +43,43 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 20px;
-      border-bottom: 2px solid var(--card-border);
+      padding: 16px 20px;
+      background: var(--navy-header);
+      color: #ffffff;
+      border-radius: 12px;
       margin-bottom: 24px;
       flex-wrap: wrap;
       gap: 15px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
     }
 
     h1 {
       font-size: 1.8rem;
       font-weight: 800;
-      color: var(--text-main);
+      color: #ffffff;
       display: flex;
       align-items: center;
       gap: 10px;
+      letter-spacing: -0.02em;
     }
 
     .badge {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--accent-green-hover);
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
       font-size: 0.8rem;
       padding: 4px 10px;
       border-radius: 20px;
-      border: 1px solid var(--accent-green);
-      font-weight: 600;
+      border: 1px solid #38bdf8;
+      font-weight: 700;
     }
 
-    /* REFINED PAGE TAB NAVIGATION */
+    /* HIGH-CONTRAST CONSOLE TAB NAVIGATION */
     nav {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       margin-bottom: 0;
-      padding: 0 8px;
-      border-bottom: 2px solid var(--card-border);
+      padding: 0 4px;
+      border-bottom: 3px solid var(--navy-header);
       overflow-x: auto;
       align-items: flex-end;
     }
@@ -81,32 +87,34 @@
     .nav-btn {
       flex: 1;
       background: #cbd5e1;
-      border: 1px solid var(--card-border);
+      border: 2px solid var(--card-border);
       border-bottom: none;
-      color: var(--text-muted);
+      color: var(--navy-header);
       padding: 12px 18px;
-      border-radius: 8px 8px 0 0;
-      font-weight: 700;
+      border-radius: 10px 10px 0 0;
+      font-weight: 800;
       font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
       position: relative;
-      top: 2px;
+      top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
     .nav-btn:hover {
       background: #e2e8f0;
-      color: var(--text-main);
+      color: var(--accent-cyan-hover);
     }
 
     .nav-btn.active {
       background: var(--card-bg);
-      color: var(--accent-green-hover);
-      border: 2px solid var(--card-border);
-      border-top: 4px solid var(--accent-green);
-      border-bottom: 2px solid var(--card-bg);
-      font-weight: 800;
+      color: var(--accent-cyan-hover);
+      border: 3px solid var(--navy-header);
+      border-top: 5px solid var(--accent-cyan);
+      border-bottom: 3px solid var(--card-bg);
+      font-weight: 900;
       z-index: 2;
     }
 
@@ -120,23 +128,25 @@
 
     .card {
       background: var(--card-bg);
-      border: 2px solid var(--card-border);
+      border: 3px solid var(--navy-header);
       border-radius: 0 0 12px 12px;
       padding: 24px;
       margin-bottom: 28px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
     }
 
     .card-title {
       font-size: 1.25rem;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 18px;
-      color: var(--text-main);
+      color: var(--navy-header);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
     .form-group {
@@ -148,21 +158,22 @@
 
     label {
       font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-muted);
+      font-weight: 800;
+      color: var(--navy-header);
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
     }
 
     input, select {
       background: var(--input-bg);
-      border: 1px solid var(--card-border);
+      border: 2px solid var(--card-border);
       color: var(--text-main);
-      padding: 10px 8px; /* Reduced from 14px to gain horizontal space */
+      padding: 10px 10px;
       border-radius: 8px;
       font-size: 0.95rem;
+      font-weight: 600;
       width: 100%;
-      transition: border-color 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     /* Auto-Uppercase styling for typing text */
@@ -172,8 +183,8 @@
 
     input:focus, select:focus {
       outline: none;
-      border-color: var(--accent-green);
-      background: #ffffff;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
     }
 
     .grid-2 {
@@ -190,27 +201,31 @@
     }
 
     .btn {
-      background: var(--accent-green);
+      background: var(--accent-cyan);
       color: #fff;
       border: none;
       padding: 10px 18px;
       border-radius: 8px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: background 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
     }
 
     .btn:hover {
-      background: var(--accent-green-hover);
+      background: var(--accent-cyan-hover);
     }
 
     .btn-danger {
       background: var(--danger);
       color: #fff;
+      box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
     }
 
     .btn-danger:hover {
@@ -218,21 +233,22 @@
     }
 
     .btn-secondary {
-      background: #cbd5e1;
-      color: var(--text-main);
+      background: #e2e8f0;
+      color: var(--navy-header);
+      border: 2px solid var(--card-border);
     }
 
     .btn-secondary:hover {
-      background: #94a3b8;
+      background: #cbd5e1;
     }
 
     .btn-delete-angler {
-      background: rgba(239, 68, 68, 0.1);
+      background: rgba(220, 38, 38, 0.1);
       color: var(--danger);
-      border: 1px solid rgba(239, 68, 68, 0.3);
+      border: 2px solid rgba(220, 38, 38, 0.3);
       padding: 8px 12px;
       border-radius: 6px;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.85rem;
       cursor: pointer;
       white-space: nowrap;
@@ -251,17 +267,17 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: var(--input-bg);
+      background: #f8fafc;
       padding: 12px;
       border-radius: 8px;
-      border: 1px solid var(--card-border);
+      border: 2px solid var(--card-border);
     }
 
     .angler-num {
-      font-weight: 800;
-      color: var(--accent-green-hover);
+      font-weight: 900;
+      color: var(--accent-cyan-hover);
       font-size: 1.1rem;
-      min-width: 20px; /* Reduced from 28px */
+      min-width: 20px;
       text-align: center;
     }
 
@@ -270,11 +286,46 @@
       grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
       gap: 10px;
       align-items: center;
-      background: var(--input-bg);
+      background: #f8fafc;
       padding: 12px;
       border-radius: 8px;
       margin-bottom: 10px;
-      border: 1px solid var(--card-border);
+      border: 2px solid var(--card-border);
+    }
+
+    /* ELEGANT MATHEMATICAL FORMULA HEADER STYLING */
+    .math-formula-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: "Georgia", "Times New Roman", serif;
+      text-transform: none;
+    }
+
+    .math-fraction {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.1;
+    }
+
+    .math-term {
+      font-style: italic;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .math-line {
+      border-top: 1.5px solid #ffffff;
+      width: 100%;
+      margin: 2px 0;
+    }
+
+    .math-operator {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 0.85rem;
     }
 
     @media (max-width: 768px) {
@@ -294,13 +345,13 @@
 
     th, td {
       padding: 12px 15px;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 2px solid var(--card-border);
     }
 
     th {
-      background: var(--input-bg);
-      color: var(--text-muted);
-      font-weight: 700;
+      background: var(--navy-header);
+      color: #ffffff;
+      font-weight: 800;
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -309,7 +360,7 @@
     .header-sub {
       display: block;
       font-size: 0.72rem;
-      color: var(--text-muted);
+      color: #94a3b8;
       text-transform: none;
       font-weight: 500;
       margin-top: 2px;
@@ -317,26 +368,26 @@
     }
 
     tr:hover {
-      background: rgba(16, 185, 129, 0.03);
+      background: rgba(2, 132, 199, 0.05);
     }
 
-    .rank-1 { color: #d97706; font-weight: bold; }
-    .rank-2 { color: #64748b; font-weight: bold; }
-    .rank-3 { color: #b45309; font-weight: bold; }
+    .rank-1 { color: var(--gold-winner); font-weight: 900; }
+    .rank-2 { color: #64748b; font-weight: 900; }
+    .rank-3 { color: #b45309; font-weight: 900; }
 
     .pct-badge {
-      background: rgba(16, 185, 129, 0.12);
-      color: var(--accent-green-hover);
-      font-weight: 700;
+      background: rgba(2, 132, 199, 0.12);
+      color: var(--accent-cyan-hover);
+      font-weight: 800;
       padding: 4px 10px;
       border-radius: 6px;
       display: inline-block;
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      border: 1px solid rgba(2, 132, 199, 0.3);
     }
 
     .ineligible {
-      opacity: 0.6;
-      background: rgba(239, 68, 68, 0.03);
+      opacity: 0.65;
+      background: rgba(220, 38, 38, 0.04);
     }
 
     .action-bar {
@@ -356,24 +407,24 @@
 
     .metric-card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      border: 3px solid var(--navy-header);
       padding: 20px;
       border-radius: 12px;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
     }
 
     .metric-value {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent-green-hover);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--accent-cyan-hover);
       margin-top: 6px;
     }
 
     .metric-label {
       font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-muted);
+      font-weight: 800;
+      color: var(--navy-header);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -382,6 +433,7 @@
       font-size: 0.75rem;
       color: var(--text-muted);
       margin-top: 2px;
+      font-weight: 600;
     }
 
     .badges-grid {
@@ -393,32 +445,32 @@
 
     .badge-card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-left: 5px solid var(--accent-green);
+      border: 3px solid var(--navy-header);
+      border-left: 6px solid var(--gold-winner);
       padding: 18px;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
     }
 
     .badge-title {
       font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-muted);
+      font-weight: 800;
+      color: var(--navy-header);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 6px;
     }
 
     .badge-winner {
-      font-size: 1.2rem;
-      font-weight: 800;
+      font-size: 1.25rem;
+      font-weight: 900;
       color: var(--text-main);
     }
 
     .badge-detail {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--accent-green-hover);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--accent-cyan-hover);
       margin-top: 4px;
     }
 
@@ -430,7 +482,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 23, 42, 0.65);
+      background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(4px);
       z-index: 1000;
       justify-content: center;
@@ -450,10 +502,10 @@
       max-height: 88vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
       position: relative;
       overflow: hidden;
-      border: 2px solid var(--card-border);
+      border: 3px solid var(--navy-header);
     }
 
     .modal-header {
@@ -461,14 +513,15 @@
       justify-content: space-between;
       align-items: center;
       padding: 18px 24px;
-      background: #ffffff;
+      background: var(--navy-header);
+      color: #ffffff;
       border-bottom: 2px solid var(--card-border);
     }
 
     .modal-header h2 {
       font-size: 1.3rem;
       font-weight: 800;
-      color: var(--text-main);
+      color: #ffffff;
     }
 
     .modal-close {
@@ -476,19 +529,19 @@
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: var(--text-muted);
+      color: #94a3b8;
       transition: color 0.2s ease;
     }
 
     .modal-close:hover {
-      color: var(--danger);
+      color: #ffffff;
     }
 
     /* HIGH-CONTRAST GUIDE TAB NAVIGATION */
     .guide-tabs {
       display: flex;
       background: #f1f5f9;
-      border-bottom: 2px solid var(--card-border);
+      border-bottom: 3px solid var(--navy-header);
       padding: 12px 16px 0 16px;
       gap: 8px;
       overflow-x: auto;
@@ -498,31 +551,31 @@
     .guide-tab-btn {
       padding: 10px 18px;
       background: #cbd5e1;
-      border: 1px solid var(--card-border);
+      border: 2px solid var(--card-border);
       border-bottom: none;
       border-radius: 8px 8px 0 0;
       font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text-muted);
+      font-weight: 800;
+      color: var(--navy-header);
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
       position: relative;
-      top: 2px;
+      top: 3px;
     }
 
     .guide-tab-btn:hover {
       background: #e2e8f0;
-      color: var(--text-main);
+      color: var(--accent-cyan-hover);
     }
 
     .guide-tab-btn.active {
-      color: var(--accent-green-hover);
+      color: var(--accent-cyan-hover);
       background: #ffffff;
-      border: 2px solid var(--card-border);
-      border-top: 4px solid var(--accent-green);
-      border-bottom: 2px solid #ffffff;
-      font-weight: 800;
+      border: 3px solid var(--navy-header);
+      border-top: 4px solid var(--accent-cyan);
+      border-bottom: 3px solid #ffffff;
+      font-weight: 900;
       z-index: 2;
     }
 
@@ -546,7 +599,7 @@
     .guide-title {
       font-size: 1.2rem;
       font-weight: 800;
-      color: var(--text-main);
+      color: var(--navy-header);
       margin-bottom: 6px;
     }
 
@@ -565,7 +618,7 @@
 
     .step-item {
       background: #ffffff;
-      border: 1px solid var(--card-border);
+      border: 2px solid var(--card-border);
       border-radius: 10px;
       padding: 16px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
@@ -576,18 +629,18 @@
       align-items: center;
       gap: 10px;
       font-weight: 800;
-      color: var(--accent-green-hover);
+      color: var(--accent-cyan-hover);
       font-size: 1rem;
       margin-bottom: 6px;
     }
 
     .step-badge {
-      background: var(--accent-green);
+      background: var(--navy-header);
       color: #ffffff;
       font-size: 0.75rem;
       padding: 2px 8px;
       border-radius: 12px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .step-desc {
@@ -597,23 +650,23 @@
     }
 
     .guide-callout {
-      background: rgba(16, 185, 129, 0.08);
-      border-left: 4px solid var(--accent-green);
+      background: rgba(2, 132, 199, 0.08);
+      border-left: 5px solid var(--accent-cyan);
       padding: 14px 16px;
       border-radius: 6px;
       font-size: 0.9rem;
       line-height: 1.5;
       margin-top: 16px;
       color: var(--text-main);
-      border-top: 1px solid rgba(16, 185, 129, 0.2);
-      border-right: 1px solid rgba(16, 185, 129, 0.2);
-      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+      border-top: 1px solid rgba(2, 132, 199, 0.2);
+      border-right: 1px solid rgba(2, 132, 199, 0.2);
+      border-bottom: 1px solid rgba(2, 132, 199, 0.2);
     }
 
     .faq-item {
       margin-bottom: 20px;
       padding-bottom: 16px;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 2px solid var(--card-border);
     }
 
     .faq-item:last-child {
@@ -625,7 +678,7 @@
     .faq-q {
       font-weight: 800;
       font-size: 0.98rem;
-      color: var(--text-main);
+      color: var(--navy-header);
       margin-bottom: 6px;
     }
 
@@ -660,6 +713,7 @@
 
       .card { border: 1px solid #ccc; box-shadow: none; background: #fff; color: #000; page-break-inside: avoid; }
       th, td { border-bottom: 1px solid #ccc; color: #000; }
+      th { background: #0f172a !important; color: #fff !important; }
       .pct-badge { background: none; color: #000; font-weight: bold; border: none; }
     }
   </style>
@@ -669,7 +723,7 @@
   <header>
     <div>
       <h1>🚤 BoatMatch Pro <span class="badge">PWA</span></h1>
-      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;" id="match-subtitle">No Match Setup</p>
+      <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 4px; font-weight: 600;" id="match-subtitle">No Match Setup</p>
     </div>
     <div class="action-bar">
       <button class="btn btn-secondary" onclick="openUserGuide()">📖 User Guide</button>
@@ -693,7 +747,7 @@
   <!-- TAB 1: SETUP -->
   <div id="tab-setup" class="tab-content active">
     <div class="card">
-      <div class="card-title" style="color: var(--accent-green-hover);">Tournament Details</div>
+      <div class="card-title" style="color: var(--accent-cyan-hover);">Tournament Details</div>
       <div class="grid-2">
         <div class="form-group">
           <label for="match-name">Competition Name</label>
@@ -751,7 +805,7 @@
   <div id="tab-team-results" class="tab-content">
     <div class="card">
       <div class="card-title">4-Person Team Standings</div>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px;">
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; font-weight: 600;">
         Note: Teams must have exactly 4 members to qualify. Standings are calculated by the sum of member percentage scores.
       </p>
       <div style="overflow-x: auto;">
@@ -1123,7 +1177,7 @@
           <div class="card-title">
             <div style="display: flex; flex-direction: column; gap: 4px;">
               <label style="font-size: 0.75rem;">Boat Name</label>
-              <input type="text" value="${boat.label}" class="uppercase" style="max-width: 250px; font-weight: bold; color: var(--accent-green-hover);" onchange="updateBoatLabel(${bIndex}, this.value)">
+              <input type="text" value="${boat.label}" class="uppercase" style="max-width: 250px; font-weight: bold; color: var(--accent-cyan-hover);" onchange="updateBoatLabel(${bIndex}, this.value)">
             </div>
             <button class="btn btn-secondary" onclick="addAngler(${bIndex})">➕ Add Angler</button>
           </div>
@@ -1185,20 +1239,29 @@
 
         card.innerHTML = `
           <div class="card-title">${boat.label} — Scorecard Entry</div>
-          <div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 8px; color: var(--text-muted); font-size: 0.8rem; font-weight: bold;">
+          <div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 8px; color: var(--navy-header); font-size: 0.8rem; font-weight: bold; align-items: center;">
             <div>ANGLER</div>
             <div>TEAM</div>
             <div>RAW PTS</div>
             <div>SPECIES</div>
             <div>FISH COUNT</div>
-            <div>PREVIEW %</div>
+            <div>
+              <div class="math-formula-header">
+                <div class="math-fraction">
+                  <span class="math-term">Angler Pts</span>
+                  <span class="math-line"></span>
+                  <span class="math-term">Boat Winner Pts</span>
+                </div>
+                <span class="math-operator">× 100</span>
+              </div>
+            </div>
           </div>
           ${boat.anglers.map((a, aIndex) => {
             const pct = maxPts > 0 ? ((a.points / maxPts) * 100).toFixed(2) : "0.00";
             return `
               <div class="score-row">
                 <div style="font-weight: bold;">${aIndex + 1}. ${a.name || 'UNNAMED'}</div>
-                <div style="color: var(--text-muted);">${a.team || 'NONE'}</div>
+                <div style="color: var(--text-muted); font-weight: 600;">${a.team || 'NONE'}</div>
                 <input type="number" value="${a.points}" onchange="updateAngler(${bIndex}, ${aIndex}, 'points', this.value); renderScoreEntry();">
                 <input type="number" value="${a.species}" onchange="updateAngler(${bIndex}, ${aIndex}, 'species', this.value);">
                 <input type="number" value="${a.fish}" onchange="updateAngler(${bIndex}, ${aIndex}, 'fish', this.value);">
@@ -1237,7 +1300,16 @@
                 <th>Raw Points</th>
                 <th>Species</th>
                 <th>Fish Count</th>
-                <th>Boat %</th>
+                <th>
+                  <div class="math-formula-header">
+                    <div class="math-fraction">
+                      <span class="math-term">Angler Pts</span>
+                      <span class="math-line"></span>
+                      <span class="math-term">Boat Winner Pts</span>
+                    </div>
+                    <span class="math-operator">× 100</span>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -1245,7 +1317,7 @@
                 <tr>
                   <td class="rank-${idx+1}">${idx + 1}</td>
                   <td style="font-weight: bold;">${a.name || 'UNNAMED'}</td>
-                  <td>${a.team || '-'}</td>
+                  <td style="font-weight: 600;">${a.team || '-'}</td>
                   <td>${a.points}</td>
                   <td>${a.species}</td>
                   <td>${a.fish}</td>
@@ -1290,8 +1362,8 @@
         <tr>
           <td class="rank-${idx+1}">${idx + 1}</td>
           <td style="font-weight: bold;">${a.name || 'UNNAMED'}</td>
-          <td>${a.boatLabel}</td>
-          <td>${a.team || '-'}</td>
+          <td style="font-weight: 600;">${a.boatLabel}</td>
+          <td style="font-weight: 600;">${a.team || '-'}</td>
           <td>${a.points}</td>
           <td>${a.species}</td>
           <td>${a.fish}</td>
@@ -1340,11 +1412,11 @@
         <tr class="${t.isEligible ? '' : 'ineligible'}">
           <td class="${t.isEligible ? 'rank-' + (idx + 1) : ''}">${t.isEligible ? idx + 1 : 'N/A'}</td>
           <td style="font-weight: bold;">${t.name}</td>
-          <td>${t.members.map(m => m.name || 'UNNAMED').join(', ')}</td>
+          <td style="font-weight: 600;">${t.members.map(m => m.name || 'UNNAMED').join(', ')}</td>
           <td>
             ${t.isEligible 
-              ? '<span style="color: var(--accent-green-hover); font-weight: bold;">Qualified (4)</span>' 
-              : `<span style="color: var(--danger);">Ineligible (${t.count}/4)</span>`}
+              ? '<span style="color: var(--accent-cyan-hover); font-weight: 800;">Qualified (4)</span>' 
+              : `<span style="color: var(--danger); font-weight: 800;">Ineligible (${t.count}/4)</span>`}
           </td>
           <td><span class="pct-badge">${t.totalPct.toFixed(2)}%</span></td>
         </tr>
@@ -1442,7 +1514,7 @@
           <td style="font-weight: bold;">${b.label}</td>
           <td>${b.count}</td>
           <td>${b.points}</td>
-          <td style="font-weight: bold; color: var(--accent-green-hover);">${b.avgPts.toFixed(1)}</td>
+          <td style="font-weight: bold; color: var(--accent-cyan-hover);">${b.avgPts.toFixed(1)}</td>
           <td>${b.avgFish.toFixed(1)}</td>
           <td>${b.avgSpecies.toFixed(1)}</td>
           <td><span class="pct-badge">${b.balanceIndex.toFixed(1)}%</span></td>
