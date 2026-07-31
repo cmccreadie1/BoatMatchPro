@@ -306,6 +306,16 @@
       letter-spacing: 0.05em;
     }
 
+    .header-sub {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: none;
+      font-weight: 500;
+      margin-top: 2px;
+      letter-spacing: normal;
+    }
+
     tr:hover {
       background: rgba(16, 185, 129, 0.03);
     }
@@ -366,6 +376,12 @@
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
     }
 
     .badges-grid {
@@ -758,22 +774,26 @@
   <!-- TAB 6: DASHBOARD -->
   <div id="tab-dashboard" class="tab-content">
     <div class="card">
-      <!-- Fleet Totals -->
+      <!-- Summary Totals -->
       <div class="dashboard-metrics">
         <div class="metric-card">
           <div class="metric-label">Total Fish Caught</div>
+          <div class="metric-sub">Total fish across all boats</div>
           <div id="metric-total-fish" class="metric-value">0</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">Total Points Scored</div>
+          <div class="metric-sub">Total raw points across all boats</div>
           <div id="metric-total-points" class="metric-value">0</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">Active Boats</div>
+          <div class="metric-sub">Boats with anglers registered</div>
           <div id="metric-active-boats" class="metric-value">0</div>
         </div>
         <div class="metric-card">
           <div class="metric-label">Total Anglers</div>
+          <div class="metric-sub">Anglers competing across all boats</div>
           <div id="metric-total-anglers" class="metric-value">0</div>
         </div>
       </div>
@@ -797,8 +817,8 @@
         </div>
       </div>
 
-      <!-- Boat Performance Table -->
-      <div class="card-title" style="margin-top: 10px;">Boat Performance Summary</div>
+      <!-- Expanded Boat Performance Table with Precise Micro-Explainers -->
+      <div class="card-title" style="margin-top: 10px;">Boat Performance Comparison</div>
       <div style="overflow-x: auto;">
         <table>
           <thead>
@@ -806,8 +826,26 @@
               <th>Boat</th>
               <th>Anglers</th>
               <th>Total Points</th>
-              <th>Avg Points / Angler</th>
-              <th>Total Fish</th>
+              <th>
+                Avg Pts / Angler
+                <span class="header-sub">Average raw score per angler</span>
+              </th>
+              <th>
+                Avg Fish / Angler
+                <span class="header-sub">Average fish count per angler</span>
+              </th>
+              <th>
+                Avg Species / Angler
+                <span class="header-sub">Average species count per angler</span>
+              </th>
+              <th>
+                Boat Balance Index
+                <span class="header-sub">Average % score of boat roster</span>
+              </th>
+              <th>
+                Top 10 Anglers
+                <span class="header-sub">Anglers in top 10 overall</span>
+              </th>
             </tr>
           </thead>
           <tbody id="boat-performance-body"></tbody>
@@ -920,7 +958,7 @@
             <div class="step-item">
               <div class="step-header">👥 4-Person Team Competition</div>
               <div class="step-desc">
-                • Teams must have <strong>exactly 4 registered anglers</strong> across the fleet to qualify.<br>
+                • Teams must have <strong>exactly 4 registered anglers</strong> across all boats to qualify.<br>
                 • Teams with fewer or more than 4 members automatically show as <strong>Ineligible</strong>.<br>
                 • Qualified team scores combine all 4 individual percentage scores together.
               </div>
@@ -975,6 +1013,15 @@
         document.getElementById("match-name").value = appData.name || "";
         document.getElementById("match-date").value = appData.date || "";
         document.getElementById("boat-count").value = appData.boats.length || 3;
+        
+        // Ensure all saved boats are padded to at least 8 angler slots
+        appData.boats.forEach(b => {
+          while (b.anglers.length < 8) {
+            b.anglers.push({ name: "", team: "", points: 0, species: 0, fish: 0 });
+          }
+        });
+
+        saveData();
         updateHeader();
         updateTeamSuggestions();
         renderSetup();
@@ -1048,11 +1095,18 @@
 
       for (let i = 1; i <= count; i++) {
         const existing = currentBoats.find(b => b.id === i);
-        appData.boats.push(existing || {
-          id: i,
-          label: `BOAT ${i}`,
-          anglers: Array.from({ length: 8 }, () => ({ name: "", team: "", points: 0, species: 0, fish: 0 }))
-        });
+        if (existing) {
+          while (existing.anglers.length < 8) {
+            existing.anglers.push({ name: "", team: "", points: 0, species: 0, fish: 0 });
+          }
+          appData.boats.push(existing);
+        } else {
+          appData.boats.push({
+            id: i,
+            label: `BOAT ${i}`,
+            anglers: Array.from({ length: 8 }, () => ({ name: "", team: "", points: 0, species: 0, fish: 0 }))
+          });
+        }
       }
       saveData();
       renderSetup();
@@ -1297,7 +1351,7 @@
       `).join('');
     }
 
-    // DASHBOARD TAB
+    // DASHBOARD TAB WITH EXPANDED BOAT COMPARISONS
     function renderDashboard() {
       const allAnglers = getAllAnglersProcessed();
       
@@ -1341,13 +1395,44 @@
         }
       }
 
-      // Boat Performance Summary
+      // Top 10 overall anglers array for boat contribution tracking
+      const top10Overall = allAnglers.slice(0, 10);
+
+      // Boat Performance & Comparison Summary Engine
       const boatBody = document.getElementById("boat-performance-body");
       let boatStats = appData.boats.map(b => {
+        const count = b.anglers.length;
         const bPoints = b.anglers.reduce((sum, a) => sum + (a.points || 0), 0);
         const bFish = b.anglers.reduce((sum, a) => sum + (a.fish || 0), 0);
-        const avgPts = b.anglers.length > 0 ? bPoints / b.anglers.length : 0;
-        return { label: b.label, count: b.anglers.length, points: bPoints, avgPts, fish: bFish };
+        const bSpecies = b.anglers.reduce((sum, a) => sum + (a.species || 0), 0);
+        
+        // Calculate percentages per boat
+        const maxPts = Math.max(...b.anglers.map(a => a.points), 0);
+        const totalPctSum = b.anglers.reduce((sum, a) => {
+          const pct = maxPts > 0 ? (a.points / maxPts) * 100 : 0;
+          return sum + pct;
+        }, 0);
+
+        const avgPts = count > 0 ? bPoints / count : 0;
+        const avgFish = count > 0 ? bFish / count : 0;
+        const avgSpecies = count > 0 ? bSpecies / count : 0;
+        const balanceIndex = count > 0 ? totalPctSum / count : 0;
+
+        // Count how many anglers from this boat made the top 10 overall
+        const top10Count = b.anglers.filter(a => 
+          top10Overall.some(t10 => t10.name === a.name && t10.boatLabel === b.label && a.points > 0)
+        ).length;
+
+        return {
+          label: b.label,
+          count,
+          points: bPoints,
+          avgPts,
+          avgFish,
+          avgSpecies,
+          balanceIndex,
+          top10Count
+        };
       });
 
       boatStats.sort((a, b) => b.avgPts - a.avgPts);
@@ -1358,7 +1443,10 @@
           <td>${b.count}</td>
           <td>${b.points}</td>
           <td style="font-weight: bold; color: var(--accent-green-hover);">${b.avgPts.toFixed(1)}</td>
-          <td>${b.fish}</td>
+          <td>${b.avgFish.toFixed(1)}</td>
+          <td>${b.avgSpecies.toFixed(1)}</td>
+          <td><span class="pct-badge">${b.balanceIndex.toFixed(1)}%</span></td>
+          <td style="font-weight: bold;">${b.top10Count}</td>
         </tr>
       `).join('');
     }
