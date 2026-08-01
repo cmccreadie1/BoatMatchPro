@@ -886,9 +886,9 @@
                 Avg Species / Angler
                 <span class="header-sub">Average species count per angler</span>
               </th>
-              <th style="text-align: center;">
-                Boat Parity Index
-                <span class="header-sub">Measures how closely matched anglers were on this boat</span>
+              <th>
+                Point Spread
+                <span class="header-sub">Total boat gap & top-3 podium breaks</span>
               </th>
               <th>
                 Top 10 Anglers
@@ -1440,7 +1440,7 @@
       }).join('');
     }
 
-    // DASHBOARD TAB WITH BOAT PARITY INDEX
+    // DASHBOARD TAB WITH POINT SPREAD METRIC
     function renderDashboard() {
       const allAnglers = getAllAnglersProcessed();
       
@@ -1487,7 +1487,7 @@
       // Top 10 overall anglers array for boat contribution tracking
       const top10Overall = allAnglers.slice(0, 10);
 
-      // Boat Performance & Parity Index Calculation
+      // Boat Performance & Point Spread Calculation
       const boatBody = document.getElementById("boat-performance-body");
       let boatStats = appData.boats.map(b => {
         const count = b.anglers.length;
@@ -1495,15 +1495,25 @@
         const bFish = b.anglers.reduce((sum, a) => sum + (a.fish || 0), 0);
         const bSpecies = b.anglers.reduce((sum, a) => sum + (a.species || 0), 0);
         
-        // Calculate percentages per boat
-        const maxPts = Math.max(...b.anglers.map(a => a.points), 0);
-        const percentages = b.anglers.map(a => maxPts > 0 ? (a.points / maxPts) * 100 : 0);
+        // Sort boat anglers by score for point spread calculations
+        const sortedAnglers = [...b.anglers].sort((a, b) => b.points - a.points || b.species - a.species || b.fish - a.fish);
         
-        // Non-winner average percentage calculation for Parity Index
-        const nonWinners = percentages.filter(p => p < 100);
-        const parityIndex = nonWinners.length > 0 
-          ? nonWinners.reduce((sum, p) => sum + p, 0) / nonWinners.length 
-          : (percentages.length > 0 ? 100 : 0);
+        let totalSpread = 0;
+        let gap12 = "N/A";
+        let gap23 = "N/A";
+
+        if (sortedAnglers.length > 0) {
+          const maxPts = sortedAnglers[0].points || 0;
+          const minPts = sortedAnglers[sortedAnglers.length - 1].points || 0;
+          totalSpread = maxPts - minPts;
+
+          if (sortedAnglers.length >= 2) {
+            gap12 = `${(sortedAnglers[0].points || 0) - (sortedAnglers[1].points || 0)}p`;
+          }
+          if (sortedAnglers.length >= 3) {
+            gap23 = `${(sortedAnglers[1].points || 0) - (sortedAnglers[2].points || 0)}p`;
+          }
+        }
 
         const avgPts = count > 0 ? bPoints / count : 0;
         const avgFish = count > 0 ? bFish / count : 0;
@@ -1521,7 +1531,9 @@
           avgPts,
           avgFish,
           avgSpecies,
-          parityIndex,
+          totalSpread,
+          gap12,
+          gap23,
           top10Count
         };
       });
@@ -1536,7 +1548,15 @@
           <td style="font-weight: bold; color: var(--accent-orange);">${b.avgPts.toFixed(1)}</td>
           <td>${b.avgFish.toFixed(1)}</td>
           <td>${b.avgSpecies.toFixed(1)}</td>
-          <td class="pct-cell"><span class="pct-badge">${b.parityIndex.toFixed(1)}%</span></td>
+          <td>
+            <div style="font-weight: bold; font-size: 0.95rem;">
+              ${b.totalSpread} PTS 
+              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">(Total Boat Spread)</span>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--accent-orange); font-weight: bold; margin-top: 2px;">
+              Gaps: 1st ➔ 2nd: ${b.gap12} | 2nd ➔ 3rd: ${b.gap23}
+            </div>
+          </td>
           <td style="font-weight: bold;">${b.top10Count}</td>
         </tr>
       `).join('');
