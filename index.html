@@ -1224,9 +1224,28 @@
       }
       appData.boats[bIndex].anglers[aIndex][field] = val;
       saveData();
+
+      // DOM-Direct update for percentage badges to preserve keyboard tab focus
+      if (field === 'points') {
+        updateBoatPercentagesDOM(bIndex);
+      }
     }
 
-    // SCORE ENTRY TAB WITH FIXED SEQUENTIAL TABINDEX AND AUTO-SELECT ON FOCUS
+    function updateBoatPercentagesDOM(bIndex) {
+      const boat = appData.boats[bIndex];
+      if (!boat) return;
+      const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
+
+      boat.anglers.forEach((a, aIndex) => {
+        const badge = document.getElementById(`pct-badge-${bIndex}-${aIndex}`);
+        if (badge) {
+          const pct = maxPts > 0 ? ((a.points / maxPts) * 100).toFixed(2) : "0.00";
+          badge.innerText = `${pct}%`;
+        }
+      });
+    }
+
+    // SCORE ENTRY TAB WITH FIXED TABINDEX AND DOM-DIRECT PERCENTAGE BADGE UPDATES
     function renderScoreEntry() {
       const container = document.getElementById("score-entry-container");
       let html = "";
@@ -1264,10 +1283,10 @@
                 <div class="score-row">
                   <div style="font-weight: bold;">${aIndex + 1}. ${a.name || 'UNNAMED'}</div>
                   <div style="color: var(--text-muted); font-weight: 600;">${a.team || 'NONE'}</div>
-                  <input type="number" tabindex="${tab1}" value="${a.points}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'points', this.value); renderScoreEntry();">
+                  <input type="number" tabindex="${tab1}" value="${a.points}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'points', this.value);">
                   <input type="number" tabindex="${tab2}" value="${a.species}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'species', this.value);">
                   <input type="number" tabindex="${tab3}" value="${a.fish}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'fish', this.value);">
-                  <div class="pct-cell"><span class="pct-badge">${pct}%</span></div>
+                  <div class="pct-cell"><span id="pct-badge-${bIndex}-${aIndex}" class="pct-badge">${pct}%</span></div>
                 </div>
               `;
             }).join('')}
@@ -1375,7 +1394,29 @@
       `).join('');
     }
 
-    // TEAM LEADERBOARD TAB WITH MATCHING INLINE PERCENTAGE BADGES
+    // HELPER: SHORTEN ANGLER NAME TO FIRST NAME (PLUS INITIAL IF DUPLICATED WITHIN TEAM)
+    function formatMemberDisplayName(fullName, allTeamMembers) {
+      if (!fullName || fullName.trim() === "") return "UNNAMED";
+      const parts = fullName.trim().split(/\s+/);
+      const firstName = parts[0];
+
+      // Check if another team member shares this exact first name
+      const duplicateCount = allTeamMembers.filter(m => {
+        if (!m.name) return false;
+        const p = m.name.trim().split(/\s+/);
+        return p[0].toUpperCase() === firstName.toUpperCase();
+      }).length;
+
+      if (duplicateCount > 1 && parts.length > 1) {
+        // Shared first name: append last initial (e.g., JOHN A)
+        const initial = parts[parts.length - 1].charAt(0).toUpperCase();
+        return `${firstName} ${initial}`;
+      }
+      // Unique first name: return first name only (e.g., ROSSCO)
+      return firstName;
+    }
+
+    // TEAM LEADERBOARD TAB WITH SHORTENED MEMBER NAMES AND INLINE PERCENTAGE BADGES
     function renderTeamLeaderboard() {
       const tbody = document.getElementById("team-leaderboard-body");
       const allAnglers = getAllAnglersProcessed();
@@ -1416,7 +1457,10 @@
           <td class="${t.isEligible ? 'rank-' + (idx + 1) : ''}">${t.isEligible ? idx + 1 : 'N/A'}</td>
           <td style="font-weight: bold;">${t.name}</td>
           <td style="font-weight: 600;">
-            ${t.members.map(m => `${m.name || 'UNNAMED'} <span class="pct-badge pct-badge-sm">${m.pct.toFixed(2)}%</span>`).join(', ')}
+            ${t.members.map(m => {
+              const displayName = formatMemberDisplayName(m.name, t.members);
+              return `${displayName} <span class="pct-badge pct-badge-sm">${m.pct.toFixed(2)}%</span>`;
+            }).join(', ')}
           </td>
           <td>
             ${t.isEligible 
