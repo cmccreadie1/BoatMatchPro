@@ -396,11 +396,6 @@
       vertical-align: middle;
     }
 
-    .ineligible {
-      opacity: 0.65;
-      background: rgba(220, 38, 38, 0.04);
-    }
-
     .action-bar {
       display: flex;
       gap: 10px;
@@ -806,7 +801,7 @@
     <div class="card">
       <div class="card-title">Team Standings</div>
       <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; font-weight: 600;">
-        Note: Teams must have exactly 4 members to qualify. Standings are calculated by the sum of member percentage scores.
+        Note: Standings are calculated by the sum of member percentage scores across all registered team members.
       </p>
       <div style="overflow-x: auto;">
         <table>
@@ -815,7 +810,6 @@
               <th>Pos</th>
               <th>Team Name</th>
               <th>Members & Individual Contributions</th>
-              <th>Status</th>
               <th style="text-align: center;">Total Percentage</th>
             </tr>
           </thead>
@@ -893,8 +887,8 @@
                 <span class="header-sub">Average species count per angler</span>
               </th>
               <th style="text-align: center;">
-                Boat Balance Index
-                <span class="header-sub">Average % score of boat roster</span>
+                Boat Parity Index
+                <span class="header-sub">Measures how closely matched anglers were on this boat</span>
               </th>
               <th>
                 Top 10 Anglers
@@ -988,7 +982,7 @@
         <!-- GUIDE TAB 3: SCORING RULES -->
         <div id="guide-tab-3" class="guide-tab-content">
           <div class="guide-title">Scoring Calculations & Team Rules</div>
-          <div class="guide-subtitle">How relative boat percentages, tie-breakers, and 4-person teams operate.</div>
+          <div class="guide-subtitle">How relative boat percentages, tie-breakers, and team competitions operate.</div>
 
           <div class="step-list">
             <div class="step-item">
@@ -1010,11 +1004,11 @@
             </div>
 
             <div class="step-item">
-              <div class="step-header">👥 4-Person Team Competition</div>
+              <div class="step-header">👥 Team Competition</div>
               <div class="step-desc">
-                • Teams must have <strong>exactly 4 registered anglers</strong> across all boats to qualify.<br>
-                • Teams with fewer or more than 4 members automatically show as <strong>Ineligible</strong>.<br>
-                • Qualified team scores combine all 4 individual percentage scores together.
+                • All teams with registered members are fully eligible to compete.<br>
+                • Team standings are calculated by combining the individual percentage scores of all members.<br>
+                • Smaller teams naturally accept a handicap based on their member count.
               </div>
             </div>
           </div>
@@ -1394,29 +1388,7 @@
       `).join('');
     }
 
-    // HELPER: SHORTEN ANGLER NAME TO FIRST NAME (PLUS INITIAL IF DUPLICATED WITHIN TEAM)
-    function formatMemberDisplayName(fullName, allTeamMembers) {
-      if (!fullName || fullName.trim() === "") return "UNNAMED";
-      const parts = fullName.trim().split(/\s+/);
-      const firstName = parts[0];
-
-      // Check if another team member shares this exact first name
-      const duplicateCount = allTeamMembers.filter(m => {
-        if (!m.name) return false;
-        const p = m.name.trim().split(/\s+/);
-        return p[0].toUpperCase() === firstName.toUpperCase();
-      }).length;
-
-      if (duplicateCount > 1 && parts.length > 1) {
-        // Shared first name: append last initial (e.g., JOHN A)
-        const initial = parts[parts.length - 1].charAt(0).toUpperCase();
-        return `${firstName} ${initial}`;
-      }
-      // Unique first name: return first name only (e.g., ROSSCO)
-      return firstName;
-    }
-
-    // TEAM LEADERBOARD TAB WITH SHORTENED MEMBER NAMES AND INLINE PERCENTAGE BADGES
+    // TEAM LEADERBOARD TAB WITH FULL ANGLER NAMES & SUB-TEXT MEMBER COUNTS ONLY WHEN NEEDED
     function renderTeamLeaderboard() {
       const tbody = document.getElementById("team-leaderboard-body");
       const allAnglers = getAllAnglersProcessed();
@@ -1434,45 +1406,41 @@
       Object.keys(teams).forEach(tName => {
         const members = teams[tName];
         const count = members.length;
-        const isEligible = count === 4;
         const totalPct = members.reduce((sum, m) => sum + m.pct, 0);
 
         teamResults.push({
           name: tName,
           members,
           count,
-          isEligible,
           totalPct
         });
       });
 
-      teamResults.sort((a, b) => {
-        if (a.isEligible && !b.isEligible) return -1;
-        if (!a.isEligible && b.isEligible) return 1;
-        return b.totalPct - a.totalPct;
-      });
+      teamResults.sort((a, b) => b.totalPct - a.totalPct);
 
-      tbody.innerHTML = teamResults.map((t, idx) => `
-        <tr class="${t.isEligible ? '' : 'ineligible'}">
-          <td class="${t.isEligible ? 'rank-' + (idx + 1) : ''}">${t.isEligible ? idx + 1 : 'N/A'}</td>
-          <td style="font-weight: bold;">${t.name}</td>
-          <td style="font-weight: 600;">
-            ${t.members.map(m => {
-              const displayName = formatMemberDisplayName(m.name, t.members);
-              return `${displayName} <span class="pct-badge pct-badge-sm">${m.pct.toFixed(2)}%</span>`;
-            }).join(', ')}
-          </td>
-          <td>
-            ${t.isEligible 
-              ? '<span style="color: var(--accent-orange); font-weight: 800;">Qualified (4)</span>' 
-              : `<span style="color: var(--danger); font-weight: 800;">Ineligible (${t.count}/4)</span>`}
-          </td>
-          <td class="pct-cell"><span class="pct-badge">${t.totalPct.toFixed(2)}%</span></td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = teamResults.map((t, idx) => {
+        // Show count only if not a standard 4-person roster
+        const memberCountSubtext = t.count !== 4 
+          ? `<span style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">(${t.count} Members)</span>`
+          : '';
+
+        return `
+          <tr>
+            <td class="rank-${idx+1}">${idx + 1}</td>
+            <td style="font-weight: bold; white-space: nowrap;">
+              ${t.name}
+              ${memberCountSubtext}
+            </td>
+            <td style="font-weight: 600;">
+              ${t.members.map(m => `${m.name || 'UNNAMED'} <span class="pct-badge pct-badge-sm">${m.pct.toFixed(2)}%</span>`).join(', ')}
+            </td>
+            <td class="pct-cell"><span class="pct-badge">${t.totalPct.toFixed(2)}%</span></td>
+          </tr>
+        `;
+      }).join('');
     }
 
-    // DASHBOARD TAB WITH EXPANDED BOAT COMPARISONS
+    // DASHBOARD TAB WITH BOAT PARITY INDEX
     function renderDashboard() {
       const allAnglers = getAllAnglersProcessed();
       
@@ -1519,7 +1487,7 @@
       // Top 10 overall anglers array for boat contribution tracking
       const top10Overall = allAnglers.slice(0, 10);
 
-      // Boat Performance & Comparison Summary Engine
+      // Boat Performance & Parity Index Calculation
       const boatBody = document.getElementById("boat-performance-body");
       let boatStats = appData.boats.map(b => {
         const count = b.anglers.length;
@@ -1529,15 +1497,17 @@
         
         // Calculate percentages per boat
         const maxPts = Math.max(...b.anglers.map(a => a.points), 0);
-        const totalPctSum = b.anglers.reduce((sum, a) => {
-          const pct = maxPts > 0 ? (a.points / maxPts) * 100 : 0;
-          return sum + pct;
-        }, 0);
+        const percentages = b.anglers.map(a => maxPts > 0 ? (a.points / maxPts) * 100 : 0);
+        
+        // Non-winner average percentage calculation for Parity Index
+        const nonWinners = percentages.filter(p => p < 100);
+        const parityIndex = nonWinners.length > 0 
+          ? nonWinners.reduce((sum, p) => sum + p, 0) / nonWinners.length 
+          : (percentages.length > 0 ? 100 : 0);
 
         const avgPts = count > 0 ? bPoints / count : 0;
         const avgFish = count > 0 ? bFish / count : 0;
         const avgSpecies = count > 0 ? bSpecies / count : 0;
-        const balanceIndex = count > 0 ? totalPctSum / count : 0;
 
         // Count how many anglers from this boat made the top 10 overall
         const top10Count = b.anglers.filter(a => 
@@ -1551,7 +1521,7 @@
           avgPts,
           avgFish,
           avgSpecies,
-          balanceIndex,
+          parityIndex,
           top10Count
         };
       });
@@ -1566,7 +1536,7 @@
           <td style="font-weight: bold; color: var(--accent-orange);">${b.avgPts.toFixed(1)}</td>
           <td>${b.avgFish.toFixed(1)}</td>
           <td>${b.avgSpecies.toFixed(1)}</td>
-          <td class="pct-cell"><span class="pct-badge">${b.balanceIndex.toFixed(1)}%</span></td>
+          <td class="pct-cell"><span class="pct-badge">${b.parityIndex.toFixed(1)}%</span></td>
           <td style="font-weight: bold;">${b.top10Count}</td>
         </tr>
       `).join('');
