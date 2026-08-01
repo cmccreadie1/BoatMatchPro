@@ -5,19 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BoatMatch Pro — Sea Angling Competition Scoring</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0284c7">
+  <meta name="theme-color" content="#131a22">
   <!-- html2pdf library for direct background PDF generation with custom filenames -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     :root {
-      --bg-light: #f1f5f9;
+      /* Stitch Redesign Colors */
+      --bg-light: #f0f2f5;
       --card-bg: #ffffff;
-      --card-border: #94a3b8;
-      --navy-header: #0f172a;
-      --accent-cyan: #0284c7;
-      --accent-cyan-hover: #0369a1;
-      --text-main: #0f172a;
-      --text-muted: #475569;
+      --card-border: #cbd5e1;
+      --navy-header: #131a22;
+      --accent-orange: #c85103;
+      --accent-orange-hover: #b04602;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
       --danger: #dc2626;
       --danger-hover: #b91c1c;
       --input-bg: #ffffff;
@@ -46,11 +47,11 @@
       padding: 16px 20px;
       background: var(--navy-header);
       color: #ffffff;
-      border-radius: 12px;
+      border-radius: 8px;
       margin-bottom: 24px;
       flex-wrap: wrap;
       gap: 15px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      box-shadow: 0 4px 12px rgba(19, 26, 34, 0.15);
     }
 
     h1 {
@@ -64,58 +65,54 @@
     }
 
     .badge {
-      background: rgba(56, 189, 248, 0.2);
-      color: #38bdf8;
+      background: rgba(200, 81, 3, 0.2);
+      color: var(--accent-orange);
       font-size: 0.8rem;
       padding: 4px 10px;
       border-radius: 20px;
-      border: 1px solid #38bdf8;
+      border: 1px solid var(--accent-orange);
       font-weight: 700;
     }
 
-    /* HIGH-CONTRAST CONSOLE TAB NAVIGATION */
+    /* HIGH-CONTRAST STITCH TAB NAVIGATION */
     nav {
       display: flex;
-      gap: 8px;
-      margin-bottom: 0;
-      padding: 0 4px;
-      border-bottom: 3px solid var(--navy-header);
+      gap: 0;
+      margin-bottom: 24px;
+      padding: 0;
+      border-bottom: 1px solid var(--card-border);
+      background: var(--card-bg);
+      border-radius: 8px;
       overflow-x: auto;
-      align-items: flex-end;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
     .nav-btn {
       flex: 1;
-      background: #cbd5e1;
-      border: 2px solid var(--card-border);
-      border-bottom: none;
-      color: var(--navy-header);
-      padding: 12px 18px;
-      border-radius: 10px 10px 0 0;
-      font-weight: 800;
-      font-size: 0.9rem;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 16px 18px;
+      font-weight: 700;
+      font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
-      position: relative;
-      top: 3px;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.05em;
+      border-bottom: 3px solid transparent;
     }
 
     .nav-btn:hover {
-      background: #e2e8f0;
-      color: var(--accent-cyan-hover);
+      background: rgba(0,0,0,0.02);
+      color: var(--navy-header);
     }
 
     .nav-btn.active {
-      background: var(--card-bg);
-      color: var(--accent-cyan-hover);
-      border: 3px solid var(--navy-header);
-      border-top: 5px solid var(--accent-cyan);
-      border-bottom: 3px solid var(--card-bg);
-      font-weight: 900;
-      z-index: 2;
+      background: transparent;
+      color: var(--navy-header);
+      border-bottom: 3px solid var(--accent-orange);
+      font-weight: 800;
     }
 
     .tab-content {
@@ -126,13 +123,14 @@
       display: block;
     }
 
+    /* STITCH CARD STYLE */
     .card {
       background: var(--card-bg);
-      border: 3px solid var(--navy-header);
-      border-radius: 0 0 12px 12px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
       padding: 24px;
-      margin-bottom: 28px;
-      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
     .card-title {
@@ -164,27 +162,28 @@
       letter-spacing: 0.04em;
     }
 
+    /* CENTER-ALIGNED INPUT FIELDS */
     input, select {
       background: var(--input-bg);
-      border: 2px solid var(--card-border);
+      border: 1px solid var(--card-border);
       color: var(--text-main);
       padding: 10px 10px;
-      border-radius: 8px;
+      border-radius: 4px;
       font-size: 0.95rem;
       font-weight: 600;
       width: 100%;
+      text-align: center;
       transition: all 0.2s ease;
     }
 
-    /* Auto-Uppercase styling for typing text */
     input.uppercase, input[type="text"] {
       text-transform: uppercase;
     }
 
     input:focus, select:focus {
       outline: none;
-      border-color: var(--accent-cyan);
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 3px rgba(200, 81, 3, 0.2);
     }
 
     .grid-2 {
@@ -193,7 +192,6 @@
       gap: 18px;
     }
 
-    /* 2-COLUMN REGISTRATION LAYOUT */
     .anglers-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -201,11 +199,11 @@
     }
 
     .btn {
-      background: var(--accent-cyan);
+      background: var(--accent-orange);
       color: #fff;
       border: none;
       padding: 10px 18px;
-      border-radius: 8px;
+      border-radius: 4px;
       font-weight: 700;
       cursor: pointer;
       transition: background 0.2s ease;
@@ -215,17 +213,15 @@
       justify-content: center;
       text-transform: uppercase;
       letter-spacing: 0.03em;
-      box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
     }
 
     .btn:hover {
-      background: var(--accent-cyan-hover);
+      background: var(--accent-orange-hover);
     }
 
     .btn-danger {
       background: var(--danger);
       color: #fff;
-      box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
     }
 
     .btn-danger:hover {
@@ -235,7 +231,7 @@
     .btn-secondary {
       background: #e2e8f0;
       color: var(--navy-header);
-      border: 2px solid var(--card-border);
+      border: 1px solid var(--card-border);
     }
 
     .btn-secondary:hover {
@@ -245,9 +241,9 @@
     .btn-delete-angler {
       background: rgba(220, 38, 38, 0.1);
       color: var(--danger);
-      border: 2px solid rgba(220, 38, 38, 0.3);
+      border: 1px solid rgba(220, 38, 38, 0.3);
       padding: 8px 12px;
-      border-radius: 6px;
+      border-radius: 4px;
       font-weight: 700;
       font-size: 0.85rem;
       cursor: pointer;
@@ -269,13 +265,13 @@
       gap: 10px;
       background: #f8fafc;
       padding: 12px;
-      border-radius: 8px;
-      border: 2px solid var(--card-border);
+      border-radius: 4px;
+      border: 1px solid var(--card-border);
     }
 
     .angler-num {
       font-weight: 900;
-      color: var(--accent-cyan-hover);
+      color: var(--accent-orange);
       font-size: 1.1rem;
       min-width: 20px;
       text-align: center;
@@ -288,9 +284,9 @@
       align-items: center;
       background: #f8fafc;
       padding: 12px;
-      border-radius: 8px;
+      border-radius: 4px;
       margin-bottom: 10px;
-      border: 2px solid var(--card-border);
+      border: 1px solid var(--card-border);
     }
 
     /* ELEGANT MATHEMATICAL FORMULA HEADER STYLING */
@@ -300,6 +296,8 @@
       gap: 6px;
       font-family: "Georgia", "Times New Roman", serif;
       text-transform: none;
+      justify-content: center;
+      width: 100%;
     }
 
     .math-fraction {
@@ -345,14 +343,14 @@
 
     th, td {
       padding: 12px 15px;
-      border-bottom: 2px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
     }
 
     th {
-      background: var(--navy-header);
-      color: #ffffff;
+      background: #f8fafc;
+      color: var(--text-muted);
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -368,21 +366,34 @@
     }
 
     tr:hover {
-      background: rgba(2, 132, 199, 0.05);
+      background: rgba(200, 81, 3, 0.03);
     }
 
     .rank-1 { color: var(--gold-winner); font-weight: 900; }
     .rank-2 { color: #64748b; font-weight: 900; }
     .rank-3 { color: #b45309; font-weight: 900; }
 
+    /* CENTERED PERCENTAGE BADGE CONTAINER & BADGE STYLES */
+    .pct-cell {
+      text-align: center;
+    }
+
     .pct-badge {
-      background: rgba(2, 132, 199, 0.12);
-      color: var(--accent-cyan-hover);
+      background: rgba(200, 81, 3, 0.1);
+      color: var(--accent-orange-hover);
       font-weight: 800;
       padding: 4px 10px;
-      border-radius: 6px;
+      border-radius: 4px;
       display: inline-block;
-      border: 1px solid rgba(2, 132, 199, 0.3);
+      border: 1px solid rgba(200, 81, 3, 0.2);
+      text-align: center;
+    }
+
+    .pct-badge-sm {
+      font-size: 0.8rem;
+      padding: 2px 6px;
+      margin-left: 2px;
+      vertical-align: middle;
     }
 
     .ineligible {
@@ -407,17 +418,17 @@
 
     .metric-card {
       background: var(--card-bg);
-      border: 3px solid var(--navy-header);
+      border: 1px solid var(--card-border);
       padding: 20px;
-      border-radius: 12px;
+      border-radius: 8px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
     .metric-value {
       font-size: 2.2rem;
       font-weight: 900;
-      color: var(--accent-cyan-hover);
+      color: var(--accent-orange);
       margin-top: 6px;
     }
 
@@ -445,11 +456,11 @@
 
     .badge-card {
       background: var(--card-bg);
-      border: 3px solid var(--navy-header);
+      border: 1px solid var(--card-border);
       border-left: 6px solid var(--gold-winner);
       padding: 18px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
     .badge-title {
@@ -470,7 +481,7 @@
     .badge-detail {
       font-size: 0.95rem;
       font-weight: 800;
-      color: var(--accent-cyan-hover);
+      color: var(--accent-orange);
       margin-top: 4px;
     }
 
@@ -482,7 +493,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(19, 26, 34, 0.75);
       backdrop-filter: blur(4px);
       z-index: 1000;
       justify-content: center;
@@ -496,7 +507,7 @@
 
     .modal-content {
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 8px;
       max-width: 820px;
       width: 100%;
       max-height: 88vh;
@@ -505,7 +516,7 @@
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
       position: relative;
       overflow: hidden;
-      border: 3px solid var(--navy-header);
+      border: 1px solid var(--card-border);
     }
 
     .modal-header {
@@ -515,7 +526,6 @@
       padding: 18px 24px;
       background: var(--navy-header);
       color: #ffffff;
-      border-bottom: 2px solid var(--card-border);
     }
 
     .modal-header h2 {
@@ -537,49 +547,39 @@
       color: #ffffff;
     }
 
-    /* HIGH-CONTRAST GUIDE TAB NAVIGATION */
     .guide-tabs {
       display: flex;
-      background: #f1f5f9;
-      border-bottom: 3px solid var(--navy-header);
+      background: var(--bg-light);
+      border-bottom: 1px solid var(--card-border);
       padding: 12px 16px 0 16px;
-      gap: 8px;
+      gap: 0;
       overflow-x: auto;
-      align-items: flex-end;
     }
 
     .guide-tab-btn {
-      padding: 10px 18px;
-      background: #cbd5e1;
-      border: 2px solid var(--card-border);
-      border-bottom: none;
-      border-radius: 8px 8px 0 0;
+      padding: 12px 18px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
       font-size: 0.9rem;
-      font-weight: 800;
-      color: var(--navy-header);
+      font-weight: 700;
+      color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
-      position: relative;
-      top: 3px;
+      text-transform: uppercase;
     }
 
     .guide-tab-btn:hover {
-      background: #e2e8f0;
-      color: var(--accent-cyan-hover);
+      color: var(--navy-header);
     }
 
     .guide-tab-btn.active {
-      color: var(--accent-cyan-hover);
-      background: #ffffff;
-      border: 3px solid var(--navy-header);
-      border-top: 4px solid var(--accent-cyan);
-      border-bottom: 3px solid #ffffff;
-      font-weight: 900;
-      z-index: 2;
+      color: var(--navy-header);
+      border-bottom: 3px solid var(--accent-orange);
+      font-weight: 800;
     }
 
-    /* DEDICATED READING CONTENT CARD */
     .guide-body {
       padding: 24px;
       overflow-y: auto;
@@ -618,8 +618,8 @@
 
     .step-item {
       background: #ffffff;
-      border: 2px solid var(--card-border);
-      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
       padding: 16px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }
@@ -629,7 +629,7 @@
       align-items: center;
       gap: 10px;
       font-weight: 800;
-      color: var(--accent-cyan-hover);
+      color: var(--accent-orange);
       font-size: 1rem;
       margin-bottom: 6px;
     }
@@ -639,7 +639,7 @@
       color: #ffffff;
       font-size: 0.75rem;
       padding: 2px 8px;
-      border-radius: 12px;
+      border-radius: 4px;
       font-weight: 800;
     }
 
@@ -650,23 +650,23 @@
     }
 
     .guide-callout {
-      background: rgba(2, 132, 199, 0.08);
-      border-left: 5px solid var(--accent-cyan);
+      background: rgba(200, 81, 3, 0.05);
+      border-left: 4px solid var(--accent-orange);
       padding: 14px 16px;
-      border-radius: 6px;
+      border-radius: 4px;
       font-size: 0.9rem;
       line-height: 1.5;
       margin-top: 16px;
       color: var(--text-main);
-      border-top: 1px solid rgba(2, 132, 199, 0.2);
-      border-right: 1px solid rgba(2, 132, 199, 0.2);
-      border-bottom: 1px solid rgba(2, 132, 199, 0.2);
+      border-top: 1px solid rgba(200, 81, 3, 0.1);
+      border-right: 1px solid rgba(200, 81, 3, 0.1);
+      border-bottom: 1px solid rgba(200, 81, 3, 0.1);
     }
 
     .faq-item {
       margin-bottom: 20px;
       padding-bottom: 16px;
-      border-bottom: 2px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
     }
 
     .faq-item:last-child {
@@ -691,7 +691,7 @@
     .modal-footer {
       padding: 14px 24px;
       background: #ffffff;
-      border-top: 2px solid var(--card-border);
+      border-top: 1px solid var(--card-border);
       display: flex;
       justify-content: flex-end;
     }
@@ -713,7 +713,7 @@
 
       .card { border: 1px solid #ccc; box-shadow: none; background: #fff; color: #000; page-break-inside: avoid; }
       th, td { border-bottom: 1px solid #ccc; color: #000; }
-      th { background: #0f172a !important; color: #fff !important; }
+      th { background: #f8fafc !important; color: #000 !important; }
       .pct-badge { background: none; color: #000; font-weight: bold; border: none; }
     }
   </style>
@@ -747,7 +747,7 @@
   <!-- TAB 1: SETUP -->
   <div id="tab-setup" class="tab-content active">
     <div class="card">
-      <div class="card-title" style="color: var(--accent-cyan-hover);">Tournament Details</div>
+      <div class="card-title" style="color: var(--accent-orange);">Tournament Details</div>
       <div class="grid-2">
         <div class="form-group">
           <label for="match-name">Competition Name</label>
@@ -760,7 +760,7 @@
       </div>
       <div class="form-group" style="max-width: 220px;">
         <label for="boat-count">Number of Boats</label>
-        <input type="number" id="boat-count" min="1" max="20" value="3" onchange="generateBoatCards()">
+        <input type="number" id="boat-count" min="1" max="20" value="3" onfocus="this.select()" onchange="generateBoatCards()">
       </div>
     </div>
 
@@ -792,7 +792,7 @@
               <th>Raw Points</th>
               <th>Species</th>
               <th>Fish Count</th>
-              <th>Percentage Score</th>
+              <th style="text-align: center;">Percentage Score</th>
             </tr>
           </thead>
           <tbody id="indiv-leaderboard-body"></tbody>
@@ -804,7 +804,7 @@
   <!-- TAB 5: TEAM LEADERBOARD -->
   <div id="tab-team-results" class="tab-content">
     <div class="card">
-      <div class="card-title">4-Person Team Standings</div>
+      <div class="card-title">Team Standings</div>
       <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; font-weight: 600;">
         Note: Teams must have exactly 4 members to qualify. Standings are calculated by the sum of member percentage scores.
       </p>
@@ -814,9 +814,9 @@
             <tr>
               <th>Pos</th>
               <th>Team Name</th>
-              <th>Members</th>
+              <th>Members & Individual Contributions</th>
               <th>Status</th>
-              <th>Total Percentage</th>
+              <th style="text-align: center;">Total Percentage</th>
             </tr>
           </thead>
           <tbody id="team-leaderboard-body"></tbody>
@@ -892,7 +892,7 @@
                 Avg Species / Angler
                 <span class="header-sub">Average species count per angler</span>
               </th>
-              <th>
+              <th style="text-align: center;">
                 Boat Balance Index
                 <span class="header-sub">Average % score of boat roster</span>
               </th>
@@ -1177,7 +1177,7 @@
           <div class="card-title">
             <div style="display: flex; flex-direction: column; gap: 4px;">
               <label style="font-size: 0.75rem;">Boat Name</label>
-              <input type="text" value="${boat.label}" class="uppercase" style="max-width: 250px; font-weight: bold; color: var(--accent-cyan-hover);" onchange="updateBoatLabel(${bIndex}, this.value)">
+              <input type="text" value="${boat.label}" class="uppercase" style="max-width: 250px; font-weight: bold; color: var(--accent-orange);" onchange="updateBoatLabel(${bIndex}, this.value)">
             </div>
             <button class="btn btn-secondary" onclick="addAngler(${bIndex})">➕ Add Angler</button>
           </div>
@@ -1187,7 +1187,7 @@
                 <span class="angler-num">${aIndex + 1}</span>
                 <input type="text" class="uppercase" placeholder="ANGLER NAME" value="${a.name}" onchange="updateAngler(${bIndex}, ${aIndex}, 'name', this.value)">
                 <input type="text" class="uppercase" list="team-suggestions" placeholder="TEAM NAME" value="${a.team}" onchange="updateAngler(${bIndex}, ${aIndex}, 'team', this.value)">
-                <button class="btn-delete-angler" title="Delete Angler" onclick="removeAngler(${bIndex}, ${aIndex})">Delete</button>
+                <button tabindex="-1" class="btn-delete-angler" title="Delete Angler" onclick="removeAngler(${bIndex}, ${aIndex})">Delete</button>
               </div>
             `).join('')}
           </div>
@@ -1226,58 +1226,61 @@
       saveData();
     }
 
-    // SCORE ENTRY TAB
+    // SCORE ENTRY TAB WITH FIXED SEQUENTIAL TABINDEX AND AUTO-SELECT ON FOCUS
     function renderScoreEntry() {
       const container = document.getElementById("score-entry-container");
-      container.innerHTML = "";
+      let html = "";
+      let currentTabIndex = 1;
 
       appData.boats.forEach((boat, bIndex) => {
-        const card = document.createElement("div");
-        card.className = "card";
-        
         const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
 
-        card.innerHTML = `
-          <div class="card-title">${boat.label} — Scorecard Entry</div>
-          <div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 8px; color: var(--navy-header); font-size: 0.8rem; font-weight: bold; align-items: center;">
-            <div>ANGLER</div>
-            <div>TEAM</div>
-            <div>RAW PTS</div>
-            <div>SPECIES</div>
-            <div>FISH COUNT</div>
-            <div>
-              <div class="math-formula-header">
-                <div class="math-fraction">
-                  <span class="math-term">Angler Pts</span>
-                  <span class="math-line"></span>
-                  <span class="math-term">Boat Winner Pts</span>
+        html += `
+          <div class="card">
+            <div class="card-title">${boat.label} — Scorecard Entry</div>
+            <div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 8px; color: var(--navy-header); font-size: 0.8rem; font-weight: bold; align-items: center;">
+              <div>ANGLER</div>
+              <div>TEAM</div>
+              <div>RAW PTS</div>
+              <div>SPECIES</div>
+              <div>FISH COUNT</div>
+              <div style="text-align: center;">
+                <div class="math-formula-header">
+                  <div class="math-fraction">
+                    <span class="math-term">Angler Pts</span>
+                    <span class="math-line" style="border-top-color: var(--navy-header);"></span>
+                    <span class="math-term">Boat Winner Pts</span>
+                  </div>
+                  <span class="math-operator">× 100</span>
                 </div>
-                <span class="math-operator">× 100</span>
               </div>
             </div>
+            ${boat.anglers.map((a, aIndex) => {
+              const pct = maxPts > 0 ? ((a.points / maxPts) * 100).toFixed(2) : "0.00";
+              const tab1 = currentTabIndex++;
+              const tab2 = currentTabIndex++;
+              const tab3 = currentTabIndex++;
+              return `
+                <div class="score-row">
+                  <div style="font-weight: bold;">${aIndex + 1}. ${a.name || 'UNNAMED'}</div>
+                  <div style="color: var(--text-muted); font-weight: 600;">${a.team || 'NONE'}</div>
+                  <input type="number" tabindex="${tab1}" value="${a.points}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'points', this.value); renderScoreEntry();">
+                  <input type="number" tabindex="${tab2}" value="${a.species}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'species', this.value);">
+                  <input type="number" tabindex="${tab3}" value="${a.fish}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'fish', this.value);">
+                  <div class="pct-cell"><span class="pct-badge">${pct}%</span></div>
+                </div>
+              `;
+            }).join('')}
           </div>
-          ${boat.anglers.map((a, aIndex) => {
-            const pct = maxPts > 0 ? ((a.points / maxPts) * 100).toFixed(2) : "0.00";
-            return `
-              <div class="score-row">
-                <div style="font-weight: bold;">${aIndex + 1}. ${a.name || 'UNNAMED'}</div>
-                <div style="color: var(--text-muted); font-weight: 600;">${a.team || 'NONE'}</div>
-                <input type="number" value="${a.points}" onchange="updateAngler(${bIndex}, ${aIndex}, 'points', this.value); renderScoreEntry();">
-                <input type="number" value="${a.species}" onchange="updateAngler(${bIndex}, ${aIndex}, 'species', this.value);">
-                <input type="number" value="${a.fish}" onchange="updateAngler(${bIndex}, ${aIndex}, 'fish', this.value);">
-                <div><span class="pct-badge">${pct}%</span></div>
-              </div>
-            `;
-          }).join('')}
         `;
-        container.appendChild(card);
       });
+      container.innerHTML = html;
     }
 
     // BOAT RESULTS TAB
     function renderBoatResults() {
       const container = document.getElementById("boat-results-container");
-      container.innerHTML = "";
+      let html = "";
 
       appData.boats.forEach(boat => {
         const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
@@ -1287,48 +1290,48 @@
           return { ...a, pct };
         }).sort((a, b) => b.points - a.points || b.species - a.species || b.fish - a.fish);
 
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="card-title">${boat.label} — Standings</div>
-          <table>
-            <thead>
-              <tr>
-                <th>Pos</th>
-                <th>Angler</th>
-                <th>Team</th>
-                <th>Raw Points</th>
-                <th>Species</th>
-                <th>Fish Count</th>
-                <th>
-                  <div class="math-formula-header">
-                    <div class="math-fraction">
-                      <span class="math-term">Angler Pts</span>
-                      <span class="math-line"></span>
-                      <span class="math-term">Boat Winner Pts</span>
-                    </div>
-                    <span class="math-operator">× 100</span>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              ${sorted.map((a, idx) => `
+        html += `
+          <div class="card">
+            <div class="card-title">${boat.label} — Standings</div>
+            <table>
+              <thead>
                 <tr>
-                  <td class="rank-${idx+1}">${idx + 1}</td>
-                  <td style="font-weight: bold;">${a.name || 'UNNAMED'}</td>
-                  <td style="font-weight: 600;">${a.team || '-'}</td>
-                  <td>${a.points}</td>
-                  <td>${a.species}</td>
-                  <td>${a.fish}</td>
-                  <td><span class="pct-badge">${a.pct.toFixed(2)}%</span></td>
+                  <th>Pos</th>
+                  <th>Angler</th>
+                  <th>Team</th>
+                  <th>Raw Points</th>
+                  <th>Species</th>
+                  <th>Fish Count</th>
+                  <th style="text-align: center;">
+                    <div class="math-formula-header" style="color: var(--text-muted);">
+                      <div class="math-fraction">
+                        <span class="math-term">Angler Pts</span>
+                        <span class="math-line" style="border-top-color: var(--text-muted);"></span>
+                        <span class="math-term">Boat Winner Pts</span>
+                      </div>
+                      <span class="math-operator">× 100</span>
+                    </div>
+                  </th>
                 </tr>
-              `).join('')}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                ${sorted.map((a, idx) => `
+                  <tr>
+                    <td class="rank-${idx+1}">${idx + 1}</td>
+                    <td style="font-weight: bold;">${a.name || 'UNNAMED'}</td>
+                    <td style="font-weight: 600;">${a.team || '-'}</td>
+                    <td>${a.points}</td>
+                    <td>${a.species}</td>
+                    <td>${a.fish}</td>
+                    <td class="pct-cell"><span class="pct-badge">${a.pct.toFixed(2)}%</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
         `;
-        container.appendChild(card);
       });
+      container.innerHTML = html;
     }
 
     // INDIVIDUAL LEADERBOARD TAB
@@ -1367,12 +1370,12 @@
           <td>${a.points}</td>
           <td>${a.species}</td>
           <td>${a.fish}</td>
-          <td><span class="pct-badge">${a.pct.toFixed(2)}%</span></td>
+          <td class="pct-cell"><span class="pct-badge">${a.pct.toFixed(2)}%</span></td>
         </tr>
       `).join('');
     }
 
-    // TEAM LEADERBOARD TAB
+    // TEAM LEADERBOARD TAB WITH MATCHING INLINE PERCENTAGE BADGES
     function renderTeamLeaderboard() {
       const tbody = document.getElementById("team-leaderboard-body");
       const allAnglers = getAllAnglersProcessed();
@@ -1412,13 +1415,15 @@
         <tr class="${t.isEligible ? '' : 'ineligible'}">
           <td class="${t.isEligible ? 'rank-' + (idx + 1) : ''}">${t.isEligible ? idx + 1 : 'N/A'}</td>
           <td style="font-weight: bold;">${t.name}</td>
-          <td style="font-weight: 600;">${t.members.map(m => m.name || 'UNNAMED').join(', ')}</td>
+          <td style="font-weight: 600;">
+            ${t.members.map(m => `${m.name || 'UNNAMED'} <span class="pct-badge pct-badge-sm">${m.pct.toFixed(2)}%</span>`).join(', ')}
+          </td>
           <td>
             ${t.isEligible 
-              ? '<span style="color: var(--accent-cyan-hover); font-weight: 800;">Qualified (4)</span>' 
+              ? '<span style="color: var(--accent-orange); font-weight: 800;">Qualified (4)</span>' 
               : `<span style="color: var(--danger); font-weight: 800;">Ineligible (${t.count}/4)</span>`}
           </td>
-          <td><span class="pct-badge">${t.totalPct.toFixed(2)}%</span></td>
+          <td class="pct-cell"><span class="pct-badge">${t.totalPct.toFixed(2)}%</span></td>
         </tr>
       `).join('');
     }
@@ -1514,10 +1519,10 @@
           <td style="font-weight: bold;">${b.label}</td>
           <td>${b.count}</td>
           <td>${b.points}</td>
-          <td style="font-weight: bold; color: var(--accent-cyan-hover);">${b.avgPts.toFixed(1)}</td>
+          <td style="font-weight: bold; color: var(--accent-orange);">${b.avgPts.toFixed(1)}</td>
           <td>${b.avgFish.toFixed(1)}</td>
           <td>${b.avgSpecies.toFixed(1)}</td>
-          <td><span class="pct-badge">${b.balanceIndex.toFixed(1)}%</span></td>
+          <td class="pct-cell"><span class="pct-badge">${b.balanceIndex.toFixed(1)}%</span></td>
           <td style="font-weight: bold;">${b.top10Count}</td>
         </tr>
       `).join('');
