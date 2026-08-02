@@ -1427,7 +1427,25 @@
 
     function generateBoatCards() {
       const count = parseInt(document.getElementById("boat-count").value) || 1;
-      const currentBoats = appData.boats;
+      const currentBoats = appData.boats || [];
+
+      // Safety check: if reducing boat count, verify if active data will be lost
+      if (count < currentBoats.length) {
+        const removedBoats = currentBoats.slice(count);
+        const hasData = removedBoats.some(b => 
+          b.anglers.some(a => (a.name && a.name.trim() !== "") || a.points > 0 || a.species > 0 || a.fish > 0)
+        );
+
+        if (hasData) {
+          const confirmMsg = `⚠️ WARNING: Reducing the boat count to ${count} will permanently delete Boat ${count + 1} (and any higher boats) along with all registered anglers and scores.\n\nAre you sure you want to proceed?`;
+          if (!confirm()) {
+            // Revert input field back to previous boat count and cancel operation
+            document.getElementById("boat-count").value = currentBoats.length;
+            return;
+          }
+        }
+      }
+
       appData.boats = [];
 
       for (let i = 1; i <= count; i++) {
