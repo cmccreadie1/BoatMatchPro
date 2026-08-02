@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BoatMatch Pro — Sea Angling Competition Scoring</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#131a22">
+  <meta name="theme-color" content="#0f172a">
   <!-- html2pdf library for direct background PDF generation with custom filenames -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     :root {
-      /* Stitch Redesign Colors */
-      --bg-light: #f0f2f5;
-      --card-bg: #ffffff;
-      --card-border: #cbd5e1;
-      --navy-header: #131a22;
-      --accent-orange: #c85103;
+      /* Vibrant Marine Ocean Blue Palette */
+      --bg-light: #a4caef;          /* True vibrant ocean sea blue */
+      --card-bg: #ffffff;           /* Crisp porcelain white cards */
+      --card-border: #7cb3ea;       /* Ocean cobalt border framing */
+      --navy-header: #0f172a;       /* Deep nautical slate navy */
+      --accent-orange: #c85103;     /* Warm copper/burnt orange contrast accent */
       --accent-orange-hover: #b04602;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
+      --text-main: #0f172a;         /* High-contrast deep slate text */
+      --text-muted: #334155;        /* Deep marine subtext */
       --danger: #dc2626;
       --danger-hover: #b91c1c;
       --input-bg: #ffffff;
@@ -42,19 +42,18 @@
     }
 
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 16px;
-      background: var(--navy-header);
-      color: #ffffff;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 10px;
-      box-shadow: 0 2px 8px rgba(19, 26, 34, 0.15);
-    }
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #1e3a8a; /* Changed from near-black to Deep Ocean Navy */
+  color: #ffffff;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
+}
     h1 {
       font-size: 1.5rem;
       font-weight: 800;
@@ -66,8 +65,8 @@
     }
 
     .badge {
-      background: rgba(200, 81, 3, 0.2);
-      color: var(--accent-orange);
+      background: rgba(200, 81, 3, 0.25);
+      color: #f97316;
       font-size: 0.75rem;
       padding: 2px 8px;
       border-radius: 20px;
@@ -75,47 +74,54 @@
       font-weight: 700;
     }
 
-    /* TIGHTENED COMPACT BUTTON-STYLE NAVIGATION */
+    /* TACTILE PHYSICAL TAB CONTAINER & BUTTONS */
     nav {
       display: flex;
-      gap: 4px;
-      margin-bottom: 12px;
-      padding: 4px;
-      background: var(--card-bg);
-      border-radius: 6px;
-      border: 1px solid var(--card-border);
+      gap: 6px;
+      margin-bottom: 14px;
+      padding: 6px;
+      background: #60a5fa;
+      border-radius: 8px;
+      border: 1px solid #3b82f6;
       overflow-x: auto;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.25);
     }
 
     .nav-btn {
       flex: 1;
-      background: #e2e8f0;
-      border: 1px solid var(--card-border);
+      background: linear-gradient(180deg, #ffffff 0%, #e2f0fd 100%);
+      border: 1px solid #93c5fd;
       color: var(--navy-header);
-      padding: 7px 10px;
-      font-weight: 700;
+      padding: 8px 12px;
+      font-weight: 800;
       font-size: 0.78rem;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease-in-out;
       white-space: nowrap;
       text-transform: uppercase;
       letter-spacing: 0.03em;
-      border-radius: 4px;
+      border-radius: 6px;
       text-align: center;
+      box-shadow: 0 2px 3px rgba(15, 23, 42, 0.12);
+      position: relative;
     }
 
     .nav-btn:hover {
-      background: #cbd5e1;
-      color: var(--navy-header);
+      background: #ffffff;
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(15, 23, 42, 0.18);
     }
 
     .nav-btn.active {
       background: var(--navy-header);
       color: #ffffff;
       border-color: var(--navy-header);
-      font-weight: 800;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-top: 3px solid var(--accent-orange);
+      font-weight: 900;
+      transform: translateY(1px);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.05);
     }
 
     .tab-content {
@@ -126,14 +132,14 @@
       display: block;
     }
 
-    /* HIGH-DENSITY CARD STYLE */
+    /* HIGH-DENSITY WARM CARD STYLE */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 6px;
       padding: 12px 14px;
       margin-bottom: 12px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
     }
 
     .card-title {
@@ -267,7 +273,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: #f8fafc;
+      background: #e2f0fd;
       padding: 6px 8px;
       border-radius: 4px;
       border: 1px solid var(--card-border);
@@ -286,7 +292,7 @@
       grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
       gap: 8px;
       align-items: center;
-      background: #f8fafc;
+      background: #e2f0fd;
       padding: 5px 8px;
       border-radius: 4px;
       margin-bottom: 6px;
@@ -355,7 +361,7 @@
     }
 
     th {
-      background: #f8fafc;
+      background: #e2f0fd;
       color: var(--text-muted);
       font-weight: 800;
       font-size: 0.72rem;
@@ -366,7 +372,7 @@
     .header-sub {
       display: block;
       font-size: 0.68rem;
-      color: #94a3b8;
+      color: #475569;
       text-transform: none;
       font-weight: 500;
       margin-top: 1px;
@@ -374,7 +380,7 @@
     }
 
     tr:hover {
-      background: rgba(200, 81, 3, 0.03);
+      background: rgba(200, 81, 3, 0.05);
     }
 
     .rank-1 { color: var(--gold-winner); font-weight: 900; }
@@ -387,13 +393,13 @@
     }
 
     .pct-badge {
-      background: rgba(200, 81, 3, 0.1);
+      background: rgba(200, 81, 3, 0.12);
       color: var(--accent-orange-hover);
       font-weight: 800;
       padding: 2px 8px;
       border-radius: 4px;
       display: inline-block;
-      border: 1px solid rgba(200, 81, 3, 0.2);
+      border: 1px solid rgba(200, 81, 3, 0.25);
       text-align: center;
       font-size: 0.82rem;
     }
@@ -412,7 +418,7 @@
       flex-wrap: wrap;
     }
 
-    /* DASHBOARD COLOR-BLOCKED CARDS */
+    /* DASHBOARD COLOR-BLOCKED NAUTICAL CARDS */
     .dashboard-metrics {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -424,7 +430,7 @@
       padding: 12px 14px;
       border-radius: 6px;
       text-align: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -432,10 +438,10 @@
 
     .metric-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.22);
     }
 
-    /* Solid Color-Block Variants */
+    /* Solid Nautical Color-Block Variants */
     .metric-card-teal {
       background: #0f766e;
     }
@@ -443,7 +449,7 @@
       background: #c85103;
     }
     .metric-card-navy {
-      background: #131a22;
+      background: #0f172a;
     }
     .metric-card-blue {
       background: #1d4ed8;
@@ -466,7 +472,7 @@
 
     .metric-sub {
       font-size: 0.68rem;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.78);
       margin-top: 1px;
       font-weight: 600;
     }
@@ -481,7 +487,7 @@
     .badge-card {
       padding: 12px 14px;
       border-radius: 6px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
       transition: transform 0.2s ease;
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -528,8 +534,8 @@
 
     /* SECRET PAIRS TAB SPECIFIC STYLES & PRIZE BADGES */
     .pairs-explanation-banner {
-      background: rgba(200, 81, 3, 0.06);
-      border: 1px solid rgba(200, 81, 3, 0.2);
+      background: rgba(200, 81, 3, 0.08);
+      border: 1px solid rgba(200, 81, 3, 0.25);
       border-left: 4px solid var(--accent-orange);
       padding: 8px 12px;
       border-radius: 4px;
@@ -551,7 +557,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #f8fafc;
+      background: #e2f0fd;
       padding: 6px 10px;
       border-radius: 4px;
       border: 1px solid var(--card-border);
@@ -573,7 +579,7 @@
       border-radius: 6px;
       text-align: center;
       margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(19, 26, 34, 0.2);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.25);
     }
 
     .target-number {
@@ -623,7 +629,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(19, 26, 34, 0.92);
+      background: rgba(15, 23, 42, 0.94);
       backdrop-filter: blur(6px);
       z-index: 2000;
       justify-content: center;
@@ -658,7 +664,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(19, 26, 34, 0.75);
+      background: rgba(15, 23, 42, 0.8);
       backdrop-filter: blur(4px);
       z-index: 1000;
       justify-content: center;
@@ -878,7 +884,7 @@
 
       .card { border: 1px solid #ccc; box-shadow: none; background: #fff; color: #000; page-break-inside: avoid; }
       th, td { border-bottom: 1px solid #ccc; color: #000; }
-      th { background: #f8fafc !important; color: #000 !important; }
+      th { background: #e2f0fd !important; color: #000 !important; }
       .pct-badge { background: none; color: #000; font-weight: bold; border: none; }
       
       /* Maintain readability on print for dashboard cards */
@@ -1053,7 +1059,7 @@
     <div id="pairs-results-container"></div>
   </div>
 
-  <!-- TAB 7: DASHBOARD WITH COLOR-BLOCKED CARDS -->
+  <!-- TAB 7: DASHBOARD WITH COLOR-BLOCKED NAUTICAL CARDS -->
   <div id="tab-dashboard" class="tab-content">
     <!-- Solid Color-Blocked Summary Cards -->
     <div class="dashboard-metrics">
@@ -1323,11 +1329,11 @@
 
     // Palette of distinct top-border colors for boat visual identification
     const BOAT_BORDER_COLORS = [
-      "#131a22", // Slate Navy
+      "#0f172a", // Deep Navy
       "#d97706", // Warm Amber
       "#c85103", // Burnt Orange
       "#0f766e", // Deep Teal
-      "#2563eb", // Royal Blue
+      "#1d4ed8", // Royal Blue
       "#7c3aed"  // Violet
     ];
 
