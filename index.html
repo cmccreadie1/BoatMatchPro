@@ -386,7 +386,28 @@
     .rank-1 { color: var(--gold-winner); font-weight: 900; }
     .rank-2 { color: #64748b; font-weight: 900; }
     .rank-3 { color: #b45309; font-weight: 900; }
+/* TEAM MEMBER CHIP BADGES */
+    .team-members-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      padding: 4px 0;
+    }
 
+    .team-member-chip {
+      background: #e2f0fd;
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--navy-header);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
     /* CENTERED PERCENTAGE BADGE CONTAINER & BADGE STYLES */
     .pct-cell {
       text-align: center;
@@ -1703,7 +1724,7 @@
       `).join('');
     }
 
-    // TEAM LEADERBOARD TAB WITH FULL ANGLER NAMES & SUB-TEXT MEMBER COUNTS ONLY WHEN NEEDED
+   // TEAM LEADERBOARD TAB WITH BADGE-CHIP MEMBER LISTING
     function renderTeamLeaderboard() {
       const tbody = document.getElementById("team-leaderboard-body");
       const allAnglers = getAllAnglersProcessed();
@@ -1746,8 +1767,15 @@
               ${t.name}
               ${memberCountSubtext}
             </td>
-            <td style="font-weight: 600;">
-              ${t.members.map(m => `${m.name || 'UNNAMED'} <span class="pct-badge pct-badge-sm">${m.pct.toFixed(2)}%</span>`).join(', ')}
+            <td>
+              <div class="team-members-container">
+                ${t.members.map(m => `
+                  <div class="team-member-chip">
+                    <span>${m.name || 'UNNAMED'}</span>
+                    <span class="pct-badge pct-badge-sm">${m.pct.toFixed(2)}%</span>
+                  </div>
+                `).join('')}
+              </div>
             </td>
             <td class="pct-cell"><span class="pct-badge">${t.totalPct.toFixed(2)}%</span></td>
           </tr>
