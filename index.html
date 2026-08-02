@@ -933,7 +933,7 @@
   <div id="tab-setup" class="tab-content active">
     <div class="card">
       <div class="card-title" style="color: var(--accent-orange);">Tournament Details</div>
-      <div class="grid-2">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; align-items: flex-end;">
         <div class="form-group">
           <label for="match-name">Competition Name</label>
           <input type="text" id="match-name" placeholder="E.G. SCOTTISH BOATS CHAMPIONSHIP" onchange="saveData()">
@@ -942,10 +942,10 @@
           <label for="match-date">Date</label>
           <input type="date" id="match-date" onchange="saveData()">
         </div>
-      </div>
-      <div class="form-group" style="max-width: 180px;">
-        <label for="boat-count">Number of Boats</label>
-        <input type="number" id="boat-count" min="1" max="20" value="3" onfocus="this.select()" onchange="generateBoatCards()">
+        <div class="form-group">
+          <label for="boat-count">Number of Boats</label>
+          <input type="number" id="boat-count" min="1" max="20" value="3" onfocus="this.select()" onchange="generateBoatCards()">
+        </div>
       </div>
     </div>
 
