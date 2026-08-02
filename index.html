@@ -32,10 +32,11 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
+    /* SLEEK HIGH-DENSITY BODY CANVAS */
     body {
       background-color: var(--bg-light);
       color: var(--text-main);
-      padding: 24px;
+      padding: 12px 16px;
       max-width: 1280px;
       margin: 0 auto;
     }
@@ -44,75 +45,77 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 20px;
+      padding: 10px 16px;
       background: var(--navy-header);
       color: #ffffff;
-      border-radius: 8px;
-      margin-bottom: 24px;
+      border-radius: 6px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
-      gap: 15px;
-      box-shadow: 0 4px 12px rgba(19, 26, 34, 0.15);
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(19, 26, 34, 0.15);
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: #ffffff;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       letter-spacing: -0.02em;
     }
 
     .badge {
       background: rgba(200, 81, 3, 0.2);
       color: var(--accent-orange);
-      font-size: 0.8rem;
-      padding: 4px 10px;
+      font-size: 0.75rem;
+      padding: 2px 8px;
       border-radius: 20px;
       border: 1px solid var(--accent-orange);
       font-weight: 700;
     }
 
-    /* HIGH-CONTRAST STITCH TAB NAVIGATION */
+    /* TIGHTENED COMPACT BUTTON-STYLE NAVIGATION */
     nav {
       display: flex;
-      gap: 0;
-      margin-bottom: 24px;
-      padding: 0;
-      border-bottom: 1px solid var(--card-border);
+      gap: 4px;
+      margin-bottom: 12px;
+      padding: 4px;
       background: var(--card-bg);
-      border-radius: 8px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
       overflow-x: auto;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
 
     .nav-btn {
       flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 16px 18px;
+      background: #e2e8f0;
+      border: 1px solid var(--card-border);
+      color: var(--navy-header);
+      padding: 7px 10px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       cursor: pointer;
       transition: all 0.2s ease;
       white-space: nowrap;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 3px solid transparent;
+      letter-spacing: 0.03em;
+      border-radius: 4px;
+      text-align: center;
     }
 
     .nav-btn:hover {
-      background: rgba(0,0,0,0.02);
+      background: #cbd5e1;
       color: var(--navy-header);
     }
 
     .nav-btn.active {
-      background: transparent;
-      color: var(--navy-header);
-      border-bottom: 3px solid var(--accent-orange);
+      background: var(--navy-header);
+      color: #ffffff;
+      border-color: var(--navy-header);
       font-weight: 800;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
     .tab-content {
@@ -123,26 +126,26 @@
       display: block;
     }
 
-    /* STITCH CARD STYLE */
+    /* HIGH-DENSITY CARD STYLE */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     .card-title {
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       font-weight: 800;
-      margin-bottom: 18px;
+      margin-bottom: 10px;
       color: var(--navy-header);
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
@@ -150,26 +153,26 @@
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-bottom: 15px;
+      gap: 3px;
+      margin-bottom: 8px;
     }
 
     label {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 800;
       color: var(--navy-header);
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
 
-    /* CENTER-ALIGNED INPUT FIELDS */
+    /* COMPACT INPUT FIELDS */
     input, select {
       background: var(--input-bg);
       border: 1px solid var(--card-border);
       color: var(--text-main);
-      padding: 10px 10px;
+      padding: 5px 8px;
       border-radius: 4px;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 600;
       width: 100%;
       text-align: center;
@@ -183,33 +186,34 @@
     input:focus, select:focus {
       outline: none;
       border-color: var(--accent-orange);
-      box-shadow: 0 0 0 3px rgba(200, 81, 3, 0.2);
+      box-shadow: 0 0 0 2px rgba(200, 81, 3, 0.2);
     }
 
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
     }
 
     .anglers-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+      gap: 8px;
     }
 
     .btn {
       background: var(--accent-orange);
       color: #fff;
       border: none;
-      padding: 10px 18px;
+      padding: 6px 12px;
       border-radius: 4px;
+      font-size: 0.82rem;
       font-weight: 700;
       cursor: pointer;
       transition: background 0.2s ease;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       justify-content: center;
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -242,10 +246,10 @@
       background: rgba(220, 38, 38, 0.1);
       color: var(--danger);
       border: 1px solid rgba(220, 38, 38, 0.3);
-      padding: 8px 12px;
+      padding: 5px 8px;
       border-radius: 4px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s ease;
@@ -262,9 +266,9 @@
     .angler-card-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
       background: #f8fafc;
-      padding: 12px;
+      padding: 6px 8px;
       border-radius: 4px;
       border: 1px solid var(--card-border);
     }
@@ -272,20 +276,20 @@
     .angler-num {
       font-weight: 900;
       color: var(--accent-orange);
-      font-size: 1.1rem;
-      min-width: 20px;
+      font-size: 0.95rem;
+      min-width: 16px;
       text-align: center;
     }
 
     .score-row {
       display: grid;
       grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
       background: #f8fafc;
-      padding: 12px;
+      padding: 5px 8px;
       border-radius: 4px;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
       border: 1px solid var(--card-border);
     }
 
@@ -293,7 +297,7 @@
     .math-formula-header {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       font-family: "Georgia", "Times New Roman", serif;
       text-transform: none;
       justify-content: center;
@@ -309,21 +313,21 @@
 
     .math-term {
       font-style: italic;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
 
     .math-line {
-      border-top: 1.5px solid #ffffff;
+      border-top: 1px solid #ffffff;
       width: 100%;
-      margin: 2px 0;
+      margin: 1px 0;
     }
 
     .math-operator {
       font-style: normal;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.78rem;
     }
 
     @media (max-width: 768px) {
@@ -332,6 +336,9 @@
       }
       .score-row {
         grid-template-columns: 1fr 1fr;
+      }
+      .pairs-roster-grid {
+        grid-template-columns: 1fr !important;
       }
     }
 
@@ -342,26 +349,27 @@
     }
 
     th, td {
-      padding: 12px 15px;
+      padding: 6px 10px;
       border-bottom: 1px solid var(--card-border);
+      font-size: 0.85rem;
     }
 
     th {
       background: #f8fafc;
       color: var(--text-muted);
       font-weight: 800;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     .header-sub {
       display: block;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: #94a3b8;
       text-transform: none;
       font-weight: 500;
-      margin-top: 2px;
+      margin-top: 1px;
       letter-spacing: normal;
     }
 
@@ -382,53 +390,84 @@
       background: rgba(200, 81, 3, 0.1);
       color: var(--accent-orange-hover);
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 2px 8px;
       border-radius: 4px;
       display: inline-block;
       border: 1px solid rgba(200, 81, 3, 0.2);
       text-align: center;
+      font-size: 0.82rem;
     }
 
     .pct-badge-sm {
-      font-size: 0.8rem;
-      padding: 2px 6px;
+      font-size: 0.75rem;
+      padding: 1px 5px;
       margin-left: 2px;
       vertical-align: middle;
     }
 
     .action-bar {
       display: flex;
-      gap: 10px;
+      gap: 6px;
       margin-top: 0;
       flex-wrap: wrap;
     }
 
-    /* DASHBOARD STYLES */
+    /* DASHBOARD MODERN ACCENTED CARDS */
     .dashboard-metrics {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 18px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
     }
 
     .metric-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      padding: 20px;
-      border-radius: 8px;
+      padding: 10px 12px;
+      border-radius: 6px;
       text-align: center;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Custom Accented Metric Variants */
+    .metric-card-teal {
+      border-left: 4px solid #0f766e;
+      background: linear-gradient(180deg, rgba(15, 118, 110, 0.03) 0%, #ffffff 100%);
+    }
+    .metric-card-teal .metric-value { color: #0f766e; }
+
+    .metric-card-orange {
+      border-left: 4px solid var(--accent-orange);
+      background: linear-gradient(180deg, rgba(200, 81, 3, 0.03) 0%, #ffffff 100%);
+    }
+    .metric-card-orange .metric-value { color: var(--accent-orange); }
+
+    .metric-card-navy {
+      border-left: 4px solid var(--navy-header);
+      background: linear-gradient(180deg, rgba(19, 26, 34, 0.03) 0%, #ffffff 100%);
+    }
+    .metric-card-navy .metric-value { color: var(--navy-header); }
+
+    .metric-card-blue {
+      border-left: 4px solid #2563eb;
+      background: linear-gradient(180deg, rgba(37, 99, 235, 0.03) 0%, #ffffff 100%);
+    }
+    .metric-card-blue .metric-value { color: #2563eb; }
+
     .metric-value {
-      font-size: 2.2rem;
+      font-size: 1.6rem;
       font-weight: 900;
-      color: var(--accent-orange);
-      margin-top: 6px;
+      margin-top: 2px;
     }
 
     .metric-label {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 800;
       color: var(--navy-header);
       text-transform: uppercase;
@@ -436,48 +475,194 @@
     }
 
     .metric-sub {
-      font-size: 0.75rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
-      margin-top: 2px;
+      margin-top: 1px;
       font-weight: 600;
     }
 
     .badges-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
     }
 
     .badge-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-left: 6px solid var(--gold-winner);
-      padding: 18px;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      padding: 10px 12px;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease;
     }
 
+    .badge-card:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Custom Trophy Badges */
+    .badge-card-gold {
+      border-left: 5px solid #d97706;
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.05) 0%, #ffffff 100%);
+    }
+    .badge-card-gold .badge-detail { color: #d97706; }
+
+    .badge-card-emerald {
+      border-left: 5px solid #059669;
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, #ffffff 100%);
+    }
+    .badge-card-emerald .badge-detail { color: #059669; }
+
+    .badge-card-purple {
+      border-left: 5px solid #7c3aed;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, #ffffff 100%);
+    }
+    .badge-card-purple .badge-detail { color: #7c3aed; }
+
     .badge-title {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 800;
       color: var(--navy-header);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .badge-winner {
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       font-weight: 900;
       color: var(--text-main);
     }
 
     .badge-detail {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 800;
-      color: var(--accent-orange);
+      margin-top: 2px;
+    }
+
+    /* SECRET PAIRS TAB SPECIFIC STYLES & PRIZE BADGES */
+    .pairs-explanation-banner {
+      background: rgba(200, 81, 3, 0.06);
+      border: 1px solid rgba(200, 81, 3, 0.2);
+      border-left: 4px solid var(--accent-orange);
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      line-height: 1.35;
+      color: var(--navy-header);
+      font-weight: 600;
+    }
+
+    .pairs-roster-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .pairs-angler-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--card-border);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .pairs-angler-toggle input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: var(--accent-orange);
+    }
+
+    .target-display-card {
+      background: var(--navy-header);
+      color: #ffffff;
+      padding: 16px;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(19, 26, 34, 0.2);
+    }
+
+    .target-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold-winner);
+      letter-spacing: 0.02em;
+      line-height: 1;
       margin-top: 4px;
+    }
+
+    /* CLEAN TEXT-ONLY PODIUM PRIZE CARD BADGES */
+    .prize-badge {
+      display: inline-block;
+      font-weight: 900;
+      font-size: 0.78rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+      vertical-align: middle;
+      letter-spacing: 0.02em;
+    }
+
+    .prize-badge-1st {
+      background: rgba(217, 119, 6, 0.15);
+      color: #d97706;
+      border: 1px solid #d97706;
+    }
+
+    .prize-badge-2nd {
+      background: rgba(100, 116, 139, 0.15);
+      color: #64748b;
+      border: 1px solid #64748b;
+    }
+
+    .prize-badge-3rd {
+      background: rgba(180, 83, 9, 0.15);
+      color: #b45309;
+      border: 1px solid #b45309;
+    }
+
+    /* SLOT-MACHINE DRAW OVERLAY */
+    .draw-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(19, 26, 34, 0.92);
+      backdrop-filter: blur(6px);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #ffffff;
+    }
+
+    .draw-overlay.active {
+      display: flex;
+    }
+
+    .spinner-box {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--gold-winner);
+      background: rgba(255,255,255,0.05);
+      border: 3px solid var(--accent-orange);
+      padding: 16px 32px;
+      border-radius: 10px;
+      margin: 16px 0;
+      box-shadow: 0 0 25px rgba(200, 81, 3, 0.5);
+      font-family: monospace;
+      letter-spacing: 4px;
     }
 
     /* MODAL OVERLAY STYLES */
@@ -493,7 +678,7 @@
       z-index: 1000;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 16px;
     }
 
     .modal-overlay.active {
@@ -502,13 +687,13 @@
 
     .modal-content {
       background: #ffffff;
-      border-radius: 8px;
+      border-radius: 6px;
       max-width: 820px;
       width: 100%;
       max-height: 88vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
       position: relative;
       overflow: hidden;
       border: 1px solid var(--card-border);
@@ -518,13 +703,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 24px;
+      padding: 12px 16px;
       background: var(--navy-header);
       color: #ffffff;
     }
 
     .modal-header h2 {
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       font-weight: 800;
       color: #ffffff;
     }
@@ -532,7 +717,7 @@
     .modal-close {
       background: transparent;
       border: none;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       cursor: pointer;
       color: #94a3b8;
       transition: color 0.2s ease;
@@ -546,17 +731,17 @@
       display: flex;
       background: var(--bg-light);
       border-bottom: 1px solid var(--card-border);
-      padding: 12px 16px 0 16px;
+      padding: 8px 12px 0 12px;
       gap: 0;
       overflow-x: auto;
     }
 
     .guide-tab-btn {
-      padding: 12px 18px;
+      padding: 8px 14px;
       background: transparent;
       border: none;
       border-bottom: 3px solid transparent;
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
@@ -576,7 +761,7 @@
     }
 
     .guide-body {
-      padding: 24px;
+      padding: 16px;
       overflow-y: auto;
       flex: 1;
       background: #ffffff;
@@ -592,66 +777,66 @@
     }
 
     .guide-title {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: var(--navy-header);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .guide-subtitle {
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 14px;
       font-style: italic;
     }
 
     .step-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 10px;
     }
 
     .step-item {
       background: #ffffff;
       border: 1px solid var(--card-border);
-      border-radius: 6px;
-      padding: 16px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      border-radius: 4px;
+      padding: 10px 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
 
     .step-header {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       font-weight: 800;
       color: var(--accent-orange);
-      font-size: 1rem;
-      margin-bottom: 6px;
+      font-size: 0.88rem;
+      margin-bottom: 4px;
     }
 
     .step-badge {
       background: var(--navy-header);
       color: #ffffff;
-      font-size: 0.75rem;
-      padding: 2px 8px;
-      border-radius: 4px;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 3px;
       font-weight: 800;
     }
 
     .step-desc {
-      font-size: 0.92rem;
+      font-size: 0.85rem;
       color: var(--text-main);
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     .guide-callout {
       background: rgba(200, 81, 3, 0.05);
-      border-left: 4px solid var(--accent-orange);
-      padding: 14px 16px;
+      border-left: 3px solid var(--accent-orange);
+      padding: 10px 12px;
       border-radius: 4px;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-top: 16px;
+      font-size: 0.82rem;
+      line-height: 1.4;
+      margin-top: 12px;
       color: var(--text-main);
       border-top: 1px solid rgba(200, 81, 3, 0.1);
       border-right: 1px solid rgba(200, 81, 3, 0.1);
@@ -659,8 +844,8 @@
     }
 
     .faq-item {
-      margin-bottom: 20px;
-      padding-bottom: 16px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--card-border);
     }
 
@@ -672,19 +857,19 @@
 
     .faq-q {
       font-weight: 800;
-      font-size: 0.98rem;
+      font-size: 0.88rem;
       color: var(--navy-header);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .faq-a {
-      font-size: 0.92rem;
+      font-size: 0.85rem;
       color: var(--text-main);
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     .modal-footer {
-      padding: 14px 24px;
+      padding: 10px 16px;
       background: #ffffff;
       border-top: 1px solid var(--card-border);
       display: flex;
@@ -694,10 +879,10 @@
     /* MULTI-TAB PRINT / PDF EXPORT STYLING */
     @media print {
       body { background: #fff; color: #000; padding: 0; }
-      nav, .btn, .badge, .action-bar, .modal-overlay { display: none !important; }
+      nav, .btn, .badge, .action-bar, .modal-overlay, .draw-overlay { display: none !important; }
       #tab-setup, #tab-scores { display: none !important; }
       
-      #tab-boat-results, #tab-indiv-results, #tab-team-results, #tab-dashboard { 
+      #tab-boat-results, #tab-indiv-results, #tab-team-results, #tab-secret-pairs, #tab-dashboard { 
         display: block !important; 
         page-break-before: always;
       }
@@ -717,23 +902,24 @@
 
   <header>
     <div>
-      <h1>🚤 BoatMatch Pro <span class="badge">PWA</span></h1>
-      <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 4px; font-weight: 600;" id="match-subtitle">No Match Setup</p>
+      <h1>BoatMatch Pro <span class="badge">PWA</span></h1>
+      <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 2px; font-weight: 600;" id="match-subtitle">No Match Setup</p>
     </div>
     <div class="action-bar">
-      <button class="btn btn-secondary" onclick="openUserGuide()">📖 User Guide</button>
-      <button class="btn btn-secondary" onclick="printLeaderboards()">🖨️ Print Leaderboards</button>
-      <button class="btn btn-danger" onclick="resetApp()">🔄 Reset / Clear Match</button>
+      <button class="btn btn-secondary" onclick="openUserGuide()">User Guide</button>
+      <button class="btn btn-secondary" onclick="printLeaderboards()">Print Leaderboards</button>
+      <button class="btn btn-danger" onclick="resetApp()">Reset / Clear Match</button>
     </div>
   </header>
 
   <nav>
-    <button class="nav-btn active" onclick="switchTab('setup', event)">⚙️ Setup & Registration</button>
-    <button class="nav-btn" onclick="switchTab('scores', event)">📝 Score Entry</button>
-    <button class="nav-btn" onclick="switchTab('boat-results', event)">🚤 Boat Standings</button>
-    <button class="nav-btn" onclick="switchTab('indiv-results', event)">🏆 Individual Leaderboard</button>
-    <button class="nav-btn" onclick="switchTab('team-results', event)">👥 Team Leaderboard</button>
-    <button class="nav-btn" onclick="switchTab('dashboard', event)">📊 Dashboard</button>
+    <button class="nav-btn active" onclick="switchTab('setup', event)">Setup & Registration</button>
+    <button class="nav-btn" onclick="switchTab('scores', event)">Score Entry</button>
+    <button class="nav-btn" onclick="switchTab('boat-results', event)">Boat Standings</button>
+    <button class="nav-btn" onclick="switchTab('indiv-results', event)">Individual Leaderboard</button>
+    <button class="nav-btn" onclick="switchTab('team-results', event)">Team Leaderboard</button>
+    <button class="nav-btn" onclick="switchTab('secret-pairs', event)">Secret Pairs (Optional)</button>
+    <button class="nav-btn" onclick="switchTab('dashboard', event)">Dashboard</button>
   </nav>
 
   <!-- Global Team Autocomplete Datalist -->
@@ -753,7 +939,7 @@
           <input type="date" id="match-date" onchange="saveData()">
         </div>
       </div>
-      <div class="form-group" style="max-width: 220px;">
+      <div class="form-group" style="max-width: 180px;">
         <label for="boat-count">Number of Boats</label>
         <input type="number" id="boat-count" min="1" max="20" value="3" onfocus="this.select()" onchange="generateBoatCards()">
       </div>
@@ -800,7 +986,7 @@
   <div id="tab-team-results" class="tab-content">
     <div class="card">
       <div class="card-title">Team Standings</div>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; font-weight: 600;">
+      <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 10px; font-weight: 600;">
         Note: Standings are calculated by the sum of member percentage scores across all registered team members.
       </p>
       <div style="overflow-x: auto;">
@@ -819,54 +1005,104 @@
     </div>
   </div>
 
-  <!-- TAB 6: DASHBOARD -->
-  <div id="tab-dashboard" class="tab-content">
+  <!-- TAB 6: SECRET PAIRS (OPTIONAL MINI COMP) -->
+  <div id="tab-secret-pairs" class="tab-content">
+    <div class="pairs-explanation-banner">
+      <strong>Optional Secret Pairs Side-Pot:</strong> Participating anglers are randomly paired post-match. The app picks a secret Target Score between the lowest and highest possible pair totals. The pair whose combined raw points are closest to the Target Score wins! Ties favor the pair with the higher raw points total.
+    </div>
+
     <div class="card">
-      <!-- Summary Totals -->
-      <div class="dashboard-metrics">
-        <div class="metric-card">
-          <div class="metric-label">Total Fish Caught</div>
-          <div class="metric-sub">Total fish across all boats</div>
-          <div id="metric-total-fish" class="metric-value">0</div>
+      <div class="card-title" style="color: var(--accent-orange);">Side-Pot Financial Legend (Optional)</div>
+      <div class="grid-2" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+        <div class="form-group">
+          <label for="pairs-entry-fee">Entry Fee (£ per Angler)</label>
+          <input type="number" id="pairs-entry-fee" value="5" min="0" step="1" onfocus="this.select()" onchange="renderSecretPairs()">
         </div>
         <div class="metric-card">
-          <div class="metric-label">Total Points Scored</div>
-          <div class="metric-sub">Total raw points across all boats</div>
-          <div id="metric-total-points" class="metric-value">0</div>
+          <div class="metric-label">Total Pot</div>
+          <div id="pairs-pot-total" class="metric-value" style="font-size: 1.3rem; color: var(--accent-orange);">£0</div>
         </div>
-        <div class="metric-card">
-          <div class="metric-label">Active Boats</div>
-          <div class="metric-sub">Boats with anglers registered</div>
-          <div id="metric-active-boats" class="metric-value">0</div>
+        <div class="metric-card" style="border-top: 3px solid var(--gold-winner);">
+          <div class="metric-label">1st Place <span id="pairs-pct-1st" style="font-size:0.68rem; color:var(--text-muted);">(50%)</span></div>
+          <div id="pairs-pot-1st" class="metric-value" style="font-size: 1.3rem; color: var(--gold-winner);">£0</div>
         </div>
-        <div class="metric-card">
-          <div class="metric-label">Total Anglers</div>
-          <div class="metric-sub">Anglers competing across all boats</div>
-          <div id="metric-total-anglers" class="metric-value">0</div>
+        <div class="metric-card" style="border-top: 3px solid #64748b;">
+          <div class="metric-label">2nd Place <span id="pairs-pct-2nd" style="font-size:0.68rem; color:var(--text-muted);">(30%)</span></div>
+          <div id="pairs-pot-2nd" class="metric-value" style="font-size: 1.3rem; color: #64748b;">£0</div>
+        </div>
+        <div class="metric-card" style="border-top: 3px solid #b45309;">
+          <div class="metric-label">3rd Place <span id="pairs-pct-3rd" style="font-size:0.68rem; color:var(--text-muted);">(20%)</span></div>
+          <div id="pairs-pot-3rd" class="metric-value" style="font-size: 1.3rem; color: #b45309;">£0</div>
         </div>
       </div>
+    </div>
 
-      <!-- Highlight Badges -->
-      <div class="badges-grid">
-        <div class="badge-card">
-          <div class="badge-title">👑 Highest Raw Points</div>
-          <div id="badge-top-points-name" class="badge-winner">-</div>
-          <div id="badge-top-points-val" class="badge-detail">0 PTS</div>
-        </div>
-        <div class="badge-card">
-          <div class="badge-title">🐟 Highest Total Fish Count</div>
-          <div id="badge-top-fish-name" class="badge-winner">-</div>
-          <div id="badge-top-fish-val" class="badge-detail">0 FISH</div>
-        </div>
-        <div class="badge-card">
-          <div class="badge-title">🎯 Highest Species Count</div>
-          <div id="badge-top-species-name" class="badge-winner">-</div>
-          <div id="badge-top-species-val" class="badge-detail">0 SPECIES</div>
-        </div>
+    <div class="card">
+      <div class="card-title">Participant Selection & Opt-Out Roster</div>
+      <p style="color: var(--text-muted); font-size: 0.78rem; margin-bottom: 8px; font-weight: 600;">
+        All registered anglers are checked IN by default. Uncheck any angler who opts out of the side-pot.
+      </p>
+      
+      <div id="pairs-roster-container" class="pairs-roster-grid"></div>
+
+      <div style="text-align: center; margin-top: 10px;">
+        <button class="btn" style="font-size: 0.95rem; padding: 8px 20px;" onclick="triggerPairsDrawAnimation()">
+          Generate Pairs & Draw Target Score
+        </button>
       </div>
+    </div>
 
-      <!-- Expanded Boat Performance Table with Precise Micro-Explainers -->
-      <div class="card-title" style="margin-top: 10px;">Boat Performance Comparison</div>
+    <div id="pairs-results-container"></div>
+  </div>
+
+  <!-- TAB 7: DASHBOARD WITH MODERN ACCENTED CARDS -->
+  <div id="tab-dashboard" class="tab-content">
+    <!-- Modern Color-Accented Summary Cards -->
+    <div class="dashboard-metrics">
+      <div class="metric-card metric-card-teal">
+        <div class="metric-label">Total Fish Caught</div>
+        <div class="metric-sub">Total fish across all boats</div>
+        <div id="metric-total-fish" class="metric-value">0</div>
+      </div>
+      <div class="metric-card metric-card-orange">
+        <div class="metric-label">Total Points Scored</div>
+        <div class="metric-sub">Total raw points across all boats</div>
+        <div id="metric-total-points" class="metric-value">0</div>
+      </div>
+      <div class="metric-card metric-card-navy">
+        <div class="metric-label">Active Boats</div>
+        <div class="metric-sub">Boats with anglers registered</div>
+        <div id="metric-active-boats" class="metric-value">0</div>
+      </div>
+      <div class="metric-card metric-card-blue">
+        <div class="metric-label">Total Anglers</div>
+        <div class="metric-sub">Anglers competing across all boats</div>
+        <div id="metric-total-anglers" class="metric-value">0</div>
+      </div>
+    </div>
+
+    <!-- Trophy Highlight Badges -->
+    <div class="badges-grid">
+      <div class="badge-card badge-card-gold">
+        <div class="badge-title">Highest Raw Points</div>
+        <div id="badge-top-points-name" class="badge-winner">-</div>
+        <div id="badge-top-points-val" class="badge-detail">0 PTS</div>
+      </div>
+      <div class="badge-card badge-card-emerald">
+        <div class="badge-title">Highest Total Fish Count</div>
+        <div id="badge-top-fish-name" class="badge-winner">-</div>
+        <div id="badge-top-fish-val" class="badge-detail">0 FISH</div>
+      </div>
+      <div class="badge-card badge-card-purple">
+        <div class="badge-title">Highest Species Count</div>
+        <div id="badge-top-species-name" class="badge-winner">-</div>
+        <div id="badge-top-species-val" class="badge-detail">0 SPECIES</div>
+      </div>
+    </div>
+
+    <!-- Expanded Boat Performance Table Inside Dedicated Card -->
+    <div class="card" style="border-top: 3px solid var(--navy-header);">
+      <div class="card-title">Boat Performance Comparison</div>
       <div style="overflow-x: auto;">
         <table>
           <thead>
@@ -902,11 +1138,18 @@
     </div>
   </div>
 
+  <!-- SLOT-MACHINE DRAW ANIMATION OVERLAY -->
+  <div id="draw-overlay" class="draw-overlay">
+    <h2 style="text-transform: uppercase; letter-spacing: 2px;">Selecting Target Score...</h2>
+    <div id="draw-spinner" class="spinner-box">000</div>
+    <p style="font-weight: 600; color: #94a3b8;" id="draw-sub-status">Shuffling Pairs & Calculating Range...</p>
+  </div>
+
   <!-- TABBED USER GUIDE MODAL -->
   <div id="user-guide-modal" class="modal-overlay" onclick="closeUserGuide(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
       <div class="modal-header">
-        <h2>📖 BoatMatch Pro — User Guide</h2>
+        <h2>BoatMatch Pro — User Guide</h2>
         <button class="modal-close" onclick="closeUserGuide()">✖</button>
       </div>
 
@@ -915,7 +1158,8 @@
         <button class="guide-tab-btn active" onclick="switchGuideTab(1, event)">1. Setup</button>
         <button class="guide-tab-btn" onclick="switchGuideTab(2, event)">2. Score Entry</button>
         <button class="guide-tab-btn" onclick="switchGuideTab(3, event)">3. Scoring Rules</button>
-        <button class="guide-tab-btn" onclick="switchGuideTab(4, event)">4. FAQs</button>
+        <button class="guide-tab-btn" onclick="switchGuideTab(4, event)">4. Secret Pairs</button>
+        <button class="guide-tab-btn" onclick="switchGuideTab(5, event)">5. FAQs</button>
       </div>
 
       <div class="guide-body">
@@ -942,7 +1186,7 @@
 
             <div class="step-item">
               <div class="step-header"><span class="step-badge">STEP 4</span> Register Anglers & Teams</div>
-              <div class="step-desc">Click <strong>➕ Add Angler</strong> on any boat card. Type the angler's name and team name. As you type team names, the app auto-suggests existing teams to prevent spelling mismatches.</div>
+              <div class="step-desc">Click <strong>Add Angler</strong> on any boat card. Type the angler's name and team name. As you type team names, the app auto-suggests existing teams to prevent spelling mismatches.</div>
             </div>
           </div>
 
@@ -959,7 +1203,7 @@
           <div class="step-list">
             <div class="step-item">
               <div class="step-header"><span class="step-badge">STEP 1</span> Switch to Score Entry</div>
-              <div class="step-desc">When paper scorecards return to the desk, click over to the <strong>📝 Score Entry</strong> tab.</div>
+              <div class="step-desc">When paper scorecards return to the desk, click over to the <strong>Score Entry</strong> tab.</div>
             </div>
 
             <div class="step-item">
@@ -974,7 +1218,7 @@
 
             <div class="step-item">
               <div class="step-header"><span class="step-badge">STEP 4</span> Printing / Exporting PDF Reports</div>
-              <div class="step-desc">At any point during or after the match, click the <strong>🖨️ Print Leaderboards</strong> button in the top header to generate an official print-ready PDF report containing Boat Standings, Individual Leaderboards, and Team Leaderboards.</div>
+              <div class="step-desc">At any point during or after the match, click the <strong>Print Leaderboards</strong> button in the top header to generate an official print-ready PDF report containing Boat Standings, Individual Leaderboards, and Team Leaderboards.</div>
             </div>
           </div>
         </div>
@@ -986,15 +1230,15 @@
 
           <div class="step-list">
             <div class="step-item">
-              <div class="step-header">🏆 Relative Boat Scoring</div>
+              <div class="step-header">Relative Boat Scoring</div>
               <div class="step-desc">The top angler on each individual boat receives <strong>100.00%</strong>. All other anglers on that boat receive a percentage score proportional to the boat winner's raw points.</div>
             </div>
 
             <div class="step-item">
-              <div class="step-header">⚖️ Automatic Tie-Breakers</div>
+              <div class="step-header">Automatic Tie-Breakers</div>
               <div class="step-desc">
                 Ties on percentage are automatically resolved in strict order using:
-                <ol style="margin-left: 20px; margin-top: 6px;">
+                <ol style="margin-left: 20px; margin-top: 4px;">
                   <li><strong>Percentage Score (%)</strong></li>
                   <li><strong>Raw Boat Points</strong></li>
                   <li><strong>Total Species Count</strong></li>
@@ -1004,7 +1248,7 @@
             </div>
 
             <div class="step-item">
-              <div class="step-header">👥 Team Competition</div>
+              <div class="step-header">Team Competition</div>
               <div class="step-desc">
                 • All teams with registered members are fully eligible to compete.<br>
                 • Team standings are calculated by combining the individual percentage scores of all members.<br>
@@ -1014,29 +1258,52 @@
           </div>
         </div>
 
-        <!-- GUIDE TAB 4: FAQS -->
+        <!-- GUIDE TAB 4: SECRET PAIRS -->
         <div id="guide-tab-4" class="guide-tab-content">
+          <div class="guide-title">Secret Pairs Mini-Comp Rules</div>
+          <div class="guide-subtitle">How the optional post-match target draw side-pot works.</div>
+
+          <div class="step-list">
+            <div class="step-item">
+              <div class="step-header">Random Pairing & Target Score</div>
+              <div class="step-desc">Anglers who opt into the side-pot are randomly paired post-match. The app picks a secret Target Score strictly between the lowest possible pair sum and highest possible pair sum from the match entries.</div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-header">Joe Average Virtual Angler</div>
+              <div class="step-desc">If an odd number of anglers opt in, the app automatically creates a virtual partner named <strong>"Joe Average"</strong> whose raw points equal the exact rounded average score of all active participants.</div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-header">Winning & Tie-Breaker</div>
+              <div class="step-desc">The pair whose combined raw points are closest to the Target Score wins. On an exact distance tie (e.g. +5 vs -5), the pair with the higher combined raw score wins.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GUIDE TAB 5: FAQS -->
+        <div id="guide-tab-5" class="guide-tab-content">
           <div class="guide-title">Match Safety, Security & Data Management</div>
           <div class="guide-subtitle">Clear answers on data privacy, offline protection, and clearing the app.</div>
 
           <div class="faq-item">
-            <div class="faq-q">🔒 Can anyone on another computer alter my scores?</div>
+            <div class="faq-q">Can anyone on another computer alter my scores?</div>
             <div class="faq-a"><strong>No.</strong> All match data stays strictly locked inside your laptop/tablet browser storage. Opening the link on another computer loads a completely separate, blank app—there is no shared cloud database or server connection.</div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">💾 What if I accidentally refresh the browser or restart my computer?</div>
+            <div class="faq-q">What if I accidentally refresh the browser or restart my computer?</div>
             <div class="faq-a">Your data is completely safe. Every keystroke saves instantly to local storage. You can close the tab, restart your computer, or lose power without losing a single point.</div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">📶 Does the app work offline without internet signal?</div>
+            <div class="faq-q">Does the app work offline without internet signal?</div>
             <div class="faq-a"><strong>Yes.</strong> Once opened in your browser, the built-in Service Worker caches all files onto your device, allowing you to run entire matches and generate PDFs with zero internet connection.</div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-q">🔄 How do I reset the app for the next match day?</div>
-            <div class="faq-a">When your tournament is complete, click the red <strong>🔄 Reset / Clear Match</strong> button in the top header. After confirming, the app automatically exports a complete PDF report (<code>BoatMatch_Pro_[COMP_NAME]_[DATE].pdf</code>) and clears memory for your next event.</div>
+            <div class="faq-q">How do I reset the app for the next match day?</div>
+            <div class="faq-a">When your tournament is complete, click the red <strong>Reset / Clear Match</strong> button in the top header. After confirming, the app automatically exports a complete PDF report (<code>BoatMatch_Pro_[COMP_NAME]_[DATE].pdf</code>) and clears memory for your next event.</div>
           </div>
         </div>
       </div>
@@ -1051,13 +1318,30 @@
     let appData = {
       name: "",
       date: "",
-      boats: []
+      boats: [],
+      pairsOptOut: {}, // Map of angler unique key -> boolean (true if opted OUT)
+      pairsDraw: null  // Stores active target score & pairings once generated
     };
+
+    // Palette of distinct top-border colors for boat visual identification
+    const BOAT_BORDER_COLORS = [
+      "#131a22", // Slate Navy
+      "#d97706", // Warm Amber
+      "#c85103", // Burnt Orange
+      "#0f766e", // Deep Teal
+      "#2563eb", // Royal Blue
+      "#7c3aed"  // Violet
+    ];
+
+    function getBoatColor(bIndex) {
+      return BOAT_BORDER_COLORS[bIndex % BOAT_BORDER_COLORS.length];
+    }
 
     window.onload = () => {
       const saved = localStorage.getItem("boat_match_pro_data");
       if (saved) {
         appData = JSON.parse(saved);
+        if (!appData.pairsOptOut) appData.pairsOptOut = {};
         document.getElementById("match-name").value = appData.name || "";
         document.getElementById("match-date").value = appData.date || "";
         document.getElementById("boat-count").value = appData.boats.length || 3;
@@ -1133,6 +1417,7 @@
       if (tabId === 'boat-results') renderBoatResults();
       if (tabId === 'indiv-results') renderIndividualLeaderboard();
       if (tabId === 'team-results') renderTeamLeaderboard();
+      if (tabId === 'secret-pairs') renderSecretPairs();
       if (tabId === 'dashboard') renderDashboard();
     }
 
@@ -1165,20 +1450,22 @@
       container.innerHTML = "";
 
       appData.boats.forEach((boat, bIndex) => {
+        const borderTopColor = getBoatColor(bIndex);
         const card = document.createElement("div");
         card.className = "card";
+        card.style.borderTop = `3px solid ${borderTopColor}`;
         card.innerHTML = `
           <div class="card-title">
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-              <label style="font-size: 0.75rem;">Boat Name</label>
-              <input type="text" value="${boat.label}" class="uppercase" style="max-width: 250px; font-weight: bold; color: var(--accent-orange);" onchange="updateBoatLabel(${bIndex}, this.value)">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <label style="font-size: 0.7rem;">Boat Name</label>
+              <input type="text" value="${boat.label}" class="uppercase" style="max-width: 220px; font-weight: bold; color: ${borderTopColor}; padding: 4px 6px;" onchange="updateBoatLabel(${bIndex}, this.value)">
             </div>
-            <button class="btn btn-secondary" onclick="addAngler(${bIndex})">➕ Add Angler</button>
+            <button class="btn btn-secondary" onclick="addAngler(${bIndex})">Add Angler</button>
           </div>
           <div class="anglers-grid">
             ${boat.anglers.map((a, aIndex) => `
               <div class="angler-card-row">
-                <span class="angler-num">${aIndex + 1}</span>
+                <span class="angler-num" style="color: ${borderTopColor};">${aIndex + 1}</span>
                 <input type="text" class="uppercase" placeholder="ANGLER NAME" value="${a.name}" onchange="updateAngler(${bIndex}, ${aIndex}, 'name', this.value)">
                 <input type="text" class="uppercase" list="team-suggestions" placeholder="TEAM NAME" value="${a.team}" onchange="updateAngler(${bIndex}, ${aIndex}, 'team', this.value)">
                 <button tabindex="-1" class="btn-delete-angler" title="Delete Angler" onclick="removeAngler(${bIndex}, ${aIndex})">Delete</button>
@@ -1239,7 +1526,7 @@
       });
     }
 
-    // SCORE ENTRY TAB WITH FIXED TABINDEX AND DOM-DIRECT PERCENTAGE BADGE UPDATES
+    // SCORE ENTRY TAB WITH DISTINCT TOP-BORDER ACCENTS
     function renderScoreEntry() {
       const container = document.getElementById("score-entry-container");
       let html = "";
@@ -1247,11 +1534,12 @@
 
       appData.boats.forEach((boat, bIndex) => {
         const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
+        const borderTopColor = getBoatColor(bIndex);
 
         html += `
-          <div class="card">
-            <div class="card-title">${boat.label} — Scorecard Entry</div>
-            <div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 10px; margin-bottom: 8px; color: var(--navy-header); font-size: 0.8rem; font-weight: bold; align-items: center;">
+          <div class="card" style="border-top: 3px solid ${borderTopColor};">
+            <div class="card-title" style="color: ${borderTopColor};">${boat.label} — Scorecard Entry</div>
+            <div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px; color: var(--navy-header); font-size: 0.75rem; font-weight: bold; align-items: center;">
               <div>ANGLER</div>
               <div>TEAM</div>
               <div>RAW PTS</div>
@@ -1275,8 +1563,8 @@
               const tab3 = currentTabIndex++;
               return `
                 <div class="score-row">
-                  <div style="font-weight: bold;">${aIndex + 1}. ${a.name || 'UNNAMED'}</div>
-                  <div style="color: var(--text-muted); font-weight: 600;">${a.team || 'NONE'}</div>
+                  <div style="font-weight: bold; font-size: 0.85rem;">${aIndex + 1}. ${a.name || 'UNNAMED'}</div>
+                  <div style="color: var(--text-muted); font-weight: 600; font-size: 0.85rem;">${a.team || 'NONE'}</div>
                   <input type="number" tabindex="${tab1}" value="${a.points}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'points', this.value);">
                   <input type="number" tabindex="${tab2}" value="${a.species}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'species', this.value);">
                   <input type="number" tabindex="${tab3}" value="${a.fish}" onfocus="this.select()" onchange="updateAngler(${bIndex}, ${aIndex}, 'fish', this.value);">
@@ -1290,13 +1578,14 @@
       container.innerHTML = html;
     }
 
-    // BOAT RESULTS TAB
+    // BOAT RESULTS TAB WITH DISTINCT TOP-BORDER ACCENTS
     function renderBoatResults() {
       const container = document.getElementById("boat-results-container");
       let html = "";
 
-      appData.boats.forEach(boat => {
+      appData.boats.forEach((boat, bIndex) => {
         const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
+        const borderTopColor = getBoatColor(bIndex);
         
         const sorted = [...boat.anglers].map(a => {
           const pct = maxPts > 0 ? (a.points / maxPts) * 100 : 0;
@@ -1304,8 +1593,8 @@
         }).sort((a, b) => b.points - a.points || b.species - a.species || b.fish - a.fish);
 
         html += `
-          <div class="card">
-            <div class="card-title">${boat.label} — Standings</div>
+          <div class="card" style="border-top: 3px solid ${borderTopColor};">
+            <div class="card-title" style="color: ${borderTopColor};">${boat.label} — Standings</div>
             <table>
               <thead>
                 <tr>
@@ -1350,15 +1639,19 @@
     // INDIVIDUAL LEADERBOARD TAB
     function getAllAnglersProcessed() {
       let all = [];
-      appData.boats.forEach(boat => {
+      appData.boats.forEach((boat, bIdx) => {
         const maxPts = Math.max(...boat.anglers.map(a => a.points), 0);
-        boat.anglers.forEach(a => {
-          const pct = maxPts > 0 ? (a.points / maxPts) * 100 : 0;
-          all.push({
-            ...a,
-            boatLabel: boat.label,
-            pct
-          });
+        boat.anglers.forEach((a, aIdx) => {
+          if (a.name && a.name.trim() !== "") {
+            const pct = maxPts > 0 ? (a.points / maxPts) * 100 : 0;
+            const uniqueKey = `b${bIdx}_a${aIdx}_${a.name.trim().toUpperCase()}`;
+            all.push({
+              ...a,
+              boatLabel: boat.label,
+              pct,
+              uniqueKey
+            });
+          }
         });
       });
 
@@ -1421,7 +1714,7 @@
       tbody.innerHTML = teamResults.map((t, idx) => {
         // Show count only if not a standard 4-person roster
         const memberCountSubtext = t.count !== 4 
-          ? `<span style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: normal; margin-top: 2px;">(${t.count} Members)</span>`
+          ? `<span style="display: block; font-size: 0.7rem; color: var(--text-muted); font-weight: normal; margin-top: 1px;">(${t.count} Members)</span>`
           : '';
 
         return `
@@ -1438,6 +1731,243 @@
           </tr>
         `;
       }).join('');
+    }
+
+    // SECRET PAIRS TAB ENGINE & RENDER WITH £5 ROUNDING ENGINE
+    function renderSecretPairs() {
+      const allAnglers = getAllAnglersProcessed();
+      const rosterContainer = document.getElementById("pairs-roster-container");
+      rosterContainer.innerHTML = "";
+
+      let activeCount = 0;
+
+      allAnglers.forEach(a => {
+        const isOptedOut = appData.pairsOptOut[a.uniqueKey] === true;
+        if (!isOptedOut) activeCount++;
+
+        const div = document.createElement("div");
+        div.className = "pairs-angler-toggle";
+        div.innerHTML = `
+          <span>${a.name} <span style="font-size: 0.72rem; color: var(--text-muted);">(${a.boatLabel})</span></span>
+          <input type="checkbox" ${!isOptedOut ? 'checked' : ''} onchange="togglePairsOptOut('${a.uniqueKey}', this.checked)">
+        `;
+        rosterContainer.appendChild(div);
+      });
+
+      // Update Financial Legend with strictly £5 multiples
+      const fee = parseFloat(document.getElementById("pairs-entry-fee").value) || 0;
+      const totalPot = activeCount * fee;
+
+      let pot1st = Math.round((totalPot * 0.50) / 5) * 5;
+      let pot2nd = Math.round((totalPot * 0.30) / 5) * 5;
+      let pot3rd = Math.round((totalPot * 0.20) / 5) * 5;
+
+      // Balance residual difference into 1st place so total matches exactly
+      const roundedSum = pot1st + pot2nd + pot3rd;
+      const residual = totalPot - roundedSum;
+      pot1st += residual;
+
+      const pct1st = totalPot > 0 ? ((pot1st / totalPot) * 100).toFixed(1) : "50.0";
+      const pct2nd = totalPot > 0 ? ((pot2nd / totalPot) * 100).toFixed(1) : "30.0";
+      const pct3rd = totalPot > 0 ? ((pot3rd / totalPot) * 100).toFixed(1) : "20.0";
+
+      document.getElementById("pairs-pot-total").innerText = `£${totalPot.toFixed(0)}`;
+      document.getElementById("pairs-pot-1st").innerText = `£${pot1st}`;
+      document.getElementById("pairs-pct-1st").innerText = `(${pct1st}%)`;
+
+      document.getElementById("pairs-pot-2nd").innerText = `£${pot2nd}`;
+      document.getElementById("pairs-pct-2nd").innerText = `(${pct2nd}%)`;
+
+      document.getElementById("pairs-pot-3rd").innerText = `£${pot3rd}`;
+      document.getElementById("pairs-pct-3rd").innerText = `(${pct3rd}%)`;
+
+      renderSecretPairsResults(pot1st, pot2nd, pot3rd);
+    }
+
+    function togglePairsOptOut(uniqueKey, isChecked) {
+      if (!appData.pairsOptOut) appData.pairsOptOut = {};
+      if (isChecked) {
+        delete appData.pairsOptOut[uniqueKey];
+      } else {
+        appData.pairsOptOut[uniqueKey] = true;
+      }
+      saveData();
+      renderSecretPairs();
+    }
+
+    function triggerPairsDrawAnimation() {
+      const allAnglers = getAllAnglersProcessed();
+      const activeParticipants = allAnglers.filter(a => !appData.pairsOptOut[a.uniqueKey]);
+
+      if (activeParticipants.length < 2) {
+        alert("At least 2 participating anglers are required to generate secret pairs.");
+        return;
+      }
+
+      const overlay = document.getElementById("draw-overlay");
+      const spinner = document.getElementById("draw-spinner");
+      const subStatus = document.getElementById("draw-sub-status");
+      
+      overlay.classList.add('active');
+
+      let currentVal = 0;
+      const interval = setInterval(() => {
+        currentVal = Math.floor(Math.random() * 500);
+        spinner.innerText = String(currentVal).padStart(3, '0');
+      }, 50);
+
+      setTimeout(() => {
+        subStatus.innerText = "LOCKED! Calculating Standings...";
+      }, 1800);
+
+      setTimeout(() => {
+        clearInterval(interval);
+        generatePairsData(activeParticipants);
+        overlay.classList.remove('active');
+        subStatus.innerText = "Shuffling Pairs & Calculating Range...";
+
+        const fee = parseFloat(document.getElementById("pairs-entry-fee").value) || 0;
+        const totalPot = activeParticipants.length * fee;
+        let pot1st = Math.round((totalPot * 0.50) / 5) * 5;
+        let pot2nd = Math.round((totalPot * 0.30) / 5) * 5;
+        let pot3rd = Math.round((totalPot * 0.20) / 5) * 5;
+        pot1st += (totalPot - (pot1st + pot2nd + pot3rd));
+
+        renderSecretPairsResults(pot1st, pot2nd, pot3rd);
+      }, 2500);
+    }
+
+    function generatePairsData(participants) {
+      // 1. Check for odd count -> inject Joe Average
+      let pool = [...participants];
+      if (pool.length % 2 !== 0) {
+        const totalActivePts = pool.reduce((sum, a) => sum + a.points, 0);
+        const joeAvgPts = Math.round(totalActivePts / pool.length);
+        pool.push({
+          name: "JOE AVERAGE (VIRTUAL)",
+          points: joeAvgPts,
+          boatLabel: "AVG",
+          uniqueKey: "joe_average"
+        });
+      }
+
+      // 2. Fisher-Yates shuffle
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+
+      // 3. Form Pairs
+      let pairs = [];
+      for (let i = 0; i < pool.length; i += 2) {
+        const p1 = pool[i];
+        const p2 = pool[i+1];
+        const combinedPts = p1.points + p2.points;
+        pairs.push({ p1, p2, combinedPts });
+      }
+
+      // 4. Calculate Min and Max possible pair scores from active match
+      const sortedPts = pool.map(p => p.points).sort((a,b) => a - b);
+      const minPossible = sortedPts[0] + sortedPts[1];
+      const maxPossible = sortedPts[sortedPts.length - 1] + sortedPts[sortedPts.length - 2];
+
+      // 5. Draw random target score
+      const targetScore = Math.floor(Math.random() * (maxPossible - minPossible + 1)) + minPossible;
+
+      // 6. Calculate differentials & rank (Closest distance wins; higher combined wins on tie)
+      pairs.forEach(p => {
+        p.diff = p.combinedPts - targetScore;
+        p.absDiff = Math.abs(p.diff);
+      });
+
+      pairs.sort((a, b) => a.absDiff - b.absDiff || b.combinedPts - a.combinedPts);
+
+      appData.pairsDraw = {
+        targetScore,
+        minPossible,
+        maxPossible,
+        pairs
+      };
+
+      saveData();
+    }
+
+    function renderSecretPairsResults(pot1st = 0, pot2nd = 0, pot3rd = 0) {
+      const container = document.getElementById("pairs-results-container");
+      if (!appData.pairsDraw || !appData.pairsDraw.pairs) {
+        container.innerHTML = `
+          <div class="card" style="text-align: center; color: var(--text-muted); font-weight: 600;">
+            No target score drawn yet. Click the button above when all scores are entered to generate the draw!
+          </div>
+        `;
+        return;
+      }
+
+      const draw = appData.pairsDraw;
+
+      container.innerHTML = `
+        <div class="target-display-card">
+          <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8;">
+            OFFICIAL TARGET DRAW SCORE
+          </div>
+          <div class="target-number">${draw.targetScore} PTS</div>
+          <div style="font-size: 0.75rem; color: #cbd5e1; margin-top: 4px;">
+            Target Range: ${draw.minPossible} pts (Min) ➔ ${draw.maxPossible} pts (Max)
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Secret Pairs Results</div>
+          <div style="overflow-x: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Pos</th>
+                  <th>Pair Anglers</th>
+                  <th>Individual Scores</th>
+                  <th>Combined Score</th>
+                  <th>Target Score</th>
+                  <th>Differential</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${draw.pairs.map((p, idx) => {
+                  const diffText = p.diff > 0 ? `+${p.diff} pts (ABOVE)` : p.diff < 0 ? `${p.diff} pts (BELOW)` : `EXACT MATCH!`;
+                  const diffColor = p.diff === 0 ? 'var(--gold-winner)' : p.diff > 0 ? 'var(--accent-orange)' : '#2563eb';
+                  
+                  // Text-only prize card badges for podium spots
+                  let prizeBadgeHtml = "";
+                  if (idx === 0 && pot1st > 0) {
+                    prizeBadgeHtml = `<span class="prize-badge prize-badge-1st">£${pot1st}</span>`;
+                  } else if (idx === 1 && pot2nd > 0) {
+                    prizeBadgeHtml = `<span class="prize-badge prize-badge-2nd">£${pot2nd}</span>`;
+                  } else if (idx === 2 && pot3rd > 0) {
+                    prizeBadgeHtml = `<span class="prize-badge prize-badge-3rd">£${pot3rd}</span>`;
+                  }
+
+                  return `
+                    <tr>
+                      <td class="rank-${idx+1}">${idx + 1}</td>
+                      <td style="font-weight: bold;">
+                        ${p.p1.name} <span style="font-size: 0.75rem; color: var(--text-muted);">(${p.p1.boatLabel})</span> &<br>
+                        ${p.p2.name} <span style="font-size: 0.75rem; color: var(--text-muted);">(${p.p2.boatLabel})</span>
+                        ${prizeBadgeHtml}
+                      </td>
+                      <td>${p.p1.points} pts + ${p.p2.points} pts</td>
+                      <td style="font-weight: 800; font-size: 0.95rem;">${p.combinedPts} pts</td>
+                      <td>${draw.targetScore} pts</td>
+                      <td>
+                        <span style="font-weight: 800; color: ${diffColor};">${diffText}</span>
+                        <span style="display: block; font-size: 0.68rem; color: var(--text-muted);">${p.absDiff} pts off target</span>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
     }
 
     // DASHBOARD TAB WITH POINT SPREAD METRIC
@@ -1489,7 +2019,7 @@
 
       // Boat Performance & Point Spread Calculation
       const boatBody = document.getElementById("boat-performance-body");
-      let boatStats = appData.boats.map(b => {
+      let boatStats = appData.boats.map((b, bIndex) => {
         const count = b.anglers.length;
         const bPoints = b.anglers.reduce((sum, a) => sum + (a.points || 0), 0);
         const bFish = b.anglers.reduce((sum, a) => sum + (a.fish || 0), 0);
@@ -1526,6 +2056,7 @@
 
         return {
           label: b.label,
+          color: getBoatColor(bIndex),
           count,
           points: bPoints,
           avgPts,
@@ -1542,18 +2073,18 @@
 
       boatBody.innerHTML = boatStats.map(b => `
         <tr>
-          <td style="font-weight: bold;">${b.label}</td>
+          <td style="font-weight: bold; border-left: 3px solid ${b.color}; padding-left: 8px;">${b.label}</td>
           <td>${b.count}</td>
           <td>${b.points}</td>
           <td style="font-weight: bold; color: var(--accent-orange);">${b.avgPts.toFixed(1)}</td>
           <td>${b.avgFish.toFixed(1)}</td>
           <td>${b.avgSpecies.toFixed(1)}</td>
           <td>
-            <div style="font-weight: bold; font-size: 0.95rem;">
+            <div style="font-weight: bold; font-size: 0.85rem;">
               ${b.totalSpread} PTS 
-              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">(Total Boat Spread)</span>
+              <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: normal;">(Total Boat Spread)</span>
             </div>
-            <div style="font-size: 0.75rem; color: var(--accent-orange); font-weight: bold; margin-top: 2px;">
+            <div style="font-size: 0.68rem; color: var(--accent-orange); font-weight: bold; margin-top: 1px;">
               Gaps: 1st ➔ 2nd: ${b.gap12} | 2nd ➔ 3rd: ${b.gap23}
             </div>
           </td>
@@ -1568,6 +2099,7 @@
       renderBoatResults();
       renderIndividualLeaderboard();
       renderTeamLeaderboard();
+      renderSecretPairs();
       renderDashboard();
       window.print();
     }
@@ -1611,6 +2143,7 @@
         renderBoatResults();
         renderIndividualLeaderboard();
         renderTeamLeaderboard();
+        renderSecretPairs();
         renderDashboard();
 
         // Build clean dynamic filename from competition name and date
@@ -1622,11 +2155,13 @@
         const boatRes = document.getElementById("tab-boat-results");
         const indivRes = document.getElementById("tab-indiv-results");
         const teamRes = document.getElementById("tab-team-results");
+        const pairsRes = document.getElementById("tab-secret-pairs");
         const dashRes = document.getElementById("tab-dashboard");
 
         boatRes.style.display = "block";
         indivRes.style.display = "block";
         teamRes.style.display = "block";
+        pairsRes.style.display = "block";
         dashRes.style.display = "block";
 
         // Create a temporary container wrapper for the PDF export
@@ -1638,6 +2173,7 @@
         exportContainer.appendChild(boatRes.cloneNode(true));
         exportContainer.appendChild(indivRes.cloneNode(true));
         exportContainer.appendChild(teamRes.cloneNode(true));
+        exportContainer.appendChild(pairsRes.cloneNode(true));
         exportContainer.appendChild(dashRes.cloneNode(true));
 
         const opt = {
@@ -1653,6 +2189,7 @@
           boatRes.style.display = "";
           indivRes.style.display = "";
           teamRes.style.display = "";
+          pairsRes.style.display = "";
           dashRes.style.display = "";
 
           // Clear local data and reload app
@@ -1664,6 +2201,7 @@
           boatRes.style.display = "";
           indivRes.style.display = "";
           teamRes.style.display = "";
+          pairsRes.style.display = "";
           dashRes.style.display = "";
           
           localStorage.removeItem("boat_match_pro_data");
