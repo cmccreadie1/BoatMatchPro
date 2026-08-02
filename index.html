@@ -1425,7 +1425,7 @@
       if (tabId === 'dashboard') renderDashboard();
     }
 
-    function generateBoatCards() {
+   function generateBoatCards() {
       const count = parseInt(document.getElementById("boat-count").value) || 1;
       const currentBoats = appData.boats || [];
 
@@ -1438,7 +1438,7 @@
 
         if (hasData) {
           const confirmMsg = `⚠️ WARNING: Reducing the boat count to ${count} will permanently delete Boat ${count + 1} (and any higher boats) along with all registered anglers and scores.\n\nAre you sure you want to proceed?`;
-          if (!confirm()) {
+          if (!confirm(confirmMsg)) {
             // Revert input field back to previous boat count and cancel operation
             document.getElementById("boat-count").value = currentBoats.length;
             return;
