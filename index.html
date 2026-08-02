@@ -412,7 +412,7 @@
       flex-wrap: wrap;
     }
 
-    /* DASHBOARD MODERN ACCENTED CARDS */
+    /* DASHBOARD COLOR-BLOCKED CARDS */
     .dashboard-metrics {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -421,62 +421,52 @@
     }
 
     .metric-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-radius: 6px;
       text-align: center;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .metric-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
-    /* Custom Accented Metric Variants */
+    /* Solid Color-Block Variants */
     .metric-card-teal {
-      border-left: 4px solid #0f766e;
-      background: linear-gradient(180deg, rgba(15, 118, 110, 0.03) 0%, #ffffff 100%);
+      background: #0f766e;
     }
-    .metric-card-teal .metric-value { color: #0f766e; }
-
     .metric-card-orange {
-      border-left: 4px solid var(--accent-orange);
-      background: linear-gradient(180deg, rgba(200, 81, 3, 0.03) 0%, #ffffff 100%);
+      background: #c85103;
     }
-    .metric-card-orange .metric-value { color: var(--accent-orange); }
-
     .metric-card-navy {
-      border-left: 4px solid var(--navy-header);
-      background: linear-gradient(180deg, rgba(19, 26, 34, 0.03) 0%, #ffffff 100%);
+      background: #131a22;
     }
-    .metric-card-navy .metric-value { color: var(--navy-header); }
-
     .metric-card-blue {
-      border-left: 4px solid #2563eb;
-      background: linear-gradient(180deg, rgba(37, 99, 235, 0.03) 0%, #ffffff 100%);
+      background: #1d4ed8;
     }
-    .metric-card-blue .metric-value { color: #2563eb; }
 
     .metric-value {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 900;
       margin-top: 2px;
+      color: #ffffff;
     }
 
     .metric-label {
       font-size: 0.72rem;
       font-weight: 800;
-      color: var(--navy-header);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .metric-sub {
       font-size: 0.68rem;
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.75);
       margin-top: 1px;
       font-weight: 600;
     }
@@ -489,56 +479,51 @@
     }
 
     .badge-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-radius: 6px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s ease;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .badge-card:hover {
       transform: translateY(-2px);
     }
 
-    /* Custom Trophy Badges */
+    /* Solid Color-Block Trophy Badges */
     .badge-card-gold {
-      border-left: 5px solid #d97706;
-      background: linear-gradient(135deg, rgba(217, 119, 6, 0.05) 0%, #ffffff 100%);
+      background: #b45309;
     }
-    .badge-card-gold .badge-detail { color: #d97706; }
 
     .badge-card-emerald {
-      border-left: 5px solid #059669;
-      background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, #ffffff 100%);
+      background: #047857;
     }
-    .badge-card-emerald .badge-detail { color: #059669; }
 
     .badge-card-purple {
-      border-left: 5px solid #7c3aed;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, #ffffff 100%);
+      background: #6d28d9;
     }
-    .badge-card-purple .badge-detail { color: #7c3aed; }
 
     .badge-title {
       font-size: 0.72rem;
       font-weight: 800;
-      color: var(--navy-header);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 4px;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .badge-winner {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 900;
-      color: var(--text-main);
+      color: #ffffff;
     }
 
     .badge-detail {
       font-size: 0.85rem;
       font-weight: 800;
       margin-top: 2px;
+      color: #fef08a;
     }
 
     /* SECRET PAIRS TAB SPECIFIC STYLES & PRIZE BADGES */
@@ -895,6 +880,19 @@
       th, td { border-bottom: 1px solid #ccc; color: #000; }
       th { background: #f8fafc !important; color: #000 !important; }
       .pct-badge { background: none; color: #000; font-weight: bold; border: none; }
+      
+      /* Maintain readability on print for dashboard cards */
+      .metric-card, .badge-card {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid #ccc !important;
+      }
+      .metric-value, .badge-winner, .metric-label, .badge-title {
+        color: #000000 !important;
+      }
+      .badge-detail {
+        color: var(--navy-header) !important;
+      }
     }
   </style>
 </head>
@@ -1018,20 +1016,20 @@
           <label for="pairs-entry-fee">Entry Fee (£ per Angler)</label>
           <input type="number" id="pairs-entry-fee" value="5" min="0" step="1" onfocus="this.select()" onchange="renderSecretPairs()">
         </div>
-        <div class="metric-card">
-          <div class="metric-label">Total Pot</div>
+        <div class="metric-card" style="background: #ffffff; color: var(--text-main); border: 1px solid var(--card-border);">
+          <div class="metric-label" style="color: var(--navy-header);">Total Pot</div>
           <div id="pairs-pot-total" class="metric-value" style="font-size: 1.3rem; color: var(--accent-orange);">£0</div>
         </div>
-        <div class="metric-card" style="border-top: 3px solid var(--gold-winner);">
-          <div class="metric-label">1st Place <span id="pairs-pct-1st" style="font-size:0.68rem; color:var(--text-muted);">(50%)</span></div>
+        <div class="metric-card" style="background: #ffffff; color: var(--text-main); border: 1px solid var(--card-border); border-top: 3px solid var(--gold-winner);">
+          <div class="metric-label" style="color: var(--navy-header);">1st Place <span id="pairs-pct-1st" style="font-size:0.68rem; color:var(--text-muted);">(50%)</span></div>
           <div id="pairs-pot-1st" class="metric-value" style="font-size: 1.3rem; color: var(--gold-winner);">£0</div>
         </div>
-        <div class="metric-card" style="border-top: 3px solid #64748b;">
-          <div class="metric-label">2nd Place <span id="pairs-pct-2nd" style="font-size:0.68rem; color:var(--text-muted);">(30%)</span></div>
+        <div class="metric-card" style="background: #ffffff; color: var(--text-main); border: 1px solid var(--card-border); border-top: 3px solid #64748b;">
+          <div class="metric-label" style="color: var(--navy-header);">2nd Place <span id="pairs-pct-2nd" style="font-size:0.68rem; color:var(--text-muted);">(30%)</span></div>
           <div id="pairs-pot-2nd" class="metric-value" style="font-size: 1.3rem; color: #64748b;">£0</div>
         </div>
-        <div class="metric-card" style="border-top: 3px solid #b45309;">
-          <div class="metric-label">3rd Place <span id="pairs-pct-3rd" style="font-size:0.68rem; color:var(--text-muted);">(20%)</span></div>
+        <div class="metric-card" style="background: #ffffff; color: var(--text-main); border: 1px solid var(--card-border); border-top: 3px solid #b45309;">
+          <div class="metric-label" style="color: var(--navy-header);">3rd Place <span id="pairs-pct-3rd" style="font-size:0.68rem; color:var(--text-muted);">(20%)</span></div>
           <div id="pairs-pot-3rd" class="metric-value" style="font-size: 1.3rem; color: #b45309;">£0</div>
         </div>
       </div>
@@ -1055,9 +1053,9 @@
     <div id="pairs-results-container"></div>
   </div>
 
-  <!-- TAB 7: DASHBOARD WITH MODERN ACCENTED CARDS -->
+  <!-- TAB 7: DASHBOARD WITH COLOR-BLOCKED CARDS -->
   <div id="tab-dashboard" class="tab-content">
-    <!-- Modern Color-Accented Summary Cards -->
+    <!-- Solid Color-Blocked Summary Cards -->
     <div class="dashboard-metrics">
       <div class="metric-card metric-card-teal">
         <div class="metric-label">Total Fish Caught</div>
@@ -1081,7 +1079,7 @@
       </div>
     </div>
 
-    <!-- Trophy Highlight Badges -->
+    <!-- Solid Color-Blocked Trophy Badges -->
     <div class="badges-grid">
       <div class="badge-card badge-card-gold">
         <div class="badge-title">Highest Raw Points</div>
